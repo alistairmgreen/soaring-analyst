@@ -37,7 +37,8 @@ export default {
         collapseWhitespace: true
       },
       inject: true,
-      googleMapsKey: googleMapsKey
+      googleMapsKey: googleMapsKey,
+      useCDN: false
     })
   ],
   module: {

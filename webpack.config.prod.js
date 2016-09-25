@@ -27,6 +27,10 @@ export default {
     publicPath: '/',
     filename: '[name].[chunkhash].js'
   },
+  externals: {
+    "react": "React",
+    "react-dom": "ReactDOM"
+  },
   plugins: [
     // Hash the files using MD5 so that their names change when the content changes.
     new WebpackMd5Hash(),
@@ -56,7 +60,8 @@ export default {
         minifyURLs: true
       },
       inject: true,
-      googleMapsKey: googleMapsKey
+      googleMapsKey: googleMapsKey,
+      useCDN: true
     }),
 
     // Eliminate duplicate packages when generating bundle
