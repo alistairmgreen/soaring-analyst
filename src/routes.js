@@ -3,13 +3,13 @@ import { Route, IndexRoute } from 'react-router';
 
 import App from './components/App';
 import HomePage from './components/HomePage';
-import TaskPlanner from './components/TaskPlanner';
+import TaskPlannerPage from './containers/TaskPlannerPage'; // eslint-disable-line import/no-named-as-default
 import IgcViewer from './components/IgcViewer';
 
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={HomePage}/>
-    <Route path="task" component={TaskPlanner}/>
+    <Route path="task" component={TaskPlannerPage}/>
     <Route path="igcview" component={IgcViewer}/>
     <Route path="*" component={HomePage}/>
   </Route>
