@@ -2,6 +2,7 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 import path from 'path';
+import { debugGoogleMaps as googleMapsKey } from './src/apikeys';
 
 export default {
   resolve: {
@@ -35,7 +36,8 @@ export default {
         removeComments: true,
         collapseWhitespace: true
       },
-      inject: true
+      inject: true,
+      googleMapsKey: googleMapsKey
     })
   ],
   module: {
