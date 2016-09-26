@@ -10,7 +10,7 @@ export default function MapDisplay(props) {
           containerElement={
             <div
               style={{
-                height: `400px`,
+                height: "80vh",
               }}
               />
           }
