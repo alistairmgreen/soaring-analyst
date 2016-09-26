@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
-import { Grid, Row, Col, Well } from 'react-bootstrap';
+import { Grid, Row, Col, Panel } from 'react-bootstrap';
 import MapDisplay from './MapDisplay';
+import TaskDisplay from './TaskDisplay';
 
 class TaskEditor extends React.Component {
   constructor(props, context) {
@@ -19,7 +20,9 @@ class TaskEditor extends React.Component {
             &nbsp;
           </Col>
           <Col xs={11} sm={12} md={4}>
-            <Well>Turnpoint list here</Well>
+            <Panel header="Task">
+              <TaskDisplay task={task} />
+            </Panel>
           </Col>
         </Row>
       </Grid>
