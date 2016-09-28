@@ -1,9 +1,10 @@
 import React, {PropTypes} from 'react';
-import { ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Glyphicon, Button, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 function TaskDisplay(props) {
   const task = props.task;
   const lastIndex = task.count() - 1;
+  const deleteTurnpoint = props.deleteTurnpoint;
 
   function getLabel(index) {
     switch (index) {
@@ -22,7 +23,13 @@ function TaskDisplay(props) {
     <ListGroup>
       {task.map((tp, index) =>
         <ListGroupItem key={index} header={getLabel(index)}>
-          {tp.get("name")}
+          {tp.get("name") }
+          &nbsp;&nbsp;
+          <Button bsStyle="danger"
+            bsSize="small"
+            onClick={() => { deleteTurnpoint(index); }}>
+            <Glyphicon bsClass="fa" glyph="trash" />&nbsp; &nbsp; Delete
+          </Button>
         </ListGroupItem>
       ) }
     </ListGroup>
@@ -30,7 +37,8 @@ function TaskDisplay(props) {
 }
 
 TaskDisplay.propTypes = {
-  task: PropTypes.array.isRequired
+  task: PropTypes.object.isRequired,
+  deleteTurnpoint: PropTypes.func.isRequired
 };
 
 export default TaskDisplay;

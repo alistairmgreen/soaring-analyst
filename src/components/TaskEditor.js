@@ -10,6 +10,8 @@ class TaskEditor extends React.Component {
 
   render() {
     const task = this.props.task;
+    const deleteTurnpoint = this.props.deleteTurnpoint;
+
     return (
       <Grid fluid>
         <Row>
@@ -21,7 +23,7 @@ class TaskEditor extends React.Component {
           </Col>
           <Col xs={11} sm={12} md={4}>
             <Panel header="Task">
-              <TaskDisplay task={task} />
+              <TaskDisplay task={task} deleteTurnpoint={deleteTurnpoint} />
             </Panel>
           </Col>
         </Row>
@@ -31,7 +33,8 @@ class TaskEditor extends React.Component {
 }
 
 TaskEditor.propTypes = {
-  task: PropTypes.object.isRequired
+  task: PropTypes.object.isRequired,
+  deleteTurnpoint: PropTypes.func.isRequired
 };
 
 export default TaskEditor;

@@ -46,5 +46,5 @@ export default function MapDisplay(props) {
 }
 
 MapDisplay.propTypes = {
-  task: PropTypes.array.isRequired
+  task: PropTypes.object.isRequired
 };
