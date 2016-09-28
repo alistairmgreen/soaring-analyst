@@ -3,7 +3,7 @@ import { ListGroup, ListGroupItem } from 'react-bootstrap';
 
 function TaskDisplay(props) {
   const task = props.task;
-  const lastIndex = task.length - 1;
+  const lastIndex = task.count() - 1;
 
   function getLabel(index) {
     switch (index) {
@@ -22,7 +22,7 @@ function TaskDisplay(props) {
     <ListGroup>
       {task.map((tp, index) =>
         <ListGroupItem key={index} header={getLabel(index)}>
-          {tp.name}
+          {tp.get("name")}
         </ListGroupItem>
       ) }
     </ListGroup>

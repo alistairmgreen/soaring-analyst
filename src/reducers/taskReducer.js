@@ -1,5 +1,5 @@
-import initialState from './initialState';
+import { initialTask } from './initialState';
 
-export default function taskReducer(state = initialState.task) {
+export default function taskReducer(state = initialTask) {
   return state;
 }

@@ -3,7 +3,11 @@ import React, {PropTypes} from 'react';
 import { GoogleMap, GoogleMapLoader, Marker, Polyline } from 'react-google-maps';
 
 export default function MapDisplay(props) {
-  let task = props.task;
+  let task = props.task.map(turnpoint => ({
+    lat: turnpoint.get("lat"),
+    lng: turnpoint.get("lng")
+  })).toArray();
+
   return (
       <section style={{ height: `100%` }}>
         <GoogleMapLoader
@@ -27,12 +31,12 @@ export default function MapDisplay(props) {
                 }
               }}>
               {task.map((t, index) =>
-                <Marker key={index} position={{ lat: t.latitude, lng: t.longitude }} />)
+                <Marker key={index} position={t} />)
               }
 
               <Polyline
                 options={{ strokeColor: "black", strokeWeight: 1 }}
-                path={task.map(t => ({ lat: t.latitude, lng: t.longitude }))}
+                path={task}
                 />
             </GoogleMap>
           }

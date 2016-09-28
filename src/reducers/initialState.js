@@ -1,27 +1,27 @@
-export default {
-  task: [
-    {
-      name: 'Bicester Airfield',
-      latitude: 51.9203333333333,
-      longitude: -1.13141666666667
-    },
+import { List, Map } from 'immutable';
 
-    {
-      name: 'Bidford',
-      latitude: 51.9203333333333,
-      longitude: -1.84755000000000
-    },
+export const initialTask = List([
+  Map({
+    name: 'Bicester Airfield',
+    lat: 51.9203333333333,
+    lng: -1.13141666666667
+  }),
 
-    {
-      name: 'Towcester',
-      latitude: 52.1396333333333,
-      longitude: -0.996850000000000
-    },
+  Map({
+    name: 'Bidford',
+    lat: 51.9203333333333,
+    lng: -1.84755000000000
+  }),
 
-    {
-      name: 'Bicester Airfield',
-      latitude: 51.9203333333333,
-      longitude: -1.13141666666667
-    }
-  ]
-};
+  Map({
+    name: 'Towcester',
+    lat: 52.1396333333333,
+    lng: -0.996850000000000
+  }),
+
+  Map({
+    name: 'Bicester Airfield',
+    lat: 51.9203333333333,
+    lng: -1.13141666666667
+  })
+]);

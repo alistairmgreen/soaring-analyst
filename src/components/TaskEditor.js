@@ -31,7 +31,7 @@ class TaskEditor extends React.Component {
 }
 
 TaskEditor.propTypes = {
-  task: PropTypes.array.isRequired
+  task: PropTypes.object.isRequired
 };
 
 export default TaskEditor;
