@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import LoggerTraceDisplay from './loggertrace/LoggerTraceDisplay';
 import StartupBanner from './loggertrace/StartupBanner';
 
 class IgcViewer extends React.Component {
@@ -7,15 +8,26 @@ class IgcViewer extends React.Component {
   }
 
   render() {
+    let trace = this.props.loggerTrace;
+
+    if(trace.get('fileLoaded')) {
+      return (
+        <LoggerTraceDisplay loggerTrace={trace} actions={this.props.actions} />
+      );
+    }
+
+    let errorMessage = this.props.loggerTrace.get('errorMessage');
+
     return (
-      <StartupBanner />
+      <StartupBanner loadFile={this.props.actions.loadFile} errorMessage={errorMessage} />
     );
   }
 }
 
 IgcViewer.propTypes = {
   task: PropTypes.object,
-  actions: PropTypes.arrayOf(PropTypes.func)
+  loggerTrace: PropTypes.object,
+  actions: PropTypes.objectOf(PropTypes.func)
 };
 
 export default IgcViewer;

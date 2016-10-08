@@ -8,19 +8,21 @@ export function IgcViewerPage(props) {
 
   return (
     <div>
-      <IgcViewer task={props.task} actions={props.actions} />
+      <IgcViewer task={props.task} loggerTrace={props.loggerTrace} actions={props.actions} />
     </div>
   );
 }
 
 IgcViewerPage.propTypes = {
   task: PropTypes.object.isRequired,
+  loggerTrace: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    task: state.task
+    task: state.task,
+    loggerTrace: state.loggerTrace
   };
 }
 
