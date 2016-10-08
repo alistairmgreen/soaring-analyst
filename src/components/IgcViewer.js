@@ -1,13 +1,21 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
+import StartupBanner from './loggertrace/StartupBanner';
 
-const IgcViewer = () => {
-  return (
-    <div>
-      <h1>IGC Viewer</h1>
+class IgcViewer extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+  }
 
-      <p>IGC log file viewer will go here...</p>
-    </div>
-  );
+  render() {
+    return (
+      <StartupBanner />
+    );
+  }
+}
+
+IgcViewer.propTypes = {
+  task: PropTypes.object,
+  actions: PropTypes.arrayOf(PropTypes.func)
 };
 
 export default IgcViewer;
