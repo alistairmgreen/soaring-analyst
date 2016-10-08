@@ -28,6 +28,7 @@ export const initialTask = List([
 
 export const emptyLoggerTrace = Map({
   fileLoaded: false,
+  fileLoadInProgress: false,
   fileName: "",
   errorMessage: ""
 });

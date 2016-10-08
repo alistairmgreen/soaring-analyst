@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import LoggerTraceDisplay from './loggertrace/LoggerTraceDisplay';
 import StartupBanner from './loggertrace/StartupBanner';
+import LoadingDialog from './loggertrace/LoadingDialog';
 
 class IgcViewer extends React.Component {
   constructor(props, context) {
@@ -9,6 +10,12 @@ class IgcViewer extends React.Component {
 
   render() {
     let trace = this.props.loggerTrace;
+
+    if(trace.get('fileLoadInProgress')) {
+      return (
+        <LoadingDialog fileName={trace.fileName} />
+      );
+    }
 
     if(trace.get('fileLoaded')) {
       return (

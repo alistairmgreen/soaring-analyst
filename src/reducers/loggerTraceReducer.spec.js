@@ -15,6 +15,24 @@ describe('Logger trace reducer', function () {
       .should.equal(emptyLoggerTrace);
   });
 
+  describe('when a file load is triggered', function () {
+
+    const expectedFileName = "loggertrace.igc";
+    let newState;
+
+    beforeEach(function () {
+      newState = loggerTraceReducer(emptyLoggerTrace, actions.fileLoading(expectedFileName));
+    });
+
+    it('sets the file load in progress flag to true', function () {
+      newState.get("fileLoadInProgress").should.be.true;
+    });
+
+    it('sets the file name', function () {
+      newState.get("fileName").should.equal(expectedFileName);
+    });
+  });
+
   describe('when a file is loaded successfully', function () {
 
     let newState;
@@ -22,7 +40,10 @@ describe('Logger trace reducer', function () {
 
     beforeEach(function () {
       let loadAction = actions.loadFileSuccess(expectedFileName);
-      let oldState = emptyLoggerTrace.set('errorMessage', 'error message');
+      let oldState = emptyLoggerTrace.merge({
+        errorMessage: 'error message',
+        fileLoadInProgress: true
+      });
 
       newState = loggerTraceReducer(oldState, loadAction);
     });
@@ -39,6 +60,10 @@ describe('Logger trace reducer', function () {
       newState.get('fileLoaded').should.be.true;
     });
 
+    it('sets the file load in progress flag to false', function () {
+      newState.get('fileLoadInProgress').should.be.false;
+    });
+
   });
 
   describe('when a file load fails', function () {
@@ -46,19 +71,26 @@ describe('Logger trace reducer', function () {
     const expectedMessage = "error loading file";
 
     beforeEach(function () {
-      let oldState = emptyLoggerTrace.set('fileLoaded', true);
+      let oldState = emptyLoggerTrace.merge({
+        fileLoaded: true,
+        fileLoadInProgress: true
+      });
 
       newState = loggerTraceReducer(oldState, actions.loadFileFailure(expectedMessage));
     });
 
-    it('sets the error message', function() {
+    it('sets the error message', function () {
       newState.get('errorMessage')
         .should.equal(expectedMessage);
     });
 
-    it('sets the file loaded flag to false', function() {
+    it('sets the file loaded flag to false', function () {
       newState.get('fileLoaded')
         .should.be.false;
+    });
+
+    it('sets the file load in progress flag to false', function () {
+      newState.get('fileLoadInProgress').should.be.false;
     });
   });
 

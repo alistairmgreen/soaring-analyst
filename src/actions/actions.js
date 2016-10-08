@@ -7,6 +7,15 @@ export function deleteTurnpoint(index) {
   };
 }
 
+export const FILE_LOADING = "FILE_LOADING";
+
+export function fileLoading(fileName) {
+  return {
+    type: FILE_LOADING,
+    fileName: fileName
+  };
+}
+
 export const LOAD_FILE_SUCCESS = "LOAD_FILE_SUCCESS";
 
 export function loadFileSuccess(fileName) {
@@ -27,6 +36,11 @@ export function loadFileFailure(errorMessage) {
 
 export function loadFile(file) {
   return function(dispatch) {
-    dispatch(loadFileSuccess(file.name));
+    let fileName = file.name;
+    dispatch(fileLoading(fileName));
+
+    setTimeout(
+      () => dispatch(loadFileSuccess(file.name)),
+      2000);
   };
 }
