@@ -30,6 +30,7 @@
   "dependencies": {
     "chai-immutable": "1.6.0",
     "immutable": "3.8.1",
+    "moment": "2.15.1",
     "object-assign": "4.1.0",
     "react": "15.3.1",
     "react-bootstrap": "0.30.3",
@@ -43,6 +44,8 @@
     "redux-thunk": "2.1.0"
   },
   "devDependencies": {
+    "@types/moment": "2.13.0",
+    "@types/sinon": "1.16.31",
     "autoprefixer": "6.4.0",
     "babel-cli": "6.14.0",
     "babel-core": "6.14.0",
