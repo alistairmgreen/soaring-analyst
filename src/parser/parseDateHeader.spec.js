@@ -1,11 +1,11 @@
 import chai from 'chai';
 import MockDate from 'mockdate';
 import moment from 'moment';
-import parseHeaders from './parseHeaders';
+import {parseDateHeader} from './parseHeaders';
 
 chai.should();
 
-describe('parseHeaders function', function() {
+describe('parseDateHeader function', function() {
   const fakeNow = moment.utc([2015, 9, 10, 23, 0, 0]);
 
   beforeEach(function() {
@@ -20,7 +20,7 @@ describe('parseHeaders function', function() {
     let result;
 
     beforeEach(function() {
-      result = parseHeaders(['HFDTE280414'])[0];
+      result = parseDateHeader('HFDTE280414');
     });
 
     it('returns a header named "Date"', function() {
@@ -52,7 +52,7 @@ describe('parseHeaders function', function() {
     let result;
 
     beforeEach(function() {
-      result = parseHeaders(['HFDTE280415'])[0];
+      result = parseDateHeader('HFDTE280415');
     });
 
     it('returns a year in the 21st century', function() {
@@ -64,7 +64,7 @@ describe('parseHeaders function', function() {
     let result;
 
     beforeEach(function() {
-      result = parseHeaders(['HFDTE280495'])[0];
+      result = parseDateHeader('HFDTE280495');
     });
 
     it('returns a year in the 20th century', function() {

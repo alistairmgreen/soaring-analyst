@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-function parseDateHeader(dateRecord) {
+export function parseDateHeader(dateRecord) {
   let day = parseInt(dateRecord.substring(5, 7), 10);
 
   // Months are zero-indexed in JavaScript, so January = 0 and February = 1.
@@ -20,13 +20,13 @@ function parseDateHeader(dateRecord) {
   };
 }
 
-function parseHeaderLine(headerRecord) {
+export function parseHeaderLine(headerRecord) {
   const headerSubtypes = {
     'PLT': 'Pilot',
     'CM2': 'Crew member 2',
     'GTY': 'Glider type',
     'GID': 'Glider ID',
-    'DTM': 'GPS Datum',
+    'DTM': 'GPS datum',
     'RFW': 'Firmware version',
     'RHW': 'Hardware version',
     'FTY': 'Flight recorder type',
