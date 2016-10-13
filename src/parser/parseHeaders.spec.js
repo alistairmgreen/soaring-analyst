@@ -55,28 +55,8 @@ describe('parseHeaders function', function() {
       result = parseHeaders(['HFDTE280415'])[0];
     });
 
-    it('returns a header named "Date"', function() {
-      result.name.should.equal("Date");
-    });
-
-    it('returns a valid moment object', function() {
-      result.value.isValid().should.be.true;
-    });
-
-    it('returns a moment in UTC mode', function() {
-      result.value.creationData().isUTC.should.be.true;
-    });
-
     it('returns a year in the 21st century', function() {
       result.value.year().should.equal(2015);
-    });
-
-    it('returns the correct day of the month', function() {
-      result.value.date().should.equal(28);
-    });
-
-    it('returns the correct zero-indexed month', function() {
-      result.value.month().should.equal(3);
     });
   });
 
@@ -87,29 +67,8 @@ describe('parseHeaders function', function() {
       result = parseHeaders(['HFDTE280495'])[0];
     });
 
-    it('returns a header named "Date"', function() {
-      result.name.should.equal("Date");
-    });
-
-    it('returns a valid moment object', function() {
-      result.value.isValid().should.be.true;
-    });
-
-    it('returns a moment in UTC mode', function() {
-      result.value.creationData().isUTC.should.be.true;
-    });
-
     it('returns a year in the 20th century', function() {
       result.value.year().should.equal(1995);
     });
-
-    it('returns the correct day of the month', function() {
-      result.value.date().should.equal(28);
-    });
-
-    it('returns the correct zero-indexed month', function() {
-      result.value.month().should.equal(3);
-    });
   });
-
 });
