@@ -1,5 +1,6 @@
 import chai from 'chai';
 import chaiImmutable from 'chai-immutable';
+import { fromJS } from 'immutable';
 
 import loggerTraceReducer from './loggerTraceReducer';
 import { emptyLoggerTrace } from './initialState';
@@ -37,9 +38,21 @@ describe('Logger trace reducer', function () {
 
     let newState;
     let expectedFileName = "loggertrace.igc";
+    const stubLoggerTrace = fromJS({
+      headers: [
+        {
+          name: "Pilot",
+          value: "John Smith"
+        },
+        {
+          name: "Glider ID",
+          value: "G-ABCD"
+        }
+      ]
+    });
 
     beforeEach(function () {
-      let loadAction = actions.loadFileSuccess(expectedFileName);
+      let loadAction = actions.loadFileSuccess(expectedFileName, stubLoggerTrace);
       let oldState = emptyLoggerTrace.merge({
         errorMessage: 'error message',
         fileLoadInProgress: true
@@ -62,6 +75,10 @@ describe('Logger trace reducer', function () {
 
     it('sets the file load in progress flag to false', function () {
       newState.get('fileLoadInProgress').should.be.false;
+    });
+
+    it('sets the headers', function() {
+      newState.get('headers').should.equal(stubLoggerTrace.get('headers'));
     });
 
   });

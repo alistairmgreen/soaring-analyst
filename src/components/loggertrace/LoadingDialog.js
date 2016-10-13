@@ -9,7 +9,7 @@ function LoadingDialog(props) {
           <Modal.Title>Loading {props.fileName}...</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div style={{"text-align": "center"}}>
+          <div style={{textAlign: "center"}}>
             <span className="fa fa-spinner fa-pulse fa-5x fa-fw" />
           </div>
         </Modal.Body>

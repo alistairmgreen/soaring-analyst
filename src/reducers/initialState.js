@@ -30,5 +30,6 @@ export const emptyLoggerTrace = Map({
   fileLoaded: false,
   fileLoadInProgress: false,
   fileName: "",
-  errorMessage: ""
+  errorMessage: "",
+  headers: List([])
 });

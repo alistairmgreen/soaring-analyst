@@ -1,6 +1,7 @@
 import * as actions from '../actions/actions';
 import { emptyLoggerTrace } from './initialState';
 
+
 let operations = [];
 
 operations[actions.FILE_LOADING] = function (state, action) {
@@ -11,11 +12,14 @@ operations[actions.FILE_LOADING] = function (state, action) {
 };
 
 operations[actions.LOAD_FILE_SUCCESS] = function (state, action) {
+  let trace = action.loggerTrace;
+
   return state.merge({
     fileName: action.fileName,
     errorMessage: "",
     fileLoaded: true,
-    fileLoadInProgress: false
+    fileLoadInProgress: false,
+    headers: trace.get('headers')
   });
 };
 

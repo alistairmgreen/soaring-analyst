@@ -13,7 +13,7 @@ class IgcViewer extends React.Component {
 
     if(trace.get('fileLoadInProgress')) {
       return (
-        <LoadingDialog fileName={trace.fileName} />
+        <LoadingDialog fileName={trace.get('fileName')} />
       );
     }
 

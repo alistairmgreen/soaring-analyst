@@ -1,3 +1,5 @@
+import parseIGC from '../parser/parseIGC';
+
 export const DELETE_TURNPOINT = "DELETE_TURNPOINT";
 
 export function deleteTurnpoint(index) {
@@ -18,10 +20,11 @@ export function fileLoading(fileName) {
 
 export const LOAD_FILE_SUCCESS = "LOAD_FILE_SUCCESS";
 
-export function loadFileSuccess(fileName) {
+export function loadFileSuccess(fileName, loggerTrace) {
   return {
     type: LOAD_FILE_SUCCESS,
-    fileName: fileName
+    fileName,
+    loggerTrace
   };
 }
 
@@ -39,8 +42,22 @@ export function loadFile(file) {
     let fileName = file.name;
     dispatch(fileLoading(fileName));
 
-    setTimeout(
-      () => dispatch(loadFileSuccess(file.name)),
-      2000);
+    let reader = new FileReader();
+    reader.onload = function() {
+      try {
+        let igc = parseIGC(reader.result);
+        dispatch(loadFileSuccess(fileName, igc));
+      }
+      catch(exception) {
+        let message = exception.message || "An error has occurred.";
+        dispatch(loadFileFailure(message));
+      }
+    };
+
+    reader.onerror = function() {
+      dispatch(loadFileFailure("The file could not be read."));
+    };
+
+    reader.readAsText(file);
   };
 }
