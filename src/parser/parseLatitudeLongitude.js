@@ -38,7 +38,7 @@ export default function parseLatitudeLongitude(latLonString) {
 
   return {
     lat: toDecimalDegrees(latitude),
-    lon: toDecimalDegrees(longitude),
+    lng: toDecimalDegrees(longitude),
     toString: () => formatDegreesMinutes(latitude) + ", " + formatDegreesMinutes(longitude)
   };
 }

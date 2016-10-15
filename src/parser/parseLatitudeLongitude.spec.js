@@ -17,7 +17,7 @@ describe('parseLatitudeLongitude function', function () {
     });
 
     it('returns positive longitude as decimal degrees', function() {
-      result.lon.should.be.approximately(0.720900, 1.0e-7);
+      result.lng.should.be.approximately(0.720900, 1.0e-7);
     });
 
     it('gives a formatted string', function () {
@@ -37,7 +37,7 @@ describe('parseLatitudeLongitude function', function () {
     });
 
     it('returns negative longitude as decimal degrees', function() {
-      result.lon.should.be.approximately(-0.720900, 1.0e-7);
+      result.lng.should.be.approximately(-0.720900, 1.0e-7);
     });
 
     it('gives a formatted string', function () {

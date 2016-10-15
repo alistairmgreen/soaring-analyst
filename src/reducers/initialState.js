@@ -1,35 +1,40 @@
-import { List, Map } from 'immutable';
+import { fromJS } from 'immutable';
 
-export const initialTask = List([
-  Map({
+export const initialTask = fromJS([
+  {
     name: 'Bicester Airfield',
-    lat: 51.9203333333333,
-    lng: -1.13141666666667
-  }),
-
-  Map({
+    position: {
+      lat: 51.9203333333333,
+      lng: -1.13141666666667
+    }
+  },
+  {
     name: 'Bidford',
-    lat: 51.9203333333333,
-    lng: -1.84755000000000
-  }),
-
-  Map({
+    position: {
+      lat: 51.9203333333333,
+      lng: -1.84755000000000
+    }
+  },
+  {
     name: 'Towcester',
-    lat: 52.1396333333333,
-    lng: -0.996850000000000
-  }),
-
-  Map({
+    position: {
+      lat: 52.1396333333333,
+      lng: -0.996850000000000
+    }
+  },
+  {
     name: 'Bicester Airfield',
-    lat: 51.9203333333333,
-    lng: -1.13141666666667
-  })
+    position: {
+      lat: 51.9203333333333,
+      lng: -1.13141666666667
+    }
+  }
 ]);
 
-export const emptyLoggerTrace = Map({
+export const emptyLoggerTrace = fromJS({
   fileLoaded: false,
   fileLoadInProgress: false,
   fileName: "",
   errorMessage: "",
-  headers: List([])
+  headers: []
 });

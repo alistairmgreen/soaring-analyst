@@ -24,18 +24,24 @@ describe('Task reducer', function () {
     const initialState = fromJS([
       {
         name: "Turnpoint A",
-        lat: 51.0,
-        lon: -1.0
+        position: {
+          lat: 51.0,
+          lng: -1.0
+        }
       },
       {
         name: "Turnpoint B",
-        lat: 52.0,
-        lon: 1.0
+        position: {
+          lat: 52.0,
+          lng: 1.0
+        }
       },
       {
         name: "Turnpoint C",
-        lat: 53.0,
-        lon: -0.5
+        position: {
+          lat: 53.0,
+          lng: -0.5
+        }
       }
     ]);
 
@@ -45,13 +51,17 @@ describe('Task reducer', function () {
       finalState.should.equal(fromJS([
         {
           name: "Turnpoint A",
-          lat: 51.0,
-          lon: -1.0
+          position: {
+            lat: 51.0,
+            lng: -1.0
+          }
         },
         {
           name: "Turnpoint C",
-          lat: 53.0,
-          lon: -0.5
+          position: {
+            lat: 53.0,
+            lng: -0.5
+          }
         }
       ]));
     });

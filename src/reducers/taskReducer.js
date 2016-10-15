@@ -8,8 +8,11 @@ operations[actions.DELETE_TURNPOINT] = function(state, action) {
 };
 
 export default function taskReducer(state = initialTask, action) {
-  let noOp = state => state;
   let actionType = action.type || "";
 
-  return (operations[actionType] || noOp)(state, action);
+  if (operations.hasOwnProperty(actionType)) {
+    return operations[actionType](state, action);
+  }
+
+  return state;
 }

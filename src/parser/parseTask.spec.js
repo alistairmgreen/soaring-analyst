@@ -57,7 +57,7 @@ describe('parseTask function', function () {
     });
 
     it('returns the waypoint longitude', function () {
-      task.waypoints[0].position.lon.should.be.approximately(-0.635333, 1.0e-6);
+      task.waypoints[0].position.lng.should.be.approximately(-0.635333, 1.0e-6);
     });
   });
 

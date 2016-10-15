@@ -4,8 +4,8 @@ import { GoogleMap, GoogleMapLoader, Marker, Polyline } from 'react-google-maps'
 
 export default function MapDisplay(props) {
   let task = props.task.map(turnpoint => ({
-    lat: turnpoint.get("lat"),
-    lng: turnpoint.get("lng")
+    lat: turnpoint.getIn(["position", "lat"]),
+    lng: turnpoint.getIn(["position", "lng"])
   })).toArray();
 
   return (
