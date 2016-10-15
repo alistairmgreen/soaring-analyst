@@ -38,7 +38,7 @@ describe('Logger trace reducer', function () {
 
     let newState;
     let expectedFileName = "loggertrace.igc";
-    const stubLoggerTrace = fromJS({
+    const stubLoggerTrace = {
       headers: [
         {
           name: "Pilot",
@@ -49,7 +49,7 @@ describe('Logger trace reducer', function () {
           value: "G-ABCD"
         }
       ]
-    });
+    };
 
     beforeEach(function () {
       let loadAction = actions.loadFileSuccess(expectedFileName, stubLoggerTrace);
@@ -78,7 +78,7 @@ describe('Logger trace reducer', function () {
     });
 
     it('sets the headers', function() {
-      newState.get('headers').should.equal(stubLoggerTrace.get('headers'));
+      newState.get('headers').should.equal(fromJS(stubLoggerTrace.headers));
     });
 
   });

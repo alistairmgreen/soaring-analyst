@@ -1,3 +1,4 @@
+import { fromJS } from 'immutable';
 import * as actions from '../actions/actions';
 import { emptyLoggerTrace } from './initialState';
 
@@ -19,7 +20,7 @@ operations[actions.LOAD_FILE_SUCCESS] = function (state, action) {
     errorMessage: "",
     fileLoaded: true,
     fileLoadInProgress: false,
-    headers: trace.get('headers')
+    headers: fromJS(trace.headers)
   });
 };
 

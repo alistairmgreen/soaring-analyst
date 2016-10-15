@@ -1,6 +1,6 @@
-import { fromJS } from 'immutable';
 import parseManufacturer from './parseManufacturer';
 import parseHeaders from './parseHeaders';
+import parseTask from './parseTask';
 import splitLines from './splitLines';
 
 export default function parseIGC(igcFile) {
@@ -19,7 +19,8 @@ export default function parseIGC(igcFile) {
     }
   ].concat(parseHeaders(igcLines.headers));
 
-  return fromJS({
-    headers
-  });
+  return {
+    headers,
+    task: parseTask(igcLines.task)
+  };
 }
