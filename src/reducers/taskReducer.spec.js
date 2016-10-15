@@ -66,4 +66,63 @@ describe('Task reducer', function () {
       ]));
     });
   });
+
+  describe('When a logger trace is loaded', function () {
+    describe('when the logger trace contains a task declaration', function () {
+      const loggerTrace = {
+        task: {
+          declared: true,
+          waypoints: [
+            {
+              name: 'one',
+              position: {
+                lat: 1.2,
+                lng: 3.4
+              }
+            },
+            {
+              name: 'two',
+              position: {
+                lat: 4.5,
+                lng: 5.6
+              }
+            }
+          ]
+        }
+      };
+
+      let loadAction = actions.loadFileSuccess('filename.igc', loggerTrace);
+
+      let newState;
+
+      beforeEach(function() {
+        newState = taskReducer(initialTask, loadAction);
+      });
+
+      it('sets the task from the logger trace', function () {
+        newState.should.equal(fromJS(loggerTrace.task.waypoints));
+      });
+    });
+
+    describe('when the logger trace has no task declaration', function () {
+      const loggerTrace = {
+        task: {
+          declared: false,
+          waypoints: []
+        }
+      };
+
+      let loadAction = actions.loadFileSuccess('filename.igc', loggerTrace);
+
+      let newState;
+
+      beforeEach(function() {
+        newState = taskReducer(initialTask, loadAction);
+      });
+
+      it('leaves any existing task unchanged', function () {
+        newState.should.equal(initialTask);
+      });
+    });
+  });
 });
