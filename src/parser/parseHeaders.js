@@ -1,25 +1,3 @@
-import moment from 'moment';
-
-export function parseDateHeader(dateRecord) {
-  let day = parseInt(dateRecord.substring(5, 7), 10);
-
-  // Months are zero-indexed in JavaScript, so January = 0 and February = 1.
-  let month = parseInt(dateRecord.substring(7, 9), 10) - 1;
-
-  // IGC files contain a two-digit year. Assume 21st century
-  // unless that would put the flight date in the future.
-  let year = parseInt(dateRecord.substring(9, 11), 10) + 2000;
-
-  if (year > moment.utc().year()) {
-    year -= 100;
-  }
-
-  return {
-    name: 'Date',
-    value: moment.utc([year, month, day])
-  };
-}
-
 export function parseHeaderLine(headerRecord) {
   const headerSubtypes = {
     'PLT': 'Pilot',
@@ -43,10 +21,6 @@ export function parseHeaderLine(headerRecord) {
   };
 
   let headerCode = headerRecord.substring(2, 5);
-
-  if (headerCode === 'DTE') {
-    return parseDateHeader(headerRecord);
-  }
 
   if (headerSubtypes.hasOwnProperty(headerCode)) {
     header.name = headerSubtypes[headerCode];

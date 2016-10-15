@@ -1,7 +1,8 @@
+import splitLines from './splitLines';
 import parseManufacturer from './parseManufacturer';
 import parseHeaders from './parseHeaders';
 import parseTask from './parseTask';
-import splitLines from './splitLines';
+import parseFixes from './parseFixes';
 
 export default function parseIGC(igcFile) {
   let igcLines = splitLines(igcFile);
@@ -21,6 +22,7 @@ export default function parseIGC(igcFile) {
 
   return {
     headers,
-    task: parseTask(igcLines.task)
+    task: parseTask(igcLines.task),
+    fixes: parseFixes(igcLines)
   };
 }
