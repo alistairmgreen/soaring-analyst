@@ -1,18 +1,12 @@
 import { fromJS } from 'immutable';
-import IGCException from './IGCException';
 import parseManufacturer from './parseManufacturer';
 import parseHeaders from './parseHeaders';
+import splitLines from './splitLines';
 
 export default function parseIGC(igcFile) {
-  let igcLines = igcFile.split('\n');
+  let igcLines = splitLines(igcFile);
 
-  if (igcLines.length < 2) {
-    throw new IGCException('This does not appear to be a valid IGC file.');
-  }
-
-  let firstLine = igcLines.shift();
-
-  let manufacturerAndSerialNumber = parseManufacturer(firstLine);
+  let manufacturerAndSerialNumber = parseManufacturer(igcLines.serialNumber);
 
   let headers = [
     {
@@ -23,9 +17,7 @@ export default function parseIGC(igcFile) {
       name: 'Logger serial number',
       value: manufacturerAndSerialNumber.serial
     }
-  ];
-
-  headers = headers.concat(parseHeaders(igcLines));
+  ].concat(parseHeaders(igcLines.headers));
 
   return fromJS({
     headers

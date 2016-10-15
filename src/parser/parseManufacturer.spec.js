@@ -28,8 +28,8 @@ describe('parseManufacturer function', function () {
       result = parseManufacturer('AXYZJF8');
     });
 
-    it('sets the manufacturer to "Unknown"', function() {
-      result.manufacturer.should.equal('Unknown');
+    it('sets the manufacturer equal to the code', function() {
+      result.manufacturer.should.equal('XYZ');
     });
 
     it('returns the logger serial number', function() {
