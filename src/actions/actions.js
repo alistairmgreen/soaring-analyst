@@ -1,3 +1,4 @@
+import { push } from 'react-router-redux';
 import parseIGC from '../parser/parseIGC';
 
 export const DELETE_TURNPOINT = "DELETE_TURNPOINT";
@@ -47,6 +48,7 @@ export function loadFile(file) {
       try {
         let igc = parseIGC(reader.result);
         dispatch(loadFileSuccess(fileName, igc));
+        dispatch(push("/igcview"));
       }
       catch(exception) {
         let message = exception.message || "An error has occurred.";

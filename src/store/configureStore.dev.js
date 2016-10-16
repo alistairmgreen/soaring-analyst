@@ -4,6 +4,8 @@
 
 import {createStore, compose, applyMiddleware} from 'redux';
 import thunkMiddleware from 'redux-thunk';
+import { hashHistory } from 'react-router';
+import { routerMiddleware } from 'react-router-redux';
 import rootReducer from '../reducers';
 
 export default function configureStore(initialState) {
@@ -12,7 +14,8 @@ export default function configureStore(initialState) {
 
     // thunk middleware can also accept an extra argument to be passed to each thunk action
     // https://github.com/gaearon/redux-thunk#injecting-a-custom-argument
-    thunkMiddleware
+    thunkMiddleware,
+    routerMiddleware(hashHistory)
   ];
 
   const store = createStore(rootReducer, initialState, compose(
