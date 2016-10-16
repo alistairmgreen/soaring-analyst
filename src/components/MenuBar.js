@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
-import { Glyphicon, Nav, Navbar, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import { Glyphicon, Nav, Navbar, NavItem, NavDropdown, MenuItem, FormGroup, ControlLabel } from 'react-bootstrap';
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap';
+import IGCFilePicker from './IGCFilePicker';
 
 function MenuBar(props) {
   return (
@@ -12,6 +13,14 @@ function MenuBar(props) {
         <Navbar.Toggle />
       </Navbar.Header>
       <Navbar.Collapse>
+        <Navbar.Form pullLeft>
+          <FormGroup controlId="igcMenuFileSelector">
+            <ControlLabel>
+              Open an IGC logger file
+                </ControlLabel>
+            <IGCFilePicker onChooseFile={props.loadFileAction} />
+          </FormGroup>
+        </Navbar.Form>
         <Nav>
           <LinkContainer to="/task">
             <NavItem>
@@ -20,23 +29,30 @@ function MenuBar(props) {
               {props.fileLoaded ? "Edit Task" : "Plan a Task"}
             </NavItem>
           </LinkContainer>
-          <NavDropdown title="View a logger trace" id="dropdownLoggerTrace">
+
+          {props.fileLoaded && (
             <LinkContainer to="/igcview">
               <NavItem>
                 <Glyphicon bsClass="fa" glyph="info-circle" />
                 &nbsp; Flight Information
               </NavItem>
             </LinkContainer>
+          )}
+          {props.fileLoaded && (
             <NavItem>
               <Glyphicon bsClass="fa" glyph="map" />
               &nbsp;
             Map View
             </NavItem>
+          )}
+          {props.fileLoaded && (
             <NavItem>
               <Glyphicon bsClass="fa" glyph="area-chart" />
               &nbsp;
             Barogram View
             </NavItem>
+          )}
+          {props.fileLoaded && (
             <NavItem>
               <Glyphicon bsClass="fa" glyph="map" />
               &nbsp;
@@ -44,7 +60,7 @@ function MenuBar(props) {
               &nbsp;
               Combined View
              </NavItem>
-          </NavDropdown>
+          )}
 
           <NavDropdown title="About" id="dropdownAbout">
             <IndexLinkContainer to="/">
@@ -56,8 +72,7 @@ function MenuBar(props) {
             <MenuItem href="https://github.com/GlidingWeb">
               <Glyphicon bsClass="fa" glyph="github" />
               &nbsp; Source code on GitHub
-          </MenuItem>
-
+            </MenuItem>
           </NavDropdown>
         </Nav>
       </Navbar.Collapse>
@@ -67,7 +82,8 @@ function MenuBar(props) {
 
 MenuBar.propTypes = {
   fileName: PropTypes.string,
-  fileLoaded: PropTypes.bool.isRequired
+  fileLoaded: PropTypes.bool.isRequired,
+  loadFileAction: PropTypes.func.isRequired
 };
 
 export default MenuBar;

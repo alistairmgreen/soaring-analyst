@@ -1,12 +1,14 @@
 import React, { PropTypes } from 'react';
 import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actions from '../actions/actions';
 
 import MenuBar from './MenuBar';
 
 function App(props) {
   return (
     <div>
-      <MenuBar fileLoaded={props.fileLoaded} fileName={props.fileName} />
+      <MenuBar fileLoaded={props.fileLoaded} fileName={props.fileName} loadFileAction={props.actions.loadFile} />
       {props.children}
     </div>
   );
@@ -15,6 +17,7 @@ function App(props) {
 App.propTypes = {
   fileName: PropTypes.string,
   fileLoaded: PropTypes.bool.isRequired,
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
   children: PropTypes.element
 };
 
@@ -25,4 +28,10 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(App);
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

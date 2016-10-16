@@ -15,14 +15,16 @@ class IGCFilePicker extends React.Component {
   }
 
   render() {
+    let styling = this.props.hidden ? { display: "none" } : {};
     return (
-      <FormControl type="file" accept=".igc" onChange={this.onFileChange} />
+      <FormControl type="file" accept=".igc" onChange={this.onFileChange} style={styling} />
     );
   }
 }
 
 IGCFilePicker.propTypes = {
-  onChooseFile: PropTypes.func.isRequired
+  onChooseFile: PropTypes.func.isRequired,
+  hidden: PropTypes.bool
 };
 
 export default IGCFilePicker;
