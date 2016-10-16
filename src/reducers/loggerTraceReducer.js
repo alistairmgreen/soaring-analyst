@@ -1,4 +1,4 @@
-import { fromJS } from 'immutable';
+import { List, fromJS } from 'immutable';
 import * as actions from '../actions/actions';
 import { emptyLoggerTrace } from './initialState';
 
@@ -20,7 +20,11 @@ operations[actions.LOAD_FILE_SUCCESS] = function (state, action) {
     errorMessage: "",
     fileLoaded: true,
     fileLoadInProgress: false,
-    headers: fromJS(trace.headers)
+    headers: fromJS(trace.headers),
+    timestamps: List(trace.fixes.map(f => f.timestamp)),
+    positions: List(trace.fixes.map(f => f.position)),
+    pressureAltitudes: List(trace.fixes.map(f => f.pressureAltitude)),
+    gpsAltitudes: List(trace.fixes.map(f => f.gpsAltitude))
   });
 };
 
