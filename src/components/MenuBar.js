@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Glyphicon, Nav, Navbar, NavItem } from 'react-bootstrap';
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap';
 
-export default function MenuBar() {
+function MenuBar(props) {
   return (
     <Navbar>
       <Navbar.Header>
         <Navbar.Brand>
-          Soaring Analyst
-          </Navbar.Brand>
+          {props.fileLoaded ? props.fileName : "Soaring Analyst"}
+        </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>
       <Navbar.Collapse>
@@ -17,7 +17,7 @@ export default function MenuBar() {
             <NavItem>Home</NavItem>
           </IndexLinkContainer>
           <LinkContainer to="/task">
-            <NavItem>Task Planner</NavItem>
+            <NavItem>{props.fileLoaded ? "Task Editor" : "Task Planner"}</NavItem>
           </LinkContainer>
           <LinkContainer to="/igcview">
             <NavItem>IGC Viewer </NavItem>
@@ -30,3 +30,10 @@ export default function MenuBar() {
     </Navbar>
   );
 }
+
+MenuBar.propTypes = {
+  fileName: PropTypes.string,
+  fileLoaded: PropTypes.bool.isRequired
+};
+
+export default MenuBar;
