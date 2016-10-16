@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Glyphicon, Nav, Navbar, NavItem } from 'react-bootstrap';
+import { Glyphicon, Nav, Navbar, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap';
 
 function MenuBar(props) {
@@ -13,18 +13,52 @@ function MenuBar(props) {
       </Navbar.Header>
       <Navbar.Collapse>
         <Nav>
-          <IndexLinkContainer to="/">
-            <NavItem>Home</NavItem>
-          </IndexLinkContainer>
           <LinkContainer to="/task">
-            <NavItem>{props.fileLoaded ? "Task Editor" : "Task Planner"}</NavItem>
-          </LinkContainer>
-          <LinkContainer to="/igcview">
-            <NavItem>IGC Viewer </NavItem>
-          </LinkContainer>
-          <NavItem href="https://github.com/GlidingWeb">
-            <Glyphicon bsClass="fa" glyph="github" /> GitHub
+            <NavItem>
+              <Glyphicon bsClass="fa" glyph="compass" />
+              &nbsp;
+              {props.fileLoaded ? "Edit Task" : "Plan a Task"}
             </NavItem>
+          </LinkContainer>
+          <NavDropdown title="View a logger trace" id="dropdownLoggerTrace">
+            <LinkContainer to="/igcview">
+              <NavItem>
+                <Glyphicon bsClass="fa" glyph="info-circle" />
+                &nbsp; Flight Information
+              </NavItem>
+            </LinkContainer>
+            <NavItem>
+              <Glyphicon bsClass="fa" glyph="map" />
+              &nbsp;
+            Map View
+            </NavItem>
+            <NavItem>
+              <Glyphicon bsClass="fa" glyph="area-chart" />
+              &nbsp;
+            Barogram View
+            </NavItem>
+            <NavItem>
+              <Glyphicon bsClass="fa" glyph="map" />
+              &nbsp;
+            <Glyphicon bsClass="fa" glyph="area-chart" />
+              &nbsp;
+              Combined View
+             </NavItem>
+          </NavDropdown>
+
+          <NavDropdown title="About" id="dropdownAbout">
+            <IndexLinkContainer to="/">
+              <MenuItem>
+                About Soaring Analyst
+              </MenuItem>
+            </IndexLinkContainer>
+            <MenuItem divider />
+            <MenuItem href="https://github.com/GlidingWeb">
+              <Glyphicon bsClass="fa" glyph="github" />
+              &nbsp; Source code on GitHub
+          </MenuItem>
+
+          </NavDropdown>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
