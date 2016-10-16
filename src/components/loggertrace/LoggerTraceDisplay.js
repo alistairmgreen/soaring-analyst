@@ -4,9 +4,10 @@ import IGCFilePicker from '../IGCFilePicker';
 import HeaderDisplay from './HeaderDisplay';
 
 function LoggerTraceDisplay(props) {
-  let trace = props.loggerTrace;
-  let fileName = trace.get('fileName');
-  let headers = trace.get('headers');
+  const trace = props.loggerTrace;
+  const fileName = trace.get('fileName');
+  const headers = trace.get('headers');
+  const firstTimestamp = trace.getIn(['timestamps', 0]);
 
   return (
     <div>
@@ -18,7 +19,7 @@ function LoggerTraceDisplay(props) {
         </FormGroup>
       </Form>
 
-      <HeaderDisplay headers={headers} />
+      <HeaderDisplay headers={headers} flightDate={firstTimestamp} />
     </div>
   );
 }
