@@ -21,7 +21,7 @@ export default function MapDisplay(props) {
           googleMapElement={
             <GoogleMap
               defaultZoom={8}
-              defaultCenter={{ lat: 51.9203333333333, lng: -1.13141666666667 }}
+              defaultCenter={props.defaultCenter}
               options={{
                 streetViewControl: false,
                 mapTypeControl: true,
@@ -38,6 +38,10 @@ export default function MapDisplay(props) {
                 options={{ strokeColor: "black", strokeWeight: 1 }}
                 path={task}
                 />
+
+              {props.flightPath &&
+              <Polyline options={{strokeColor: "blue", strokeWeight: 1}} path={props.flightPath} />}
+
             </GoogleMap>
           }
           />
@@ -46,5 +50,10 @@ export default function MapDisplay(props) {
 }
 
 MapDisplay.propTypes = {
-  task: PropTypes.object.isRequired
+  defaultCenter: PropTypes.shape({
+    lat: PropTypes.number,
+    lng: PropTypes.number
+  }).isRequired,
+  task: PropTypes.object.isRequired,
+  flightPath: PropTypes.array
 };

@@ -11,12 +11,13 @@ class TaskEditor extends React.Component {
   render() {
     const task = this.props.task;
     const deleteTurnpoint = this.props.deleteTurnpoint;
+    let firstTurnpointLatLng = { lat: 51.9203333333333, lng: -1.13141666666667 };
 
     return (
       <Grid fluid>
         <Row>
           <Col xs={11} sm={12} md={8}>
-            <MapDisplay task={task} />
+            <MapDisplay task={task} defaultCenter={firstTurnpointLatLng} />
           </Col>
           <Col xs={12} mdHidden lgHidden>
             &nbsp;

@@ -39,11 +39,13 @@ function MenuBar(props) {
             </LinkContainer>
           )}
           {props.fileLoaded && (
+            <LinkContainer to="/igcmap">
             <NavItem>
               <Glyphicon bsClass="fa" glyph="map" />
               &nbsp;
             Map View
             </NavItem>
+            </LinkContainer>
           )}
           {props.fileLoaded && (
             <NavItem>
