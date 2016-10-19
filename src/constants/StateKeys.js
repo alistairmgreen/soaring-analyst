@@ -15,3 +15,13 @@ export const POSITIONS = 'positions';
 export const PRESSURE_ALTITUDES = 'pressureAltitudes';
 
 export const GPS_ALTITUDES = 'gpsAltitudes';
+
+export const TIME_INDEX = 'timeIndex';
+
+export const MAX_TIME_INDEX = 'maxTimeIndex';
+
+export const CURRENT_POSITION = 'currentPosition';
+
+export const CURRENT_ALTITUDE = 'currentAltitude';
+
+export const CURRENT_TIMESTAMP = 'currentTimestamp';

@@ -63,3 +63,12 @@ export function loadFile(file) {
     reader.readAsText(file);
   };
 }
+
+export const SET_TIME_INDEX = "SET_TIME_INDEX";
+
+export function setTimeIndex(index) {
+  return {
+    type: SET_TIME_INDEX,
+    index
+  };
+}

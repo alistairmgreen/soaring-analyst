@@ -1,6 +1,7 @@
 import chai from 'chai';
 import chaiImmutable from 'chai-immutable';
-import { List, fromJS } from 'immutable';
+import chaiMoment from 'chai-moment';
+import { List, Map, fromJS } from 'immutable';
 import moment from 'moment';
 
 import loggerTraceReducer from './loggerTraceReducer';
@@ -9,6 +10,7 @@ import * as actions from '../actions/actions';
 import * as keys from '../constants/StateKeys';
 
 chai.use(chaiImmutable);
+chai.use(chaiMoment);
 chai.should();
 
 describe('Logger trace reducer', function () {
@@ -130,6 +132,29 @@ describe('Logger trace reducer', function () {
       newState.get(keys.GPS_ALTITUDES)
         .should.equal(List([300, 310]));
     });
+
+    it('sets the selected time index to zero', function () {
+      newState.get(keys.TIME_INDEX).should.equal(0);
+    });
+
+    it('sets the maximum time index equal to the number of position fixes minus one', function () {
+      newState.get(keys.MAX_TIME_INDEX).should.equal(1);
+    });
+
+    it('sets the current position equal to the first position fix', function () {
+      newState.get(keys.CURRENT_POSITION)
+        .should.equal(Map(stubLoggerTrace.fixes[0].position));
+    });
+
+    it('sets the current altitude equal to the first GPS altitude', function () {
+      newState.get(keys.CURRENT_ALTITUDE)
+        .should.equal(stubLoggerTrace.fixes[0].gpsAltitude);
+    });
+
+    it('sets the current timestamp equal to the first timestamp', function () {
+      newState.get(keys.CURRENT_TIMESTAMP)
+        .should.be.sameMoment(stubLoggerTrace.fixes[0].timestamp);
+    });
   });
 
   describe('when a file load fails', function () {
@@ -160,4 +185,48 @@ describe('Logger trace reducer', function () {
     });
   });
 
+  describe('when the time index is set', function () {
+    let previousState, newState;
+    const EXPECTED_TIME_INDEX = 1;
+
+    beforeEach(function () {
+      previousState = Map({
+        timeIndex: 0,
+
+        positions: List.of(
+          { lat: 1, lng: 2 },
+          { lat: 3, lng: 4 },
+          { lat: 5, lng: 6 }),
+
+        timestamps: List.of(
+          moment.utc([2016, 10, 19, 8, 0, 0]),
+          moment.utc([2016, 10, 19, 8, 1, 0]),
+          moment.utc([2016, 10, 19, 8, 2, 0])),
+
+        gpsAltitudes: List.of(0, 1, 2)
+      });
+
+      newState = loggerTraceReducer(previousState, actions.setTimeIndex(EXPECTED_TIME_INDEX));
+    });
+
+    it('sets the time index', function () {
+      newState.get(keys.TIME_INDEX)
+        .should.equal(EXPECTED_TIME_INDEX);
+    });
+
+    it('sets the current position to match the time index', function () {
+      newState.get(keys.CURRENT_POSITION)
+        .should.equal(Map({ lat: 3, lng: 4 }));
+    });
+
+    it('sets the current altitude to match the GPS altitude for the time index', function () {
+      newState.get(keys.CURRENT_ALTITUDE)
+        .should.equal(1);
+    });
+
+    it('sets the current timestamp to match the time index', function () {
+      newState.get(keys.CURRENT_TIMESTAMP)
+        .should.be.sameMoment(moment.utc([2016, 10, 19, 8, 1, 0]));
+    });
+  });
 });
