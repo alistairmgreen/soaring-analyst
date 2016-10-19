@@ -10,6 +10,7 @@ export function IgcMapPage(props) {
   let trace = props.loggerTrace;
   let positions = trace.get(keys.POSITIONS).toArray();
   let startPoint = positions[0];
+  let currentPosition = trace.get(keys.CURRENT_POSITION).toObject();
   return (
     <div>
       <Timeline timeIndex={trace.get(keys.TIME_INDEX)}
@@ -18,7 +19,11 @@ export function IgcMapPage(props) {
         currentAltitude={trace.get(keys.CURRENT_ALTITUDE)}
         setTimeIndex={props.actions.setTimeIndex} />
 
-      <MapDisplay task={props.task} flightPath={positions} defaultCenter={startPoint} />
+      <MapDisplay
+        task={props.task}
+        flightPath={positions}
+        defaultCenter={startPoint}
+        currentPosition={currentPosition}/>
     </div>
   );
 }

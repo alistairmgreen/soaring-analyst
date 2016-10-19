@@ -21,7 +21,7 @@ describe('parseLatitudeLongitude function', function () {
     });
 
     it('gives a formatted string', function () {
-      result.toString().should.equal("52°15.195'N, 0°43.254'E");
+      result.format().should.equal("52°15.195'N, 0°43.254'E");
     });
   });
 
@@ -41,7 +41,7 @@ describe('parseLatitudeLongitude function', function () {
     });
 
     it('gives a formatted string', function () {
-      result.toString().should.equal("52°15.195'S, 0°43.254'W");
+      result.format().should.equal("52°15.195'S, 0°43.254'W");
     });
   });
 });

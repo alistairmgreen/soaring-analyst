@@ -31,7 +31,7 @@ export default function MapDisplay(props) {
                 }
               }}>
               {task.map((t, index) =>
-                <Marker key={index} position={t} />)
+                <Marker key={index + 1} position={t} />)
               }
 
               <Polyline
@@ -41,6 +41,8 @@ export default function MapDisplay(props) {
 
               {props.flightPath &&
               <Polyline options={{strokeColor: "blue", strokeWeight: 1}} path={props.flightPath} />}
+
+              {props.currentPosition && <Marker key={0} position={props.currentPosition} />}
 
             </GoogleMap>
           }
@@ -55,5 +57,9 @@ MapDisplay.propTypes = {
     lng: PropTypes.number
   }).isRequired,
   task: PropTypes.object.isRequired,
-  flightPath: PropTypes.array
+  flightPath: PropTypes.array,
+  currentPosition: PropTypes.shape({
+    lat: PropTypes.number,
+    lng: PropTypes.number
+  })
 };
