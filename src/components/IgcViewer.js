@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import LoggerTraceDisplay from './loggertrace/LoggerTraceDisplay';
 import StartupBanner from './loggertrace/StartupBanner';
 import LoadingDialog from './loggertrace/LoadingDialog';
+import * as keys from '../constants/StateKeys';
 
 class IgcViewer extends React.Component {
   constructor(props, context) {
@@ -11,19 +12,19 @@ class IgcViewer extends React.Component {
   render() {
     let trace = this.props.loggerTrace;
 
-    if(trace.get('fileLoadInProgress')) {
+    if(trace.get(keys.FILE_LOAD_IN_PROGRESS)) {
       return (
-        <LoadingDialog fileName={trace.get('fileName')} />
+        <LoadingDialog fileName={trace.get(keys.FILE_NAME)} />
       );
     }
 
-    if(trace.get('fileLoaded')) {
+    if(trace.get(keys.FILE_LOADED)) {
       return (
         <LoggerTraceDisplay loggerTrace={trace} actions={this.props.actions} />
       );
     }
 
-    let errorMessage = this.props.loggerTrace.get('errorMessage');
+    let errorMessage = this.props.loggerTrace.get(keys.ERROR_MESSAGE);
 
     return (
       <StartupBanner loadFile={this.props.actions.loadFile} errorMessage={errorMessage} />

@@ -3,9 +3,10 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import MapDisplay from '../components/MapDisplay';
 import * as actions from '../actions/actions';
+import * as keys from '../constants/StateKeys';
 
 export function IgcMapPage(props) {
-  let positions = props.loggerTrace.get('positions').toArray();
+  let positions = props.loggerTrace.get(keys.POSITIONS).toArray();
   let startPoint = positions[0];
   return (
     <div>

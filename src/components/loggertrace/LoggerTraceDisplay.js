@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react';
 import HeaderDisplay from './HeaderDisplay';
+import * as keys from '../../constants/StateKeys';
 
 function LoggerTraceDisplay(props) {
   const trace = props.loggerTrace;
-  const fileName = trace.get('fileName');
-  const headers = trace.get('headers');
+  const fileName = trace.get(keys.FILE_NAME);
+  const headers = trace.get(keys.HEADERS);
   const firstTimestamp = trace.getIn(['timestamps', 0]);
 
   return (

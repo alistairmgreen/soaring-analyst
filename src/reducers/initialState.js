@@ -1,4 +1,4 @@
-import { fromJS } from 'immutable';
+import { Map, fromJS } from 'immutable';
 
 export const initialTask = fromJS([
   {
@@ -31,10 +31,9 @@ export const initialTask = fromJS([
   }
 ]);
 
-export const emptyLoggerTrace = fromJS({
+export const emptyLoggerTrace = Map({
   fileLoaded: false,
   fileLoadInProgress: false,
   fileName: "",
-  errorMessage: "",
-  headers: []
+  errorMessage: ""
 });

@@ -6,6 +6,7 @@ import moment from 'moment';
 import loggerTraceReducer from './loggerTraceReducer';
 import { emptyLoggerTrace } from './initialState';
 import * as actions from '../actions/actions';
+import * as keys from '../constants/StateKeys';
 
 chai.use(chaiImmutable);
 chai.should();
@@ -27,11 +28,11 @@ describe('Logger trace reducer', function () {
     });
 
     it('sets the file load in progress flag to true', function () {
-      newState.get("fileLoadInProgress").should.be.true;
+      newState.get(keys.FILE_LOAD_IN_PROGRESS).should.be.true;
     });
 
     it('sets the file name', function () {
-      newState.get("fileName").should.equal(expectedFileName);
+      newState.get(keys.FILE_NAME).should.equal(expectedFileName);
     });
   });
 
@@ -85,34 +86,34 @@ describe('Logger trace reducer', function () {
     });
 
     it('sets the file name', function () {
-      newState.get('fileName').should.equal(expectedFileName);
+      newState.get(keys.FILE_NAME).should.equal(expectedFileName);
     });
 
     it('clears any existing error message', function () {
-      newState.get('errorMessage').should.be.empty;
+      newState.get(keys.ERROR_MESSAGE).should.be.empty;
     });
 
     it('sets the file loaded flag to true', function () {
-      newState.get('fileLoaded').should.be.true;
+      newState.get(keys.FILE_LOADED).should.be.true;
     });
 
     it('sets the file load in progress flag to false', function () {
-      newState.get('fileLoadInProgress').should.be.false;
+      newState.get(keys.FILE_LOAD_IN_PROGRESS).should.be.false;
     });
 
     it('sets the headers', function () {
-      newState.get('headers').should.equal(fromJS(stubLoggerTrace.headers));
+      newState.get(keys.HEADERS).should.equal(fromJS(stubLoggerTrace.headers));
     });
 
     it('sets a list of timestamps', function () {
-      newState.get('timestamps')
+      newState.get(keys.TIMESTAMPS)
         .should.equal(List.of(
           stubLoggerTrace.fixes[0].timestamp,
           stubLoggerTrace.fixes[1].timestamp));
     });
 
     it('sets a list of positions', function () {
-      newState.get('positions')
+      newState.get(keys.POSITIONS)
         .should.equal(
         List.of(
           stubLoggerTrace.fixes[0].position,
@@ -121,12 +122,12 @@ describe('Logger trace reducer', function () {
     });
 
     it('sets a list of pressure altitudes', function () {
-      newState.get('pressureAltitudes')
+      newState.get(keys.PRESSURE_ALTITUDES)
         .should.equal(List([400, 410]));
     });
 
     it('sets a list of GPS altitudes', function () {
-      newState.get('gpsAltitudes')
+      newState.get(keys.GPS_ALTITUDES)
         .should.equal(List([300, 310]));
     });
   });
@@ -145,17 +146,17 @@ describe('Logger trace reducer', function () {
     });
 
     it('sets the error message', function () {
-      newState.get('errorMessage')
+      newState.get(keys.ERROR_MESSAGE)
         .should.equal(expectedMessage);
     });
 
     it('sets the file loaded flag to false', function () {
-      newState.get('fileLoaded')
+      newState.get(keys.FILE_LOADED)
         .should.be.false;
     });
 
     it('sets the file load in progress flag to false', function () {
-      newState.get('fileLoadInProgress').should.be.false;
+      newState.get(keys.FILE_LOAD_IN_PROGRESS).should.be.false;
     });
   });
 
