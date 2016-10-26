@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import MapDisplay from '../components/MapDisplay';
+//import MapDisplay from '../components/MapDisplay';
+import GoogleMap from '../components/googlemap/GoogleMap';
+import Marker from '../components/googlemap/Marker';
 import Timeline from '../components/Timeline';
 import * as actionCreators from '../actions/actions';
 import * as keys from '../constants/StateKeys';
@@ -10,7 +12,7 @@ export function IgcMapPage(props) {
   let trace = props.loggerTrace;
   let positions = trace.get(keys.POSITIONS).toArray();
   let startPoint = positions[0];
-  let currentPosition = trace.get(keys.CURRENT_POSITION).toObject();
+  let currentPosition = trace.get(keys.CURRENT_POSITION);
   return (
     <div>
       <Timeline timeIndex={trace.get(keys.TIME_INDEX)}
@@ -19,11 +21,10 @@ export function IgcMapPage(props) {
         currentAltitude={trace.get(keys.CURRENT_ALTITUDE)}
         setTimeIndex={props.actions.setTimeIndex} />
 
-      <MapDisplay
-        task={props.task}
-        flightPath={positions}
-        defaultCenter={startPoint}
-        currentPosition={currentPosition}/>
+      <GoogleMap googlemaps={global.google.maps} defaultLocation={startPoint} >
+        <Marker googlemaps={global.google.maps} position={currentPosition} autoScroll />
+      </GoogleMap>
+
     </div>
   );
 }
