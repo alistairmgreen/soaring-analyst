@@ -2,28 +2,23 @@ import React, { PropTypes } from 'react';
 import { List } from 'immutable';
 
 class Polyline extends React.Component {
-   constructor(props, context) {
+  constructor(props, context) {
     super(props, context);
   }
 
   componentDidMount() {
-    const gmaps = this.props.googlemaps;
-
-    this.polyline = new gmaps.Polyline({
-      path: this.props.path.toArray(),
-      map: this.props.map,
-      clickable: false,
-      strokeColor: 'blue',
-      strokeWeight: 1
-    });
-  }
-
-  shouldComponentUpdate(nextProps) {
-    return (this.props.map !== nextProps.map) ||
-      (this.props.path !== nextProps.path);
+    this.createPolyline();
   }
 
   componentDidUpdate(prevProps) {
+    if(this.props.googlemaps !== prevProps.googlemaps) {
+      this.createPolyline();
+    }
+
+    if(!this.polyline) {
+      return;
+    }
+
     const map = this.props.map;
     if (prevProps.map !== map) {
       this.polyline.setMap(map);
@@ -38,6 +33,19 @@ class Polyline extends React.Component {
   componentWillUnmount() {
     if (this.polyline) {
       this.polyline.setMap(null);
+    }
+  }
+
+  createPolyline() {
+    const gmaps = this.props.googlemaps;
+    if (gmaps && !this.polyline) {
+      this.polyline = new gmaps.Polyline({
+        path: this.props.path.toArray(),
+        map: this.props.map,
+        clickable: false,
+        strokeColor: 'blue',
+        strokeWeight: 1
+      });
     }
   }
 

@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-//import MapDisplay from '../components/MapDisplay';
 import GoogleMap from '../components/googlemap/GoogleMap';
 import Marker from '../components/googlemap/Marker';
 import Polyline from '../components/googlemap/Polyline';
@@ -23,8 +22,8 @@ export function IgcMapPage(props) {
         setTimeIndex={props.actions.setTimeIndex} />
 
       <GoogleMap googlemaps={global.google.maps} defaultLocation={startPoint} >
-        <Marker googlemaps={global.google.maps} position={currentPosition} autoScroll />
-        <Polyline googlemaps={global.google.maps} path={trace.get(keys.POSITIONS)} />
+        <Marker position={currentPosition} autoScroll />
+        <Polyline path={trace.get(keys.POSITIONS)} />
       </GoogleMap>
 
     </div>

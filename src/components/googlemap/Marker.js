@@ -6,17 +6,18 @@ class Marker extends React.Component {
   }
 
   componentDidMount() {
-    const gmaps = this.props.googlemaps;
-    let latlng = this.props.position.toObject();
-    this.marker = new gmaps.Marker({ position: latlng });
-  }
-
-  shouldComponentUpdate(nextProps) {
-    return (this.props.map !== nextProps.map) ||
-      (this.props.position !== nextProps.position);
+    this.createMarker();
   }
 
   componentDidUpdate(prevProps) {
+    if (this.props.googlemaps !== prevProps.googlemaps) {
+      this.createMarker();
+    }
+
+    if(!this.marker) {
+      return;
+    }
+
     const map = this.props.map;
     if (prevProps.map !== map) {
       this.marker.setMap(map);
@@ -39,13 +40,21 @@ class Marker extends React.Component {
     }
   }
 
+  createMarker() {
+    if (this.props.googlemaps && !this.marker) {
+      const gmaps = this.props.googlemaps;
+      this.marker = new gmaps.Marker({
+        position: this.props.position.toObject() });
+    }
+  }
+
   render() {
     return null;
   }
 }
 
 Marker.propTypes = {
-  googlemaps: PropTypes.object.isRequired,
+  googlemaps: PropTypes.object,
   map: PropTypes.object,
   position: PropTypes.object.isRequired,
   autoScroll: PropTypes.bool
