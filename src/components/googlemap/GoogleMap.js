@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import ReactDOM from 'react-dom';
 
 class GoogleMap extends React.Component {
   constructor(props, context) {
@@ -8,7 +7,6 @@ class GoogleMap extends React.Component {
 
   componentDidMount() {
     const gmaps = this.props.googlemaps;
-    const mapDiv = ReactDOM.findDOMNode(this.refs.map);
 
     const location = this.props.defaultLocation;
 
@@ -18,7 +16,7 @@ class GoogleMap extends React.Component {
 
     const zoom = location.zoom || 10;
 
-    this.map = new gmaps.Map(mapDiv, { center, zoom });
+    this.map = new gmaps.Map(this.mapDiv, { center, zoom });
     this.forceUpdate(); // Ensures that children get re-rendered after the map becomes available.
   }
 
@@ -50,7 +48,7 @@ class GoogleMap extends React.Component {
 
   render() {
     return (
-      <div ref="map" style={{ width: "100%", height: "90vh" }}>
+      <div ref={map => this.mapDiv = map} style={{ width: "100%", height: "90vh" }}>
         {this.renderChildren()}
       </div >
     );
