@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 //import MapDisplay from '../components/MapDisplay';
 import GoogleMap from '../components/googlemap/GoogleMap';
 import Marker from '../components/googlemap/Marker';
+import Polyline from '../components/googlemap/Polyline';
 import Timeline from '../components/Timeline';
 import * as actionCreators from '../actions/actions';
 import * as keys from '../constants/StateKeys';
@@ -23,6 +24,7 @@ export function IgcMapPage(props) {
 
       <GoogleMap googlemaps={global.google.maps} defaultLocation={startPoint} >
         <Marker googlemaps={global.google.maps} position={currentPosition} autoScroll />
+        <Polyline googlemaps={global.google.maps} path={trace.get(keys.POSITIONS)} />
       </GoogleMap>
 
     </div>
