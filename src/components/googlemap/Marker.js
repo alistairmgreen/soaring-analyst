@@ -43,8 +43,14 @@ class Marker extends React.Component {
   createMarker() {
     if (this.props.googlemaps && !this.marker) {
       const gmaps = this.props.googlemaps;
-      this.marker = new gmaps.Marker({
-        position: this.props.position.toObject() });
+
+      let options = { position: this.props.position.toObject() };
+
+      if (this.props.label) {
+        options.label = this.props.label;
+      }
+
+      this.marker = new gmaps.Marker(options);
     }
   }
 
@@ -57,7 +63,8 @@ Marker.propTypes = {
   googlemaps: PropTypes.object,
   map: PropTypes.object,
   position: PropTypes.object.isRequired,
-  autoScroll: PropTypes.bool
+  autoScroll: PropTypes.bool,
+  label: PropTypes.string
 };
 
 export default Marker;
