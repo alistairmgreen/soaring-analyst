@@ -3,22 +3,30 @@ import { List } from 'immutable';
 import Polyline from './Polyline';
 import Marker from './Marker';
 
-function TaskPlot(props) {
-  const { task } = props;
-  const positions = task.map(waypoint => waypoint.get('position'));
+class TaskPlot extends React.Component {
 
-  let markers = positions.map((pos, index) =>
-    <Marker googlemaps={props.googlemaps} map={props.map} position={pos} key={index} />)
-    .toArray();
+  shouldComponentUpdate(nextProps) {
+    return (this.props.map !== nextProps.map) ||
+      (this.props.googlemaps !== nextProps.googlemaps) ||
+      (this.props.task !== nextProps.task);
+  }
 
-  return (
-    <span>
-      <Polyline googlemaps={props.googlemaps} map={props.map} path={positions} />
+  render() {
+    const { task, googlemaps, map } = this.props;
+    const positions = task.map(waypoint => waypoint.get('position'));
 
-      {markers}
-    </span>
-  );
+    let markers = positions.map((pos, index) =>
+      <Marker googlemaps={googlemaps} map={map} position={pos} key={index} />)
+      .toArray();
 
+    return (
+      <span>
+        <Polyline googlemaps={googlemaps} map={map} path={positions} />
+
+        {markers}
+      </span>
+    );
+  }
 }
 
 TaskPlot.propTypes = {
