@@ -1,19 +1,15 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import GoogleMap from '../components/googlemap/GoogleMap';
-import Marker from '../components/googlemap/Marker';
-import * as icons from '../components/googlemap/icons';
-import Polyline from '../components/googlemap/Polyline';
+import FlightMap from '../components/googlemap/FlightMap';
 import Timeline from '../components/Timeline';
 import * as actionCreators from '../actions/actions';
 import * as keys from '../constants/StateKeys';
 
 export function IgcMapPage(props) {
   let trace = props.loggerTrace;
-  let positions = trace.get(keys.POSITIONS).toArray();
-  let startPoint = positions[0];
-  let currentPosition = trace.get(keys.CURRENT_POSITION);
+  let flightPath = trace.get(keys.POSITIONS);
+  let startPoint = flightPath.get(0);
   return (
     <div>
       <Timeline timeIndex={trace.get(keys.TIME_INDEX)}
@@ -22,13 +18,9 @@ export function IgcMapPage(props) {
         currentAltitude={trace.get(keys.CURRENT_ALTITUDE)}
         setTimeIndex={props.actions.setTimeIndex} />
 
-      <GoogleMap googlemaps={global.google.maps} defaultLocation={startPoint} >
-
-        <Marker position={currentPosition} autoScroll label={icons.UNICODE_PLANE} />
-
-        <Polyline path={trace.get(keys.POSITIONS)} />
-      </GoogleMap>
-
+        <FlightMap defaultLocation={startPoint}
+          flightPath={flightPath}
+          currentPosition={trace.get(keys.CURRENT_POSITION)}/>
     </div>
   );
 }

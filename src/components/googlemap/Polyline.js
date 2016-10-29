@@ -43,8 +43,8 @@ class Polyline extends React.Component {
         path: this.props.path.toArray(),
         map: this.props.map,
         clickable: false,
-        strokeColor: 'blue',
-        strokeWeight: 1
+        strokeColor: this.props.color || 'black',
+        strokeWeight: this.props.weight || 1
       });
     }
   }
@@ -57,7 +57,9 @@ class Polyline extends React.Component {
 Polyline.propTypes = {
   googlemaps: PropTypes.object.isRequired,
   map: PropTypes.object,
-  path: PropTypes.instanceOf(List).isRequired
+  path: PropTypes.instanceOf(List).isRequired,
+  color: PropTypes.string,
+  weight: PropTypes.number
 };
 
 export default Polyline;
