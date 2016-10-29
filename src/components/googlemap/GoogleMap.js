@@ -16,7 +16,13 @@ class GoogleMap extends React.Component {
 
     const zoom = location.zoom || 10;
 
-    this.map = new gmaps.Map(this.mapDiv, { center, zoom });
+    this.map = new gmaps.Map(this.mapDiv, {
+      center,
+      zoom,
+      mapTypeId: gmaps.MapTypeId.TERRAIN,
+      streetViewControl: false,
+      scaleControl: true
+    });
     this.forceUpdate(); // Ensures that children get re-rendered after the map becomes available.
   }
 
