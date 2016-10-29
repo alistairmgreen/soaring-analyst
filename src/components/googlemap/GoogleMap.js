@@ -9,11 +9,7 @@ class GoogleMap extends React.Component {
     const gmaps = this.props.googlemaps;
 
     const location = this.props.defaultLocation;
-
-    const center = new gmaps.LatLng(
-      location.lat || 0,
-      location.lng || 0);
-
+    const center = location.center || { lat: 0, lng: 0 };
     const zoom = location.zoom || 10;
 
     this.map = new gmaps.Map(this.mapDiv, {
@@ -23,6 +19,11 @@ class GoogleMap extends React.Component {
       streetViewControl: false,
       scaleControl: true
     });
+
+    if (location.bounds) {
+      this.map.fitBounds(location.bounds);
+    }
+
     this.forceUpdate(); // Ensures that children get re-rendered after the map becomes available.
   }
 
@@ -35,6 +36,10 @@ class GoogleMap extends React.Component {
 
       if (location.zoom) {
         this.map.setZoom(location.zoom);
+      }
+
+      if (location.bounds) {
+        this.map.fitBounds(location.bounds);
       }
     }
   }
@@ -64,7 +69,7 @@ class GoogleMap extends React.Component {
 GoogleMap.propTypes = {
   googlemaps: PropTypes.object.isRequired,
   defaultLocation: PropTypes.object.isRequired,
-  children:PropTypes.oneOfType([
+  children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ])

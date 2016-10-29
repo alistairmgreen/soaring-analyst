@@ -9,7 +9,7 @@ import * as keys from '../constants/StateKeys';
 export function IgcMapPage(props) {
   let trace = props.loggerTrace;
   let flightPath = trace.get(keys.POSITIONS);
-  let startPoint = flightPath.get(0);
+
   return (
     <div>
       <Timeline timeIndex={trace.get(keys.TIME_INDEX)}
@@ -18,8 +18,7 @@ export function IgcMapPage(props) {
         currentAltitude={trace.get(keys.CURRENT_ALTITUDE)}
         setTimeIndex={props.actions.setTimeIndex} />
 
-        <FlightMap defaultLocation={startPoint}
-          flightPath={flightPath}
+        <FlightMap flightPath={flightPath}
           currentPosition={trace.get(keys.CURRENT_POSITION)}
           task={props.task}/>
     </div>
