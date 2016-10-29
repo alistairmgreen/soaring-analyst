@@ -26,7 +26,7 @@ class Polyline extends React.Component {
 
     const path = this.props.path;
     if (path !== prevProps.path) {
-      this.polyline.setPath(path);
+      this.polyline.setPath(path.toJS());
     }
   }
 
@@ -40,7 +40,7 @@ class Polyline extends React.Component {
     const gmaps = this.props.googlemaps;
     if (gmaps && !this.polyline) {
       this.polyline = new gmaps.Polyline({
-        path: this.props.path.toArray(),
+        path: this.props.path.toJS(),
         map: this.props.map,
         clickable: false,
         strokeColor: this.props.color || 'black',
@@ -55,7 +55,7 @@ class Polyline extends React.Component {
 }
 
 Polyline.propTypes = {
-  googlemaps: PropTypes.object.isRequired,
+  googlemaps: PropTypes.object,
   map: PropTypes.object,
   path: PropTypes.instanceOf(List).isRequired,
   color: PropTypes.string,

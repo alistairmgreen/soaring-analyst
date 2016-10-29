@@ -20,7 +20,8 @@ export function IgcMapPage(props) {
 
         <FlightMap defaultLocation={startPoint}
           flightPath={flightPath}
-          currentPosition={trace.get(keys.CURRENT_POSITION)}/>
+          currentPosition={trace.get(keys.CURRENT_POSITION)}
+          task={props.task}/>
     </div>
   );
 }
