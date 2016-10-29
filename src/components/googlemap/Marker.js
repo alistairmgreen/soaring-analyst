@@ -44,7 +44,10 @@ class Marker extends React.Component {
     if (this.props.googlemaps && !this.marker) {
       const gmaps = this.props.googlemaps;
 
-      let options = { position: this.props.position.toObject() };
+      let options = {
+        position: this.props.position.toObject(),
+        clickable: false
+      };
 
       if (this.props.label) {
         options.label = this.props.label;
