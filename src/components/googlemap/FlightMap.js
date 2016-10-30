@@ -12,7 +12,7 @@ class FlightMap extends React.Component {
     super(props, context);
 
     this.state = {
-      defaultLocation: props.defaultLocation.toObject()
+      defaultLocation: props.defaultLocation.toJS()
     };
 
     this.setMapToDefaultLocation = this.setMapToDefaultLocation.bind(this);
@@ -28,7 +28,7 @@ class FlightMap extends React.Component {
   setMapToDefaultLocation() {
     this.setState((prevState, props) => {
       return {
-        defaultLocation: props.defaultLocation.toObject()
+        defaultLocation: props.defaultLocation.toJS()
       };
     });
   }
@@ -46,6 +46,20 @@ class FlightMap extends React.Component {
   }
 
   render() {
+    let mapElements = [];
+
+    if(this.props.currentPosition) {
+      mapElements.push(<Marker position={this.props.currentPosition} autoScroll label={icons.UNICODE_PLANE} />);
+    }
+
+    if(this.props.flightPath){
+      mapElements.push(<Polyline path={this.props.flightPath} color="blue" />);
+    }
+
+    if(this.props.task && this.props.task.count() > 0) {
+      mapElements.push(<TaskPlot task={this.props.task} />);
+    }
+
     return (
       <div>
         <MapToolbar waypointNames={this.props.task.map(waypoint => waypoint.get('name'))}
@@ -54,14 +68,7 @@ class FlightMap extends React.Component {
           zoomToWaypoint={this.zoomToWaypoint} />
 
         <GoogleMap googlemaps={global.google.maps} defaultLocation={this.state.defaultLocation} >
-
-          {this.props.currentPosition && <Marker position={this.props.currentPosition} autoScroll label={icons.UNICODE_PLANE} />}
-
-          {this.props.flightPath && <Polyline path={this.props.flightPath} color="blue" />}
-
-          {this.props.task && this.props.task.count() > 0 &&
-            <TaskPlot task={this.props.task} />
-          }
+          {mapElements}
         </GoogleMap>
       </div>
     );

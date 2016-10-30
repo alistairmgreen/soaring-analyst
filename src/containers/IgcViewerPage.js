@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import IgcViewer from '../components/IgcViewer';
 import * as actions from '../actions/actions';
+import * as TASK_STATE from '../constants/TaskStateKeys';
 
 export function IgcViewerPage(props) {
 
@@ -21,7 +22,7 @@ IgcViewerPage.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    task: state.task,
+    task: state.task.get(TASK_STATE.WAYPOINTS),
     loggerTrace: state.loggerTrace
   };
 }

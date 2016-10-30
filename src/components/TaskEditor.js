@@ -1,7 +1,8 @@
 import React, {PropTypes} from 'react';
 import { Grid, Row, Col, Panel } from 'react-bootstrap';
-import MapDisplay from './MapDisplay';
+import FlightMap from './googlemap/FlightMap';
 import TaskDisplay from './TaskDisplay';
+import * as TASK_STATE from '../constants/TaskStateKeys';
 
 class TaskEditor extends React.Component {
   constructor(props, context) {
@@ -10,21 +11,24 @@ class TaskEditor extends React.Component {
 
   render() {
     const task = this.props.task;
+    const waypoints = task.get(TASK_STATE.WAYPOINTS);
+    const defaultMapLocation = task.get(TASK_STATE.DEFAULT_MAP_LOCATION);
     const deleteTurnpoint = this.props.deleteTurnpoint;
-    let firstTurnpointLatLng = { lat: 51.9203333333333, lng: -1.13141666666667 };
 
     return (
       <Grid fluid>
         <Row>
           <Col xs={11} sm={12} md={8}>
-            <MapDisplay task={task} defaultCenter={firstTurnpointLatLng} />
+            <FlightMap defaultLocation={defaultMapLocation}
+              task={waypoints}
+              zoomToFitLabel="Task" />
           </Col>
           <Col xs={12} mdHidden lgHidden>
             &nbsp;
           </Col>
           <Col xs={11} sm={12} md={4}>
             <Panel header="Task">
-              <TaskDisplay task={task} deleteTurnpoint={deleteTurnpoint} />
+              <TaskDisplay task={waypoints} deleteTurnpoint={deleteTurnpoint} />
             </Panel>
           </Col>
         </Row>

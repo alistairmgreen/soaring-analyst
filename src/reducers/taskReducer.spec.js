@@ -5,6 +5,7 @@ import { fromJS } from 'immutable';
 import taskReducer from './taskReducer';
 import { initialTask } from './initialState';
 import * as actions from '../actions/actions';
+import * as TASK_STATE from '../constants/TaskStateKeys';
 
 chai.use(chaiImmutable);
 chai.should();
@@ -21,39 +22,20 @@ describe('Task reducer', function () {
   });
 
   describe('on DELETE_TURNPOINT action', function () {
-    const initialState = fromJS([
-      {
-        name: "Turnpoint A",
-        position: {
-          lat: 51.0,
-          lng: -1.0
-        }
-      },
-      {
-        name: "Turnpoint B",
-        position: {
-          lat: 52.0,
-          lng: 1.0
-        }
-      },
-      {
-        name: "Turnpoint C",
-        position: {
-          lat: 53.0,
-          lng: -0.5
-        }
-      }
-    ]);
-
-    let finalState = taskReducer(initialState, actions.deleteTurnpoint(1));
-
-    it('deletes the specified turn point', function () {
-      finalState.should.equal(fromJS([
+    const initialState = fromJS({
+      waypoints: [
         {
           name: "Turnpoint A",
           position: {
             lat: 51.0,
             lng: -1.0
+          }
+        },
+        {
+          name: "Turnpoint B",
+          position: {
+            lat: 52.0,
+            lng: 1.0
           }
         },
         {
@@ -63,7 +45,29 @@ describe('Task reducer', function () {
             lng: -0.5
           }
         }
-      ]));
+      ]
+    });
+
+    let finalState = taskReducer(initialState, actions.deleteTurnpoint(1));
+
+    it('deletes the specified turn point', function () {
+      finalState.get(TASK_STATE.WAYPOINTS)
+        .should.equal(fromJS([
+          {
+            name: "Turnpoint A",
+            position: {
+              lat: 51.0,
+              lng: -1.0
+            }
+          },
+          {
+            name: "Turnpoint C",
+            position: {
+              lat: 53.0,
+              lng: -0.5
+            }
+          }
+        ]));
     });
   });
 
@@ -95,12 +99,26 @@ describe('Task reducer', function () {
 
       let newState;
 
-      beforeEach(function() {
+      beforeEach(function () {
         newState = taskReducer(initialTask, loadAction);
       });
 
-      it('sets the task from the logger trace', function () {
-        newState.should.equal(fromJS(loggerTrace.task.waypoints));
+      it('sets the task waypoints from the logger trace', function () {
+        newState.get(TASK_STATE.WAYPOINTS)
+          .should.equal(fromJS(loggerTrace.task.waypoints));
+      });
+
+      it('sets the default map location to the bounds of the task', function () {
+        newState.get(TASK_STATE.DEFAULT_MAP_LOCATION)
+          .toJS()
+          .should.deep.equal({
+            bounds: {
+              north: 4.5,
+              south: 1.2,
+              west: 3.4,
+              east: 5.6
+            }
+          });
       });
     });
 
@@ -116,7 +134,7 @@ describe('Task reducer', function () {
 
       let newState;
 
-      beforeEach(function() {
+      beforeEach(function () {
         newState = taskReducer(initialTask, loadAction);
       });
 

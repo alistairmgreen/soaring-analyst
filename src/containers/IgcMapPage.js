@@ -5,6 +5,8 @@ import FlightMap from '../components/googlemap/FlightMap';
 import Timeline from '../components/Timeline';
 import * as actionCreators from '../actions/actions';
 import * as keys from '../constants/StateKeys';
+import * as TASK_STATE from '../constants/TaskStateKeys';
+
 
 export function IgcMapPage(props) {
   let trace = props.loggerTrace;
@@ -35,7 +37,7 @@ IgcMapPage.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    task: state.task,
+    task: state.task.get(TASK_STATE.WAYPOINTS),
     loggerTrace: state.loggerTrace
   };
 }
