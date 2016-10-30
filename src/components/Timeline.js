@@ -29,7 +29,7 @@ class Timeline extends React.Component {
         </Form>
 
         <p>
-          {this.props.currentTime.format('HH:mm:ss')}: GPS Altitude {this.props.currentAltitude} m
+          {this.props.currentTime.format('HH:mm:ssZ')}: GPS Altitude {this.props.currentAltitude} m
         </p>
       </div>
     );

@@ -56,6 +56,21 @@ operations[actions.SET_TIME_INDEX] = function (state, action) {
   });
 };
 
+operations[actions.SET_TIMEZONE] = function (state, action) {
+  const offset = action.offsetSeconds / 60.0;
+  const adjustedTimestamps = state.get(keys.TIMESTAMPS)
+    .map(t => t.clone().utcOffset(offset));
+
+  const adjustedCurrentTimestamp = state.get(keys.CURRENT_TIMESTAMP)
+    .clone()
+    .utcOffset(offset);
+
+  return state.merge({
+    timestamps: adjustedTimestamps,
+    currentTimestamp: adjustedCurrentTimestamp
+  });
+};
+
 export default function loggerTraceReducer(state = emptyLoggerTrace, action) {
   let actionType = action.type;
 

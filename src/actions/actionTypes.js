@@ -3,3 +3,4 @@ export const FILE_LOADING = "FILE_LOADING";
 export const LOAD_FILE_SUCCESS = "LOAD_FILE_SUCCESS";
 export const LOAD_FILE_FAILURE = "LOAD_FILE_FAILURE";
 export const SET_TIME_INDEX = "SET_TIME_INDEX";
+export const SET_TIMEZONE = "SET_TIMEZONE";

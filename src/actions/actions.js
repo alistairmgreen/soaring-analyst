@@ -1,11 +1,38 @@
 import { push } from 'react-router-redux';
+import 'whatwg-fetch';
 import parseIGC from '../parser/parseIGC';
 import * as ACTION from './actionTypes';
+const API_KEYS = require('../apikeys');
 
 export function deleteTurnpoint(index) {
   return {
     type: ACTION.DELETE_TURNPOINT,
     index: index
+  };
+}
+
+export function setTimezone(offsetSeconds) {
+  return {
+    type: ACTION.SET_TIMEZONE,
+    offsetSeconds: offsetSeconds
+  };
+}
+
+export function detectTimezone(options) {
+  return function (dispatch) {
+    const { position, timestamp } = options;
+    const googleTimezoneUrl =
+      `https://maps.googleapis.com/maps/api/timezone/json?location=${position.lat},${position.lng}&timestamp=${timestamp}&key=${API_KEYS.GoogleMaps}`;
+
+    fetch(googleTimezoneUrl)
+      .then(response => response.json())
+      .then(response => {
+        if (response.status === 'OK') {
+          let offset = response.rawOffset + response.dstOffset;
+          dispatch(setTimezone(offset));
+        }
+      })
+      .catch(); // Silently ignore errors; we will just display UTC.
   };
 }
 
@@ -32,24 +59,29 @@ export function loadFileFailure(errorMessage) {
 }
 
 export function loadFile(file) {
-  return function(dispatch) {
+  return function (dispatch) {
     let fileName = file.name;
     dispatch(fileLoading(fileName));
 
     let reader = new FileReader();
-    reader.onload = function() {
+    reader.onload = function () {
       try {
         let igc = parseIGC(reader.result);
         dispatch(loadFileSuccess(fileName, igc));
         dispatch(push("/igcmap"));
+        let firstFix = igc.fixes[0];
+        dispatch(detectTimezone({
+          position: firstFix.position,
+          timestamp: firstFix.timestamp.unix()
+        }));
       }
-      catch(exception) {
+      catch (exception) {
         let message = exception.message || "An error has occurred.";
         dispatch(loadFileFailure(message));
       }
     };
 
-    reader.onerror = function() {
+    reader.onerror = function () {
       dispatch(loadFileFailure("The file could not be read."));
     };
 

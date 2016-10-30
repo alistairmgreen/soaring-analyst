@@ -41,4 +41,6 @@ dist
 
 typings/
 
-src/apikeys.js
+src/apikeys.prod.js
+src/apikeys.dev.js
+

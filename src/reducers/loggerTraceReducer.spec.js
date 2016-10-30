@@ -242,4 +242,33 @@ describe('Logger trace reducer', function () {
         .should.be.sameMoment(moment.utc([2016, 10, 19, 8, 1, 0]));
     });
   });
+
+  describe('when the timezone is set', function() {
+    const previousState = Map({
+      currentTimestamp: moment.utc([2016, 10, 19, 8, 1, 0]),
+
+      timestamps: List.of(
+          moment.utc([2016, 10, 19, 8, 0, 0]),
+          moment.utc([2016, 10, 19, 8, 1, 0]),
+          moment.utc([2016, 10, 19, 8, 2, 0]))
+    });
+    const ONE_HOUR = 3600;
+
+    let newState;
+
+    beforeEach(function() {
+      newState = loggerTraceReducer(previousState, actions.setTimezone(ONE_HOUR));
+    });
+
+    it('adjusts the timezones of all timestamps', function() {
+      let newTimestamps = newState.get(keys.TIMESTAMPS);
+      newTimestamps.forEach(t => t.utcOffset().should.equal(60));
+    });
+
+    it('adjusts the timezone of the current timestamp', function() {
+      newState.get(keys.CURRENT_TIMESTAMP)
+        .utcOffset()
+        .should.equal(60);
+    });
+  });
 });
