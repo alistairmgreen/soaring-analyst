@@ -1,5 +1,6 @@
 import chai from 'chai';
 import * as actions from './actions';
+import * as ACTIONTYPE from './actionTypes';
 
 chai.should();
 
@@ -14,7 +15,7 @@ describe("Action creators", function () {
     });
 
     it('sets the action type', function () {
-      deleteAction.type.should.equal(actions.DELETE_TURNPOINT);
+      deleteAction.type.should.equal(ACTIONTYPE.DELETE_TURNPOINT);
     });
 
     it('sets the index of the turnpoint to delete', function () {

@@ -1,5 +1,5 @@
 import { List, Map, fromJS } from 'immutable';
-import * as actions from '../actions/actions';
+import * as actions from '../actions/actionTypes';
 import { emptyLoggerTrace } from './initialState';
 import * as keys from '../constants/StateKeys';
 import calculateBounds from '../geometry/calculateBounds';

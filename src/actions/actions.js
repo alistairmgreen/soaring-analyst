@@ -1,39 +1,38 @@
 import { push } from 'react-router-redux';
 import parseIGC from '../parser/parseIGC';
+import * as ACTION from './actionTypes';
 
-export const DELETE_TURNPOINT = "DELETE_TURNPOINT";
+
 
 export function deleteTurnpoint(index) {
   return {
-    type: DELETE_TURNPOINT,
+    type: ACTION.DELETE_TURNPOINT,
     index: index
   };
 }
 
-export const FILE_LOADING = "FILE_LOADING";
+
 
 export function fileLoading(fileName) {
   return {
-    type: FILE_LOADING,
+    type: ACTION.FILE_LOADING,
     fileName: fileName
   };
 }
 
-export const LOAD_FILE_SUCCESS = "LOAD_FILE_SUCCESS";
 
 export function loadFileSuccess(fileName, loggerTrace) {
   return {
-    type: LOAD_FILE_SUCCESS,
+    type: ACTION.LOAD_FILE_SUCCESS,
     fileName,
     loggerTrace
   };
 }
 
-export const LOAD_FILE_FAILURE = "LOAD_FILE_FAILURE";
 
 export function loadFileFailure(errorMessage) {
   return {
-    type: LOAD_FILE_FAILURE,
+    type: ACTION.LOAD_FILE_FAILURE,
     errorMessage: errorMessage
   };
 }
@@ -64,11 +63,9 @@ export function loadFile(file) {
   };
 }
 
-export const SET_TIME_INDEX = "SET_TIME_INDEX";
-
 export function setTimeIndex(index) {
   return {
-    type: SET_TIME_INDEX,
+    type: ACTION.SET_TIME_INDEX,
     index
   };
 }

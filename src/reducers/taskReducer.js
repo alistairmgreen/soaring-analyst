@@ -1,6 +1,6 @@
 import { fromJS } from 'immutable';
 import { initialTask } from './initialState';
-import * as actions from '../actions/actions';
+import * as actions from '../actions/actionTypes';
 import * as TASK_STATE from '../constants/TaskStateKeys';
 import calculateBounds from '../geometry/calculateBounds';
 
