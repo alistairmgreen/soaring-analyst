@@ -1,7 +1,8 @@
-import { List, fromJS } from 'immutable';
+import { List, Map, fromJS } from 'immutable';
 import * as actions from '../actions/actions';
 import { emptyLoggerTrace } from './initialState';
 import * as keys from '../constants/StateKeys';
+import calculateBounds from '../geometry/calculateBounds';
 
 let operations = [];
 
@@ -14,6 +15,7 @@ operations[actions.FILE_LOADING] = function (state, action) {
 
 operations[actions.LOAD_FILE_SUCCESS] = function (state, action) {
   let trace = action.loggerTrace;
+  const positions = trace.fixes.map(f => f.position);
 
   return state.merge({
     fileName: action.fileName,
@@ -22,14 +24,17 @@ operations[actions.LOAD_FILE_SUCCESS] = function (state, action) {
     fileLoadInProgress: false,
     headers: fromJS(trace.headers),
     timestamps: List(trace.fixes.map(f => f.timestamp)),
-    positions: List(trace.fixes.map(f => f.position)),
+    positions: List(positions),
     pressureAltitudes: List(trace.fixes.map(f => f.pressureAltitude)),
     gpsAltitudes: List(trace.fixes.map(f => f.gpsAltitude)),
     timeIndex: 0,
     maxTimeIndex: trace.fixes.length - 1,
     currentPosition: trace.fixes[0].position,
     currentAltitude: trace.fixes[0].gpsAltitude,
-    currentTimestamp: trace.fixes[0].timestamp
+    currentTimestamp: trace.fixes[0].timestamp,
+    defaultMapLocation: Map({
+      bounds: calculateBounds(positions)
+    })
   });
 };
 

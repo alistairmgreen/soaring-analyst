@@ -11,60 +11,24 @@ class FlightMap extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    const {flightPath} = props;
-    let defaultLocation;
+    this.state = {
+      defaultLocation: props.defaultLocation.toObject()
+    };
 
-    if (flightPath) {
-      defaultLocation = {
-        bounds: this.calculateBounds(flightPath)
-      };
-    }
-    else {
-      defaultLocation = {
-        center: { lat: 0, lng: 0 },
-        zoom: 1
-      };
-    }
-
-    this.state = { defaultLocation };
-
-    this.zoomToFlightPath = this.zoomToFlightPath.bind(this);
+    this.setMapToDefaultLocation = this.setMapToDefaultLocation.bind(this);
     this.zoomToWaypoint = this.zoomToWaypoint.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.flightPath !== this.props.flightPath) {
-      this.setState({
-        defaultLocation: {
-          bounds: this.calculateBounds(nextProps.flightPath)
-        }
-      });
+    if (nextProps.defaultLocation !== this.props.defaultLocation) {
+       this.setMapToDefaultLocation();
     }
   }
 
-  calculateBounds(flightPath) {
-    const firstPoint = flightPath.get(0);
-    return flightPath.reduce((previous, current) => {
-      return {
-        north: Math.max(previous.north, current.lat),
-        south: Math.min(previous.south, current.lat),
-        west: Math.min(previous.west, current.lng),
-        east: Math.max(previous.east, current.lng)
-      };
-    }, {
-        north: firstPoint.lat,
-        south: firstPoint.lat,
-        west: firstPoint.lng,
-        east: firstPoint.lng
-      });
-  }
-
-  zoomToFlightPath() {
+  setMapToDefaultLocation() {
     this.setState((prevState, props) => {
       return {
-        defaultLocation: {
-          bounds: this.calculateBounds(props.flightPath)
-        }
+        defaultLocation: props.defaultLocation.toObject()
       };
     });
   }
@@ -85,7 +49,7 @@ class FlightMap extends React.Component {
     return (
       <div>
         <MapToolbar waypointNames={this.props.task.map(waypoint => waypoint.get('name'))}
-          zoomToFlightPath={this.zoomToFlightPath}
+          zoomToFlightPath={this.setMapToDefaultLocation}
           zoomToWaypoint={this.zoomToWaypoint} />
 
         <GoogleMap googlemaps={global.google.maps} defaultLocation={this.state.defaultLocation} >
@@ -106,7 +70,8 @@ class FlightMap extends React.Component {
 FlightMap.propTypes = {
   flightPath: PropTypes.instanceOf(List),
   currentPosition: PropTypes.object,
-  task: PropTypes.instanceOf(List)
+  task: PropTypes.instanceOf(List),
+  defaultLocation: PropTypes.object.isRequired
 };
 
 export default FlightMap;

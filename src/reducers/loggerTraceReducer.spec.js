@@ -1,3 +1,4 @@
+import { describe, it } from 'mocha';
 import chai from 'chai';
 import chaiImmutable from 'chai-immutable';
 import chaiMoment from 'chai-moment';
@@ -154,6 +155,18 @@ describe('Logger trace reducer', function () {
     it('sets the current timestamp equal to the first timestamp', function () {
       newState.get(keys.CURRENT_TIMESTAMP)
         .should.be.sameMoment(stubLoggerTrace.fixes[0].timestamp);
+    });
+
+    it('sets the default map view to the bounds of the flight path', function() {
+      newState.get(keys.DEFAULT_MAP_LOCATION).toObject()
+        .should.deep.equal({
+          bounds: {
+            north: 1.23,
+            south: 1.2,
+            west: 3.4,
+            east: 3.45
+          }
+        });
     });
   });
 

@@ -25,3 +25,5 @@ export const CURRENT_POSITION = 'currentPosition';
 export const CURRENT_ALTITUDE = 'currentAltitude';
 
 export const CURRENT_TIMESTAMP = 'currentTimestamp';
+
+export const DEFAULT_MAP_LOCATION = 'defaultMapLocation';
