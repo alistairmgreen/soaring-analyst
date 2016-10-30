@@ -2,16 +2,12 @@ import { push } from 'react-router-redux';
 import parseIGC from '../parser/parseIGC';
 import * as ACTION from './actionTypes';
 
-
-
 export function deleteTurnpoint(index) {
   return {
     type: ACTION.DELETE_TURNPOINT,
     index: index
   };
 }
-
-
 
 export function fileLoading(fileName) {
   return {
@@ -20,7 +16,6 @@ export function fileLoading(fileName) {
   };
 }
 
-
 export function loadFileSuccess(fileName, loggerTrace) {
   return {
     type: ACTION.LOAD_FILE_SUCCESS,
@@ -28,7 +23,6 @@ export function loadFileSuccess(fileName, loggerTrace) {
     loggerTrace
   };
 }
-
 
 export function loadFileFailure(errorMessage) {
   return {
@@ -47,7 +41,7 @@ export function loadFile(file) {
       try {
         let igc = parseIGC(reader.result);
         dispatch(loadFileSuccess(fileName, igc));
-        dispatch(push("/igcview"));
+        dispatch(push("/igcmap"));
       }
       catch(exception) {
         let message = exception.message || "An error has occurred.";
