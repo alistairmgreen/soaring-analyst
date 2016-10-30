@@ -49,7 +49,8 @@ class FlightMap extends React.Component {
     return (
       <div>
         <MapToolbar waypointNames={this.props.task.map(waypoint => waypoint.get('name'))}
-          zoomToFlightPath={this.setMapToDefaultLocation}
+          zoomToFit={this.setMapToDefaultLocation}
+          zoomToFitLabel={this.props.zoomToFitLabel}
           zoomToWaypoint={this.zoomToWaypoint} />
 
         <GoogleMap googlemaps={global.google.maps} defaultLocation={this.state.defaultLocation} >
@@ -71,7 +72,8 @@ FlightMap.propTypes = {
   flightPath: PropTypes.instanceOf(List),
   currentPosition: PropTypes.object,
   task: PropTypes.instanceOf(List),
-  defaultLocation: PropTypes.object.isRequired
+  defaultLocation: PropTypes.object.isRequired,
+  zoomToFitLabel: PropTypes.string.isRequired
 };
 
 export default FlightMap;

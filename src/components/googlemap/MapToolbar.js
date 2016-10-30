@@ -34,7 +34,7 @@ function MapToolbar(props) {
             <Glyphicon bsClass="fa" glyph="search" /> &nbsp; Zoom to...
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <MenuItem onClick={props.zoomToFlightPath}><strong>Flight path</strong></MenuItem>
+            <MenuItem onClick={props.zoomToFit}><strong>{props.zoomToFitLabel}</strong></MenuItem>
             <MenuItem divider />
             {waypointItems}
           </Dropdown.Menu>
@@ -46,7 +46,8 @@ function MapToolbar(props) {
 
 MapToolbar.propTypes = {
   waypointNames: PropTypes.instanceOf(List),
-  zoomToFlightPath: PropTypes.func.isRequired,
+  zoomToFit: PropTypes.func.isRequired,
+  zoomToFitLabel: PropTypes.string.isRequired,
   zoomToWaypoint: PropTypes.func
 };
 
