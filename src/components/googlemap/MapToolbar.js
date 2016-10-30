@@ -29,7 +29,7 @@ function MapToolbar(props) {
   return (
     <ButtonToolbar>
       <ButtonGroup bsSize="large">
-        <Dropdown>
+        <Dropdown id="MapMenu">
           <Dropdown.Toggle>
             <Glyphicon bsClass="fa" glyph="search" /> &nbsp; Zoom to...
           </Dropdown.Toggle>
