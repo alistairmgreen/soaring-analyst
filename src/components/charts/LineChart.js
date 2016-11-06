@@ -32,7 +32,8 @@ class LineChart extends React.Component {
             position: 'bottom'
           }]
         },
-        legend: { display: false }
+        legend: { display: false },
+        maintainAspectRatio: false
       }
     });
   }
@@ -48,8 +49,9 @@ class LineChart extends React.Component {
 
   render() {
     return (
-      <canvas ref={c => { this.chartCanvas = c; }}
-        style={{ width: '100%', height: '100px' }} />
+      <div style={{ width: '100%', height: '50vh' }}>
+        <canvas ref={c => { this.chartCanvas = c; }}/>
+      </div>
     );
   }
 }
