@@ -25,7 +25,8 @@ function BarogramPage(props) {
 
             <Barogram timestamps={trace.get(keys.TIMESTAMPS)}
               altitudes={trace.get(keys.GPS_ALTITUDES)}
-              currentTime={currentTime} />
+              currentTime={currentTime}
+              onPlotClick={props.actions.setTimeIndex}/>
         </div>
     );
 }

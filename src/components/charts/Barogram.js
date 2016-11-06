@@ -26,7 +26,7 @@ class Barogram extends React.Component {
     const data = this.createDataArray();
 
     return (
-      <LineChart data={data} currentTime={this.props.currentTime} />
+      <LineChart data={data} currentTime={this.props.currentTime} onPlotClick={this.props.onPlotClick} />
     );
   }
 }
@@ -34,7 +34,8 @@ class Barogram extends React.Component {
 Barogram.propTypes = {
   timestamps: PropTypes.instanceOf(List).isRequired,
   altitudes: PropTypes.instanceOf(List).isRequired,
-  currentTime: PropTypes.instanceOf(moment).isRequired
+  currentTime: PropTypes.instanceOf(moment).isRequired,
+  onPlotClick: PropTypes.func
 };
 
 export default Barogram;

@@ -6,6 +6,8 @@ import moment from 'moment';
 class LineChart extends React.Component {
   constructor(props, context) {
     super(props, context);
+
+    this.onCanvasClick = this.onCanvasClick.bind(this);
   }
 
   componentDidMount() {
@@ -55,7 +57,9 @@ class LineChart extends React.Component {
 
         hover: {
           mode: 'x-axis'
-        }
+        },
+
+        onClick: this.onCanvasClick
       }
     });
   }
@@ -71,10 +75,18 @@ class LineChart extends React.Component {
     this.chart.destroy();
   }
 
+  onCanvasClick(event, elements) {
+    let chartElement = elements[0];
+    if (chartElement && this.props.onPlotClick){
+      this.props.onPlotClick(chartElement._index);
+    }
+  }
+
   render() {
     return (
       <div style={{ width: '100%', height: '50vh' }}>
-        <canvas ref={c => { this.chartCanvas = c; } } style={{ cursor: 'crosshair' }} />
+        <canvas ref={c => { this.chartCanvas = c; }}
+          style={{ cursor: 'crosshair' }}/>
       </div>
     );
   }
@@ -82,7 +94,8 @@ class LineChart extends React.Component {
 
 LineChart.propTypes = {
   data: PropTypes.array.isRequired,
-  currentTime: PropTypes.instanceOf(moment).isRequired
+  currentTime: PropTypes.instanceOf(moment).isRequired,
+  onPlotClick: PropTypes.func
 };
 
 export default LineChart;
