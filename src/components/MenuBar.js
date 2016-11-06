@@ -40,19 +40,19 @@ function MenuBar(props) {
           )}
           {props.fileLoaded && (
             <LinkContainer to="/igcmap">
-            <NavItem>
-              <Glyphicon bsClass="fa" glyph="map" />
-              &nbsp;
-            Map View
+              <NavItem>
+                <Glyphicon bsClass="fa" glyph="map" />
+                &nbsp; Map View
             </NavItem>
             </LinkContainer>
           )}
           {props.fileLoaded && (
-            <NavItem>
-              <Glyphicon bsClass="fa" glyph="area-chart" />
-              &nbsp;
-            Barogram View
+            <LinkContainer to="/barogram">
+              <NavItem>
+                <Glyphicon bsClass="fa" glyph="area-chart" />
+                &nbsp; Barogram View
             </NavItem>
+            </LinkContainer>
           )}
           {props.fileLoaded && (
             <NavItem>

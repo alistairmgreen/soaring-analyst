@@ -6,6 +6,7 @@ import HomePage from './components/HomePage';
 import TaskPlannerPage from './containers/TaskPlannerPage'; // eslint-disable-line import/no-named-as-default
 import IgcViewerPage from './containers/IgcViewerPage'; // eslint-disable-line import/no-named-as-default
 import IgcMapPage from './containers/IgcMapPage'; // eslint-disable-line import/no-named-as-default
+import BarogramPage from './containers/BarogramPage'; // eslint-disable-line import/no-named-as-default
 
 export default (
   <Route path="/" component={App}>
@@ -13,6 +14,7 @@ export default (
     <Route path="task" component={TaskPlannerPage}/>
     <Route path="igcview" component={IgcViewerPage}/>
     <Route path="igcmap" component={IgcMapPage}/>
+    <Route path="barogram" component={BarogramPage} />
     <Route path="*" component={HomePage}/>
   </Route>
 );
