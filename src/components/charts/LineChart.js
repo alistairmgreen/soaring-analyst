@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 import Chart from 'chart.js';
+import 'chartjs-plugin-annotation';
+import moment from 'moment';
 
 class LineChart extends React.Component {
   constructor(props, context) {
@@ -7,7 +9,7 @@ class LineChart extends React.Component {
   }
 
   componentDidMount() {
-    const { data } = this.props;
+    const { data, currentTime } = this.props;
     this.chart = new Chart(this.chartCanvas, {
       type: 'line',
       data: {
@@ -30,18 +32,34 @@ class LineChart extends React.Component {
               }
             },
             position: 'bottom'
-          }]
+          }],
         },
+
         legend: { display: false },
+
         maintainAspectRatio: false,
-        animation: false
+
+        animation: false,
+
+        annotation: {
+          annotations: [{
+            type: 'line',
+            mode: 'vertical',
+            scaleID: 'x-axis-0',
+            value: currentTime,
+            borderColor: 'red',
+            borderWidth: 1
+          }]
+        }
       }
     });
   }
 
   componentDidUpdate() {
-    this.chart.data.datasets[0].data = this.props.data;
-    this.chart.update();
+    const chart = this.chart;
+    chart.data.datasets[0].data = this.props.data;
+    chart.options.annotation.annotations[0].value = this.props.currentTime;
+    chart.update();
   }
 
   componentWillUnmount() {
@@ -51,14 +69,15 @@ class LineChart extends React.Component {
   render() {
     return (
       <div style={{ width: '100%', height: '50vh' }}>
-        <canvas ref={c => { this.chartCanvas = c; }}/>
+        <canvas ref={c => { this.chartCanvas = c; }} />
       </div>
     );
   }
 }
 
 LineChart.propTypes = {
-  data: PropTypes.array.isRequired
+  data: PropTypes.array.isRequired,
+  currentTime: PropTypes.instanceOf(moment).isRequired
 };
 
 export default LineChart;

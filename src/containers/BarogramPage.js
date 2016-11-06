@@ -13,16 +13,19 @@ BarogramPage.propTypes = {
 
 function BarogramPage(props) {
     const trace = props.loggerTrace;
+    const currentTime = trace.get(keys.CURRENT_TIMESTAMP);
 
     return(
         <div>
             <Timeline timeIndex={trace.get(keys.TIME_INDEX)}
                       max={trace.get(keys.MAX_TIME_INDEX)}
-                      currentTime={trace.get(keys.CURRENT_TIMESTAMP)}
+                      currentTime={currentTime}
                       currentAltitude={trace.get(keys.CURRENT_ALTITUDE)}
                       setTimeIndex={props.actions.setTimeIndex} />
 
-            <Barogram timestamps={trace.get(keys.TIMESTAMPS)} altitudes={trace.get(keys.GPS_ALTITUDES)} />
+            <Barogram timestamps={trace.get(keys.TIMESTAMPS)}
+              altitudes={trace.get(keys.GPS_ALTITUDES)}
+              currentTime={currentTime} />
         </div>
     );
 }

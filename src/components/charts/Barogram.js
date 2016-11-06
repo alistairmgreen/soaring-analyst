@@ -1,11 +1,13 @@
 import React, { PropTypes } from 'react';
 import { List } from 'immutable';
+import moment from 'moment';
 import LineChart from './LineChart';
 
 class Barogram extends React.Component {
   shouldComponentUpdate(nextProps) {
     return (nextProps.timestamps !== this.props.timestamps) ||
-      (nextProps.altitudes !== this.props.altitudes);
+      (nextProps.altitudes !== this.props.altitudes) ||
+      (nextProps.currentTime !== this.props.currentTime);
   }
 
   createDataArray() {
@@ -24,14 +26,15 @@ class Barogram extends React.Component {
     const data = this.createDataArray();
 
     return (
-      <LineChart data={data} />
+      <LineChart data={data} currentTime={this.props.currentTime} />
     );
   }
 }
 
 Barogram.propTypes = {
   timestamps: PropTypes.instanceOf(List).isRequired,
-  altitudes: PropTypes.instanceOf(List).isRequired
+  altitudes: PropTypes.instanceOf(List).isRequired,
+  currentTime: PropTypes.instanceOf(moment).isRequired
 };
 
 export default Barogram;

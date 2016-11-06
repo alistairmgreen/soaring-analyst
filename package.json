@@ -30,6 +30,7 @@
   "dependencies": {
     "chai-immutable": "1.6.0",
     "chart.js": "2.3.0",
+    "chartjs-plugin-annotation": "0.2.0",
     "immutable": "3.8.1",
     "moment": "2.15.1",
     "object-assign": "4.1.0",
