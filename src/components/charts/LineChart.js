@@ -33,7 +33,8 @@ class LineChart extends React.Component {
           }]
         },
         legend: { display: false },
-        maintainAspectRatio: false
+        maintainAspectRatio: false,
+        animation: false
       }
     });
   }
