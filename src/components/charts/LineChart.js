@@ -29,7 +29,8 @@ class LineChart extends React.Component {
               displayFormats: {
                 hour: 'HH:mm',
                 minute: 'HH:mm'
-              }
+              },
+              tooltipFormat: 'HH:mm:ss'
             },
             position: 'bottom'
           }],
@@ -50,6 +51,10 @@ class LineChart extends React.Component {
             borderColor: 'red',
             borderWidth: 1
           }]
+        },
+
+        hover: {
+          mode: 'x-axis'
         }
       }
     });
@@ -69,7 +74,7 @@ class LineChart extends React.Component {
   render() {
     return (
       <div style={{ width: '100%', height: '50vh' }}>
-        <canvas ref={c => { this.chartCanvas = c; }} />
+        <canvas ref={c => { this.chartCanvas = c; } } style={{ cursor: 'crosshair' }} />
       </div>
     );
   }
