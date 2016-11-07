@@ -48,11 +48,18 @@ class Barogram extends React.Component {
       fill: false
     }];
 
-    const timeIndicator = [{
+    const crosshair = [{
       type: 'line',
       mode: 'vertical',
       scaleID: 'x-axis-0',
       value: this.props.currentTime,
+      borderColor: 'red',
+      borderWidth: 1
+    }, {
+      type: 'line',
+      mode: 'horizontal',
+      scaleID: 'y-axis-0',
+      value: this.props.currentAltitude,
       borderColor: 'red',
       borderWidth: 1
     }];
@@ -71,7 +78,7 @@ class Barogram extends React.Component {
 
     return (
       <LineChart dataSets={dataSets}
-        annotations={timeIndicator}
+        annotations={crosshair}
         hoverMode="x-axis"
         onPlotClick={this.props.onPlotClick}
         xAxis={xAxis} />
@@ -83,6 +90,7 @@ Barogram.propTypes = {
   timestamps: PropTypes.instanceOf(List).isRequired,
   altitudes: PropTypes.instanceOf(List).isRequired,
   currentTime: PropTypes.instanceOf(moment).isRequired,
+  currentAltitude: PropTypes.number.isRequired,
   onPlotClick: PropTypes.func
 };
 
