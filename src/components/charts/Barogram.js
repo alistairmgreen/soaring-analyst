@@ -23,10 +23,41 @@ class Barogram extends React.Component {
   }
 
   render() {
-    const data = this.createDataArray();
+    const dataSets = [{
+      data: this.createDataArray(),
+      pointRadius: 0,
+      borderColor: '#0000FF',
+      borderWidth: 1,
+      fill: false
+    }];
+
+    const timeIndicator = [{
+      type: 'line',
+      mode: 'vertical',
+      scaleID: 'x-axis-0',
+      value: this.props.currentTime,
+      borderColor: 'red',
+      borderWidth: 1
+    }];
+
+    const xAxis = {
+      type: 'time',
+      time: {
+        displayFormats: {
+          hour: 'HH:mm',
+          minute: 'HH:mm'
+        },
+        tooltipFormat: 'HH:mm:ss'
+      },
+      position: 'bottom'
+    };
 
     return (
-      <LineChart data={data} currentTime={this.props.currentTime} onPlotClick={this.props.onPlotClick} />
+      <LineChart dataSets={dataSets}
+        annotations={timeIndicator}
+        hoverMode="x-axis"
+        onPlotClick={this.props.onPlotClick}
+        xAxis={xAxis} />
     );
   }
 }

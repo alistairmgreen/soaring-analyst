@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import Chart from 'chart.js';
 import 'chartjs-plugin-annotation';
-import moment from 'moment';
 
 class LineChart extends React.Component {
   constructor(props, context) {
@@ -11,63 +10,17 @@ class LineChart extends React.Component {
   }
 
   componentDidMount() {
-    const { data, currentTime } = this.props;
-    this.chart = new Chart(this.chartCanvas, {
-      type: 'line',
-      data: {
-        datasets: [{
-          data: data,
-          pointRadius: 0,
-          borderColor: '#0000FF',
-          borderWidth: 1,
-          fill: false
-        }]
-      },
-      options: {
-        scales: {
-          xAxes: [{
-            type: 'time',
-            time: {
-              displayFormats: {
-                hour: 'HH:mm',
-                minute: 'HH:mm'
-              },
-              tooltipFormat: 'HH:mm:ss'
-            },
-            position: 'bottom'
-          }],
-        },
-
-        legend: { display: false },
-
-        maintainAspectRatio: false,
-
-        animation: false,
-
-        annotation: {
-          annotations: [{
-            type: 'line',
-            mode: 'vertical',
-            scaleID: 'x-axis-0',
-            value: currentTime,
-            borderColor: 'red',
-            borderWidth: 1
-          }]
-        },
-
-        hover: {
-          mode: 'x-axis'
-        },
-
-        onClick: this.onCanvasClick
-      }
-    });
+    this.chart = new Chart(this.chartCanvas,
+      Object.assign({},
+        this.getChartSettings(), {
+          data: { datasets: this.props.dataSets }
+        }));
   }
 
   componentDidUpdate() {
     const chart = this.chart;
-    chart.data.datasets[0].data = this.props.data;
-    chart.options.annotation.annotations[0].value = this.props.currentTime;
+    chart.data.datasets = this.props.dataSets;
+    chart.options.annotation.annotations = this.props.annotations;
     chart.update();
   }
 
@@ -75,9 +28,37 @@ class LineChart extends React.Component {
     this.chart.destroy();
   }
 
+  getChartSettings() {
+    const defaults = {
+      type: 'line',
+
+      options: {
+        animation: this.props.animate,
+
+        annotation: {
+          annotations: this.props.annotations
+        },
+
+        hover: { mode: this.props.hoverMode },
+
+        legend: { display: this.props.showLegend },
+
+        maintainAspectRatio: this.props.maintainAspectRatio,
+
+        scales: {
+          xAxes: [this.props.xAxis]
+        },
+
+        onClick: this.onCanvasClick
+      }
+    };
+
+    return Object.assign({}, defaults, this.props.settings);
+  }
+
   onCanvasClick(event, elements) {
     let chartElement = elements[0];
-    if (chartElement && this.props.onPlotClick){
+    if (chartElement && this.props.onPlotClick) {
       this.props.onPlotClick(chartElement._index);
     }
   }
@@ -86,16 +67,31 @@ class LineChart extends React.Component {
     return (
       <div style={{ width: '100%', height: '50vh' }}>
         <canvas ref={c => { this.chartCanvas = c; }}
-          style={{ cursor: 'crosshair' }}/>
+          style={{ cursor: 'crosshair' }} />
       </div>
     );
   }
 }
 
 LineChart.propTypes = {
-  data: PropTypes.array.isRequired,
-  currentTime: PropTypes.instanceOf(moment).isRequired,
-  onPlotClick: PropTypes.func
+  animate: PropTypes.bool,
+  annotations: PropTypes.array,
+  dataSets: PropTypes.arrayOf(PropTypes.object).isRequired,
+  hoverMode: PropTypes.string,
+  maintainAspectRatio: PropTypes.bool,
+  onPlotClick: PropTypes.func,
+  settings: PropTypes.object,
+  showLegend: PropTypes.bool,
+  xAxis: PropTypes.object.isRequired
+};
+
+LineChart.defaultProps = {
+  annotations: [],
+  hoverMode: 'single',
+  settings: {},
+  showLegend: false,
+  maintainAspectRatio: false,
+  animate: false
 };
 
 export default LineChart;
