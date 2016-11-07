@@ -4,15 +4,32 @@ import moment from 'moment';
 import LineChart from './LineChart';
 
 class Barogram extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = {
+      dataArray: this.createDataArray(this.props.timestamps, this.props.altitudes)
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { timestamps, altitudes } = nextProps;
+    if ((timestamps !== this.props.timestamps) ||
+        (altitudes !== this.props.altitudes)) {
+      this.setState({
+        dataArray: this.createDataArray(timestamps, altitudes)
+      });
+    }
+  }
+
   shouldComponentUpdate(nextProps) {
     return (nextProps.timestamps !== this.props.timestamps) ||
       (nextProps.altitudes !== this.props.altitudes) ||
       (nextProps.currentTime !== this.props.currentTime);
   }
 
-  createDataArray() {
+  createDataArray(timestamps, altitudes) {
     let data = [];
-    const { timestamps, altitudes } = this.props;
     const nPoints = timestamps.count();
 
     for (let j = 0; j < nPoints; j++) {
@@ -24,7 +41,7 @@ class Barogram extends React.Component {
 
   render() {
     const dataSets = [{
-      data: this.createDataArray(),
+      data: this.state.dataArray,
       pointRadius: 0,
       borderColor: '#0000FF',
       borderWidth: 1,
