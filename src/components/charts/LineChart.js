@@ -46,7 +46,8 @@ class LineChart extends React.Component {
         maintainAspectRatio: this.props.maintainAspectRatio,
 
         scales: {
-          xAxes: [this.props.xAxis]
+          xAxes: [this.props.xAxis],
+          yAxes: [this.props.yAxis]
         },
 
         onClick: this.onCanvasClick
@@ -82,7 +83,8 @@ LineChart.propTypes = {
   onPlotClick: PropTypes.func,
   settings: PropTypes.object,
   showLegend: PropTypes.bool,
-  xAxis: PropTypes.object.isRequired
+  xAxis: PropTypes.object.isRequired,
+  yAxis: PropTypes.object
 };
 
 LineChart.defaultProps = {
@@ -91,7 +93,8 @@ LineChart.defaultProps = {
   settings: {},
   showLegend: false,
   maintainAspectRatio: false,
-  animate: false
+  animate: false,
+  yAxis: {}
 };
 
 export default LineChart;

@@ -15,7 +15,7 @@ class Barogram extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { timestamps, altitudes } = nextProps;
     if ((timestamps !== this.props.timestamps) ||
-        (altitudes !== this.props.altitudes)) {
+      (altitudes !== this.props.altitudes)) {
       this.setState({
         dataArray: this.createDataArray(timestamps, altitudes)
       });
@@ -73,7 +73,18 @@ class Barogram extends React.Component {
         },
         tooltipFormat: 'HH:mm:ss'
       },
-      position: 'bottom'
+      position: 'bottom',
+      scaleLabel: {
+        display: true,
+        labelString: 'Time'
+      }
+    };
+
+    const yAxis = {
+      scaleLabel: {
+        display: true,
+        labelString: 'GPS Altitude / Metres'
+      }
     };
 
     return (
@@ -81,7 +92,8 @@ class Barogram extends React.Component {
         annotations={crosshair}
         hoverMode="x-axis"
         onPlotClick={this.props.onPlotClick}
-        xAxis={xAxis} />
+        xAxis={xAxis}
+        yAxis={yAxis} />
     );
   }
 }
