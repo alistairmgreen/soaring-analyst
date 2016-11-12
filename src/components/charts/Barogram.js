@@ -76,7 +76,7 @@ class Barogram extends React.Component {
       position: 'bottom',
       scaleLabel: {
         display: true,
-        labelString: 'Time'
+        labelString: this.props.timeZoneName
       }
     };
 
@@ -103,6 +103,7 @@ Barogram.propTypes = {
   altitudes: PropTypes.instanceOf(List).isRequired,
   currentTime: PropTypes.instanceOf(moment).isRequired,
   currentAltitude: PropTypes.number.isRequired,
+  timeZoneName: PropTypes.string.isRequired,
   onPlotClick: PropTypes.func
 };
 

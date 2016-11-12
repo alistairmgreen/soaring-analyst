@@ -27,3 +27,5 @@ export const CURRENT_ALTITUDE = 'currentAltitude';
 export const CURRENT_TIMESTAMP = 'currentTimestamp';
 
 export const DEFAULT_MAP_LOCATION = 'defaultMapLocation';
+
+export const TIME_ZONE_NAME = 'timeZoneName';

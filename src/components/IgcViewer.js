@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import { List } from 'immutable';
 import LoggerTraceDisplay from './loggertrace/LoggerTraceDisplay';
 import StartupBanner from './loggertrace/StartupBanner';
 import LoadingDialog from './loggertrace/LoadingDialog';
@@ -20,7 +21,7 @@ class IgcViewer extends React.Component {
 
     if(trace.get(keys.FILE_LOADED)) {
       return (
-        <LoggerTraceDisplay loggerTrace={trace} actions={this.props.actions} />
+        <LoggerTraceDisplay loggerTrace={trace} timestamps={this.props.timestamps} actions={this.props.actions} />
       );
     }
 
@@ -35,6 +36,7 @@ class IgcViewer extends React.Component {
 IgcViewer.propTypes = {
   task: PropTypes.object,
   loggerTrace: PropTypes.object,
+  timestamps: PropTypes.instanceOf(List).isRequired,
   actions: PropTypes.objectOf(PropTypes.func)
 };
 

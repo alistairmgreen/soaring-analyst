@@ -108,13 +108,6 @@ describe('Logger trace reducer', function () {
       newState.get(keys.HEADERS).should.equal(fromJS(stubLoggerTrace.headers));
     });
 
-    it('sets a list of timestamps', function () {
-      newState.get(keys.TIMESTAMPS)
-        .should.equal(List.of(
-          stubLoggerTrace.fixes[0].timestamp,
-          stubLoggerTrace.fixes[1].timestamp));
-    });
-
     it('sets a list of positions', function () {
       newState.get(keys.POSITIONS)
         .should.equal(
@@ -134,14 +127,6 @@ describe('Logger trace reducer', function () {
         .should.equal(List([300, 310]));
     });
 
-    it('sets the selected time index to zero', function () {
-      newState.get(keys.TIME_INDEX).should.equal(0);
-    });
-
-    it('sets the maximum time index equal to the number of position fixes minus one', function () {
-      newState.get(keys.MAX_TIME_INDEX).should.equal(1);
-    });
-
     it('sets the current position equal to the first position fix', function () {
       newState.get(keys.CURRENT_POSITION)
         .should.equal(Map(stubLoggerTrace.fixes[0].position));
@@ -150,11 +135,6 @@ describe('Logger trace reducer', function () {
     it('sets the current altitude equal to the first GPS altitude', function () {
       newState.get(keys.CURRENT_ALTITUDE)
         .should.equal(stubLoggerTrace.fixes[0].gpsAltitude);
-    });
-
-    it('sets the current timestamp equal to the first timestamp', function () {
-      newState.get(keys.CURRENT_TIMESTAMP)
-        .should.be.sameMoment(stubLoggerTrace.fixes[0].timestamp);
     });
 
     it('sets the default map view to the bounds of the flight path', function() {
@@ -222,53 +202,9 @@ describe('Logger trace reducer', function () {
       newState = loggerTraceReducer(previousState, actions.setTimeIndex(EXPECTED_TIME_INDEX));
     });
 
-    it('sets the time index', function () {
-      newState.get(keys.TIME_INDEX)
-        .should.equal(EXPECTED_TIME_INDEX);
-    });
-
-    it('sets the current position to match the time index', function () {
-      newState.get(keys.CURRENT_POSITION)
-        .should.equal(Map({ lat: 3, lng: 4 }));
-    });
-
     it('sets the current altitude to match the GPS altitude for the time index', function () {
       newState.get(keys.CURRENT_ALTITUDE)
         .should.equal(1);
-    });
-
-    it('sets the current timestamp to match the time index', function () {
-      newState.get(keys.CURRENT_TIMESTAMP)
-        .should.be.sameMoment(moment.utc([2016, 10, 19, 8, 1, 0]));
-    });
-  });
-
-  describe('when the timezone is set', function() {
-    const previousState = Map({
-      currentTimestamp: moment.utc([2016, 10, 19, 8, 1, 0]),
-
-      timestamps: List.of(
-          moment.utc([2016, 10, 19, 8, 0, 0]),
-          moment.utc([2016, 10, 19, 8, 1, 0]),
-          moment.utc([2016, 10, 19, 8, 2, 0]))
-    });
-    const ONE_HOUR = 3600;
-
-    let newState;
-
-    beforeEach(function() {
-      newState = loggerTraceReducer(previousState, actions.setTimezone(ONE_HOUR));
-    });
-
-    it('adjusts the timezones of all timestamps', function() {
-      let newTimestamps = newState.get(keys.TIMESTAMPS);
-      newTimestamps.forEach(t => t.utcOffset().should.equal(60));
-    });
-
-    it('adjusts the timezone of the current timestamp', function() {
-      newState.get(keys.CURRENT_TIMESTAMP)
-        .utcOffset()
-        .should.equal(60);
     });
   });
 });

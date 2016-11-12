@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import moment from 'moment';
+import { List } from 'immutable';
 import FlightMap from '../components/googlemap/FlightMap';
 import Timeline from '../components/Timeline';
 import * as actionCreators from '../actions/actions';
@@ -14,9 +16,9 @@ export function IgcMapPage(props) {
 
   return (
     <div>
-      <Timeline timeIndex={trace.get(keys.TIME_INDEX)}
-        max={trace.get(keys.MAX_TIME_INDEX)}
-        currentTime={trace.get(keys.CURRENT_TIMESTAMP)}
+      <Timeline timeIndex={props.timeIndex}
+        max={props.maxTimeIndex}
+        currentTime={props.currentTime}
         currentAltitude={trace.get(keys.CURRENT_ALTITUDE)}
         setTimeIndex={props.actions.setTimeIndex} />
 
@@ -32,13 +34,21 @@ export function IgcMapPage(props) {
 IgcMapPage.propTypes = {
   task: PropTypes.object.isRequired,
   loggerTrace: PropTypes.object.isRequired,
+  timeIndex: PropTypes.number.isRequired,
+  maxTimeIndex: PropTypes.number.isRequired,
+  currentTime: PropTypes.instanceOf(moment).isRequired,
+  timestamps: PropTypes.instanceOf(List).isRequired,
   actions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
   return {
     task: state.task.get(TASK_STATE.WAYPOINTS),
-    loggerTrace: state.loggerTrace
+    loggerTrace: state.loggerTrace,
+    timeIndex: state.time.get(keys.TIME_INDEX),
+    maxTimeIndex: state.time.get(keys.MAX_TIME_INDEX),
+    timestamps: state.time.get(keys.TIMESTAMPS),
+    currentTime: state.time.get(keys.CURRENT_TIMESTAMP)
   };
 }
 

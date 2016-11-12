@@ -11,10 +11,11 @@ export function deleteTurnpoint(index) {
   };
 }
 
-export function setTimezone(offsetSeconds) {
+export function setTimezone(offsetSeconds, timeZoneName) {
   return {
     type: ACTION.SET_TIMEZONE,
-    offsetSeconds: offsetSeconds
+    offsetSeconds: offsetSeconds,
+    timeZoneName: timeZoneName
   };
 }
 
@@ -29,7 +30,7 @@ export function detectTimezone(options) {
       .then(response => {
         if (response.status === 'OK') {
           let offset = response.rawOffset + response.dstOffset;
-          dispatch(setTimezone(offset));
+          dispatch(setTimezone(offset, response.timeZoneName));
         }
       })
       .catch(); // Silently ignore errors; we will just display UTC.

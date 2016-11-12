@@ -1,4 +1,4 @@
-import { Map, fromJS } from 'immutable';
+import { List, Map, fromJS } from 'immutable';
 
 export const initialTask = fromJS({
   waypoints: [
@@ -43,4 +43,10 @@ export const emptyLoggerTrace = Map({
   fileLoadInProgress: false,
   fileName: "",
   errorMessage: ""
+});
+
+export const defaultTime = Map({
+  timeZoneName: "Coordinated Universal Time",
+  timestamps: new List(),
+  currentTimestamp: 0
 });
