@@ -21,6 +21,10 @@ class LineChart extends React.Component {
     const chart = this.chart;
     chart.data.datasets = this.props.dataSets;
     chart.options.annotation.annotations = this.props.annotations;
+
+    chart.options.scales.xAxes[0].scaleLabel.labelString = this.props.xLabel;
+    chart.options.scales.yAxes[0].scaleLabel.labelString = this.props.yLabel;
+
     chart.update();
   }
 
@@ -46,8 +50,8 @@ class LineChart extends React.Component {
         maintainAspectRatio: this.props.maintainAspectRatio,
 
         scales: {
-          xAxes: [this.props.xAxis],
-          yAxes: [this.props.yAxis]
+          xAxes: [Object.assign({}, this.props.xAxis, { scaleLabel: { display: true, labelString: this.props.xLabel }})],
+          yAxes: [Object.assign({}, this.props.yAxis, { scaleLabel: { display: true, labelString: this.props.yLabel }})]
         },
 
         onClick: this.onCanvasClick
@@ -83,8 +87,10 @@ LineChart.propTypes = {
   onPlotClick: PropTypes.func,
   settings: PropTypes.object,
   showLegend: PropTypes.bool,
-  xAxis: PropTypes.object.isRequired,
-  yAxis: PropTypes.object
+  xAxis: PropTypes.object,
+  xLabel: PropTypes.string,
+  yAxis: PropTypes.object,
+  yLabel: PropTypes.string
 };
 
 LineChart.defaultProps = {
@@ -94,7 +100,10 @@ LineChart.defaultProps = {
   showLegend: false,
   maintainAspectRatio: false,
   animate: false,
-  yAxis: {}
+  xAxis: {},
+  xLabel: '',
+  yAxis: {},
+  yLabel: ''
 };
 
 export default LineChart;

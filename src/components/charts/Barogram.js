@@ -73,29 +73,19 @@ class Barogram extends React.Component {
         },
         tooltipFormat: 'HH:mm:ss'
       },
-      position: 'bottom',
-      scaleLabel: {
-        display: true,
-        labelString: this.props.timeZoneName
-      }
+      position: 'bottom'
     };
 
-    const { altitudeUnit, altitudeSource } = this.props;
-
-    const yAxis = {
-      scaleLabel: {
-        display: true,
-        labelString: `${altitudeSource} Altitude / ${altitudeUnit}`
-      }
-    };
+    const { altitudeUnit, altitudeSource, timeZoneName, onPlotClick } = this.props;
 
     return (
       <LineChart dataSets={dataSets}
         annotations={crosshair}
         hoverMode="x-axis"
-        onPlotClick={this.props.onPlotClick}
+        onPlotClick={onPlotClick}
         xAxis={xAxis}
-        yAxis={yAxis} />
+        xLabel={timeZoneName}
+        yLabel={`${altitudeSource} Altitude / ${altitudeUnit}`} />
     );
   }
 }
