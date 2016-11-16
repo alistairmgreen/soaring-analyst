@@ -96,3 +96,17 @@ export function setTimeIndex(index) {
     index
   };
 }
+
+export function setAltitudeUnit(unit) {
+  return {
+    type: ACTION.SET_ALTITUDE_UNIT,
+    unit
+  };
+}
+
+export function setAltitudeSource(source) {
+  return {
+    type: ACTION.SET_ALTITUDE_SOURCE,
+    source
+  };
+}

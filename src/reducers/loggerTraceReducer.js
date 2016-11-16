@@ -24,11 +24,7 @@ operations[actions.LOAD_FILE_SUCCESS] = function (state, action) {
     fileLoadInProgress: false,
     headers: fromJS(trace.headers),
     positions: List(positions),
-    pressureAltitudes: List(trace.fixes.map(f => f.pressureAltitude)),
-    gpsAltitudes: List(trace.fixes.map(f => f.gpsAltitude)),
     currentPosition: trace.fixes[0].position,
-    currentAltitude: trace.fixes[0].gpsAltitude,
-    currentTimestamp: trace.fixes[0].timestamp,
     defaultMapLocation: Map({
       bounds: calculateBounds(positions)
     })
@@ -47,7 +43,6 @@ operations[actions.SET_TIME_INDEX] = function (state, action) {
   let index = action.index;
   return state.merge({
     currentPosition: state.getIn([keys.POSITIONS, index]),
-    currentAltitude: state.getIn([keys.GPS_ALTITUDES, index]),
   });
 };
 

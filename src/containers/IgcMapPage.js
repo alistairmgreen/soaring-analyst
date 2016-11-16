@@ -19,14 +19,16 @@ export function IgcMapPage(props) {
       <Timeline timeIndex={props.timeIndex}
         max={props.maxTimeIndex}
         currentTime={props.currentTime}
-        currentAltitude={trace.get(keys.CURRENT_ALTITUDE)}
+        currentAltitude={props.currentAltitude}
+        altitudeUnit={props.altitudeUnitAbbreviation}
+        altitudeSource={props.altitudeSource}
         setTimeIndex={props.actions.setTimeIndex} />
 
-        <FlightMap flightPath={flightPath}
-          currentPosition={trace.get(keys.CURRENT_POSITION)}
-          task={props.task}
-          defaultLocation={trace.get(keys.DEFAULT_MAP_LOCATION)}
-          zoomToFitLabel="Flight path"/>
+      <FlightMap flightPath={flightPath}
+        currentPosition={trace.get(keys.CURRENT_POSITION)}
+        task={props.task}
+        defaultLocation={trace.get(keys.DEFAULT_MAP_LOCATION)}
+        zoomToFitLabel="Flight path" />
     </div>
   );
 }
@@ -38,18 +40,32 @@ IgcMapPage.propTypes = {
   maxTimeIndex: PropTypes.number.isRequired,
   currentTime: PropTypes.instanceOf(moment).isRequired,
   timestamps: PropTypes.instanceOf(List).isRequired,
+  altitudes: PropTypes.instanceOf(List).isRequired,
+  currentAltitude: PropTypes.number.isRequired,
+  altitudeUnit: PropTypes.string.isRequired,
+  altitudeUnitAbbreviation: PropTypes.string.isRequired,
+  altitudeSource: PropTypes.string.isRequired,
   actions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
-  return {
+  const timeIndex = state.time.get(keys.TIME_INDEX);
+
+  const props = {
     task: state.task.get(TASK_STATE.WAYPOINTS),
     loggerTrace: state.loggerTrace,
-    timeIndex: state.time.get(keys.TIME_INDEX),
+    timeIndex,
     maxTimeIndex: state.time.get(keys.MAX_TIME_INDEX),
     timestamps: state.time.get(keys.TIMESTAMPS),
-    currentTime: state.time.get(keys.CURRENT_TIMESTAMP)
+    currentTime: state.time.get(keys.CURRENT_TIMESTAMP),
+    altitudes: state.altitude.get(keys.ALTITUDES),
+    currentAltitude: state.altitude.getIn([keys.ALTITUDES, timeIndex]),
+    altitudeUnit: state.altitude.get(keys.ALTITUDE_UNIT),
+    altitudeUnitAbbreviation: state.altitude.get(keys.ALTITUDE_UNIT_ABBREVIATION),
+    altitudeSource: state.altitude.get(keys.ALTITUDE_SOURCE)
   };
+
+  return props;
 }
 
 function mapDispatchToProps(dispatch) {

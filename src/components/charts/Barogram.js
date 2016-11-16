@@ -80,10 +80,12 @@ class Barogram extends React.Component {
       }
     };
 
+    const { altitudeUnit, altitudeSource } = this.props;
+
     const yAxis = {
       scaleLabel: {
         display: true,
-        labelString: 'GPS Altitude / Metres'
+        labelString: `${altitudeSource} Altitude / ${altitudeUnit}`
       }
     };
 
@@ -101,6 +103,8 @@ class Barogram extends React.Component {
 Barogram.propTypes = {
   timestamps: PropTypes.instanceOf(List).isRequired,
   altitudes: PropTypes.instanceOf(List).isRequired,
+  altitudeUnit: PropTypes.string.isRequired,
+  altitudeSource: PropTypes.string.isRequired,
   currentTime: PropTypes.instanceOf(moment).isRequired,
   currentAltitude: PropTypes.number.isRequired,
   timeZoneName: PropTypes.string.isRequired,

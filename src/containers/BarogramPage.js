@@ -9,46 +9,58 @@ import * as actionCreators from '../actions/actions';
 import * as keys from '../constants/StateKeys';
 
 function BarogramPage(props) {
-    const trace = props.loggerTrace;
-    const currentAltitude = trace.get(keys.CURRENT_ALTITUDE);
-
     return(
         <div>
             <Timeline timeIndex={props.timeIndex}
                       max={props.maxTimeIndex}
                       currentTime={props.currentTime}
-                      currentAltitude={currentAltitude}
+                      currentAltitude={props.currentAltitude}
+                      altitudeUnit={props.altitudeUnitAbbreviation}
+                      altitudeSource={props.altitudeSource}
                       setTimeIndex={props.actions.setTimeIndex} />
 
             <Barogram timestamps={props.timestamps}
-              altitudes={trace.get(keys.GPS_ALTITUDES)}
+              altitudes={props.altitudes}
+              altitudeUnit={props.altitudeUnit}
+              altitudeSource={props.altitudeSource}
               currentTime={props.currentTime}
               timeZoneName ={props.timeZoneName}
-              currentAltitude={currentAltitude}
+              currentAltitude={props.currentAltitude}
               onPlotClick={props.actions.setTimeIndex}/>
         </div>
     );
 }
 
 BarogramPage.propTypes = {
-  loggerTrace: PropTypes.object.isRequired,
   timeIndex: PropTypes.number.isRequired,
   maxTimeIndex: PropTypes.number.isRequired,
   currentTime: PropTypes.instanceOf(moment).isRequired,
   timestamps: PropTypes.instanceOf(List).isRequired,
   timeZoneName: PropTypes.string.isRequired,
+  altitudes: PropTypes.instanceOf(List).isRequired,
+  currentAltitude: PropTypes.number.isRequired,
+  altitudeUnit: PropTypes.string.isRequired,
+  altitudeUnitAbbreviation: PropTypes.string.isRequired,
+  altitudeSource: PropTypes.string.isRequired,
   actions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
-  return {
-    timeIndex: state.time.get(keys.TIME_INDEX),
+  const timeIndex = state.time.get(keys.TIME_INDEX);
+  const props = {
+    timeIndex,
     maxTimeIndex: state.time.get(keys.MAX_TIME_INDEX),
     timestamps: state.time.get(keys.TIMESTAMPS),
     currentTime: state.time.get(keys.CURRENT_TIMESTAMP),
     timeZoneName: state.time.get(keys.TIME_ZONE_NAME),
-    loggerTrace: state.loggerTrace
+    altitudes: state.altitude.get(keys.ALTITUDES),
+    currentAltitude: state.altitude.getIn([keys.ALTITUDES, timeIndex]),
+    altitudeUnit: state.altitude.get(keys.ALTITUDE_UNIT),
+    altitudeUnitAbbreviation: state.altitude.get(keys.ALTITUDE_UNIT_ABBREVIATION),
+    altitudeSource: state.altitude.get(keys.ALTITUDE_SOURCE)
   };
+
+  return props;
 }
 
 function mapDispatchToProps(dispatch) {

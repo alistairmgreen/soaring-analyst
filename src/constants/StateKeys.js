@@ -22,10 +22,20 @@ export const MAX_TIME_INDEX = 'maxTimeIndex';
 
 export const CURRENT_POSITION = 'currentPosition';
 
-export const CURRENT_ALTITUDE = 'currentAltitude';
-
 export const CURRENT_TIMESTAMP = 'currentTimestamp';
 
 export const DEFAULT_MAP_LOCATION = 'defaultMapLocation';
 
 export const TIME_ZONE_NAME = 'timeZoneName';
+
+export const AVAILABLE_ALTITUDE_UNITS = 'availableUnits';
+
+export const ALTITUDE_UNIT = 'unit';
+
+export const ALTITUDE_UNIT_ABBREVIATION = 'unitAbbreviation';
+
+export const ALTITUDES = 'altitudes';
+
+export const AVAILABLE_ALTITUDE_SOURCES = 'availableSources';
+
+export const ALTITUDE_SOURCE = 'source';

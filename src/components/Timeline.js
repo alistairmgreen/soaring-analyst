@@ -15,21 +15,30 @@ class Timeline extends React.Component {
   }
 
   render() {
+    const {
+      timeIndex,
+      max,
+      currentTime,
+      currentAltitude,
+      altitudeUnit,
+      altitudeSource
+    } = this.props;
+
     return (
       <div style={{ width: "100%" }}>
         <Form>
           <FormGroup>
             <FormControl type="range"
               min={0}
-              max={this.props.max}
+              max={max}
               step={1}
-              value={this.props.timeIndex}
+              value={timeIndex}
               onChange={this.handleSliderChange} />
           </FormGroup>
         </Form>
 
         <p>
-          {this.props.currentTime.format('HH:mm:ssZ')}: GPS Altitude {this.props.currentAltitude} m
+          {currentTime.format('HH:mm:ssZ')}: {currentAltitude.toFixed(0)} {altitudeUnit} ({altitudeSource})
         </p>
       </div>
     );
@@ -41,7 +50,9 @@ Timeline.propTypes = {
   max: PropTypes.number.isRequired,
   setTimeIndex: PropTypes.func.isRequired,
   currentTime: PropTypes.instanceOf(moment).isRequired,
-  currentAltitude: PropTypes.number.isRequired
+  currentAltitude: PropTypes.number.isRequired,
+  altitudeUnit: PropTypes.string.isRequired,
+  altitudeSource: PropTypes.string.isRequired
 };
 
 export default Timeline;
