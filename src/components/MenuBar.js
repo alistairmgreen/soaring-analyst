@@ -55,13 +55,15 @@ function MenuBar(props) {
             </LinkContainer>
           )}
           {props.fileLoaded && (
-            <NavItem>
-              <Glyphicon bsClass="fa" glyph="map" />
-              &nbsp;
+            <LinkContainer to="/combined">
+              <NavItem>
+                <Glyphicon bsClass="fa" glyph="map" />
+                &nbsp;
             <Glyphicon bsClass="fa" glyph="area-chart" />
-              &nbsp;
+                &nbsp;
               Combined View
              </NavItem>
+            </LinkContainer>
           )}
 
           <NavItem>
