@@ -76,12 +76,12 @@ function MenuBar(props) {
 
           <NavDropdown title="About" id="dropdownAbout">
             <IndexLinkContainer to="/">
-              <MenuItem>
+              <MenuItem href="https://github.com/alistairmgreen/soaring-analyst/blob/master/README.md">
                 About Soaring Analyst
               </MenuItem>
             </IndexLinkContainer>
             <MenuItem divider />
-            <MenuItem href="https://github.com/GlidingWeb">
+            <MenuItem href="https://github.com/alistairmgreen/soaring-analyst">
               <Glyphicon bsClass="fa" glyph="github" />
               &nbsp; Source code on GitHub
             </MenuItem>
