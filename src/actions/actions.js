@@ -1,4 +1,3 @@
-import { push } from 'react-router-redux';
 import 'whatwg-fetch';
 import parseIGC from '../parser/parseIGC';
 import * as ACTION from './actionTypes';
@@ -69,7 +68,6 @@ export function loadFile(file) {
       try {
         let igc = parseIGC(reader.result);
         dispatch(loadFileSuccess(fileName, igc));
-        dispatch(push("/igcmap"));
         let firstFix = igc.fixes[0];
         dispatch(detectTimezone({
           position: firstFix.position,
