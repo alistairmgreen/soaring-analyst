@@ -1,5 +1,7 @@
 # Soaring Analyst
 
+[![Build Status](https://travis-ci.org/alistairmgreen/soaring-analyst.svg?branch=master)](https://travis-ci.org/alistairmgreen/soaring-analyst) [![Coverage Status](https://coveralls.io/repos/github/alistairmgreen/soaring-analyst/badge.svg?branch=master)](https://coveralls.io/github/alistairmgreen/soaring-analyst?branch=master)
+
 An experimental, work-in-progress rewrite of [IGCWebView](http://www.glidingweb.org/igcWebview/)
 with a multi-page user interface, incorporating a task planner and editor.
 
