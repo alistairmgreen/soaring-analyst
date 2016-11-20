@@ -66,11 +66,13 @@ function MenuBar(props) {
             </LinkContainer>
           )}
 
-          <NavItem>
-            <Glyphicon bsClass="fa" glyph="gear" />
-            &nbsp;
+          <LinkContainer to="/settings">
+            <NavItem>
+              <Glyphicon bsClass="fa" glyph="gear" />
+              &nbsp;
             Settings
           </NavItem>
+          </LinkContainer>
 
           <NavDropdown title="About" id="dropdownAbout">
             <IndexLinkContainer to="/">
