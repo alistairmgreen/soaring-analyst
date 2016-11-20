@@ -7,12 +7,12 @@ import HeaderRow from './HeaderRow';
 function HeaderDisplay(props) {
   let headers = props.headers;
 
-  const rows = headers.map(h => {
+  const rows = headers.map((h, index) => {
     const name = h.get('name');
     const value = h.get('value').toString();
 
     return (
-      <HeaderRow key={name} name={name} value={value} />
+      <HeaderRow key={`${name}${index}`} name={name} value={value} />
     );
   });
 
