@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 function HeaderRow(props) {
   return (
     <tr>
-      <th>{props.name}</th>
+      <th className="col-sm-2">{props.name}</th>
       <td>{props.value}</td>
     </tr>
   );

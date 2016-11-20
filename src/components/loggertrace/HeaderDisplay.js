@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Table } from 'react-bootstrap';
 import { List } from 'immutable';
 import moment from 'moment';
 import HeaderRow from './HeaderRow';
@@ -6,19 +7,32 @@ import HeaderRow from './HeaderRow';
 function HeaderDisplay(props) {
   let headers = props.headers;
 
+  const rows = headers.map(h => {
+    const name = h.get('name');
+    const value = h.get('value').toString();
+
+    return (
+      <HeaderRow key={name} name={name} value={value} />
+    );
+  });
+
+  const { flightDate, timezone } = props;
+
   return (
-    <table>
+    <Table striped>
       <tbody>
-        <HeaderRow key={0} name="Flight date" value={props.flightDate.format('LLLL Z')} />
-        {headers.map((h, index) => <HeaderRow key={index + 1} name={h.get('name')} value={h.get('value').toString()} />)}
+        <HeaderRow key="Flight date" name="Flight date" value={flightDate.format('dddd, LL')} />
+        <HeaderRow key="Timezone" name="Time zone" value={`${timezone} (UTC ${flightDate.format('Z')})`} />
+        {rows}
       </tbody>
-    </table>
+    </Table>
   );
 }
 
 HeaderDisplay.propTypes = {
   headers: PropTypes.instanceOf(List).isRequired,
-  flightDate: PropTypes.instanceOf(moment).isRequired
+  flightDate: PropTypes.instanceOf(moment).isRequired,
+  timezone: PropTypes.string.isRequired
 };
 
 export default HeaderDisplay;

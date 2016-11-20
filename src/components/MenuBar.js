@@ -24,14 +24,14 @@ function MenuBar(props) {
         <Nav>
           <LinkContainer to="/task">
             <NavItem>
-              <Glyphicon bsClass="fa" glyph="compass" />
+              <Glyphicon bsClass="fa" glyph="map-signs" />
               &nbsp;
               {props.fileLoaded ? "Edit Task" : "Plan a Task"}
             </NavItem>
           </LinkContainer>
 
           {props.fileLoaded && (
-            <LinkContainer to="/igcview">
+            <LinkContainer to="/flightinfo">
               <NavItem>
                 <Glyphicon bsClass="fa" glyph="info-circle" />
                 &nbsp; Flight Information
