@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Glyphicon, Nav, Navbar, NavItem, NavDropdown, MenuItem, FormGroup, ControlLabel } from 'react-bootstrap';
-import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import IGCFilePicker from './IGCFilePicker';
 
 function MenuBar(props) {
@@ -75,11 +75,9 @@ function MenuBar(props) {
           </LinkContainer>
 
           <NavDropdown title="About" id="dropdownAbout">
-            <IndexLinkContainer to="/">
-              <MenuItem href="https://github.com/alistairmgreen/soaring-analyst/blob/master/README.md">
-                About Soaring Analyst
+            <MenuItem href="https://github.com/alistairmgreen/soaring-analyst/blob/master/README.md">
+              About Soaring Analyst
               </MenuItem>
-            </IndexLinkContainer>
             <MenuItem divider />
             <MenuItem href="https://github.com/alistairmgreen/soaring-analyst">
               <Glyphicon bsClass="fa" glyph="github" />
