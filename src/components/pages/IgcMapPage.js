@@ -17,6 +17,7 @@ class IgcMapPage extends React.Component {
     } = this.props;
 
     const timeIndex = time.get(keys.TIME_INDEX);
+    const currentPosition = loggerTrace.get(keys.CURRENT_POSITION);
 
     return (
       <div>
@@ -24,6 +25,7 @@ class IgcMapPage extends React.Component {
           max={time.get(keys.MAX_TIME_INDEX)}
           currentTime={time.getIn([keys.TIMESTAMPS, timeIndex])}
           currentAltitude={altitude.getIn([keys.ALTITUDES, timeIndex])}
+          currentPosition={currentPosition.toObject()}
           altitudeUnit={altitude.get(keys.ALTITUDE_UNIT_ABBREVIATION)}
           altitudeSource={altitude.get(keys.ALTITUDE_SOURCE)}
           setTimeIndex={setTimeIndexAction} />

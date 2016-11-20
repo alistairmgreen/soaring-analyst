@@ -26,6 +26,7 @@ class CombinedViewPage extends React.Component {
     const altitudeUnit = altitude.get(keys.ALTITUDE_UNIT);
     const currentAltitude = altitude.getIn([keys.ALTITUDES, timeIndex]);
     const altitudeSource = altitude.get(keys.ALTITUDE_SOURCE);
+    const currentPosition = loggerTrace.get(keys.CURRENT_POSITION);
 
     return (
       <Grid fluid>
@@ -35,6 +36,7 @@ class CombinedViewPage extends React.Component {
               max={time.get(keys.MAX_TIME_INDEX)}
               currentTime={currentTime}
               currentAltitude={altitude.getIn([keys.ALTITUDES, timeIndex])}
+              currentPosition ={currentPosition.toObject()}
               altitudeUnit={altitude.get(keys.ALTITUDE_UNIT_ABBREVIATION)}
               altitudeSource={altitude.get(keys.ALTITUDE_SOURCE)}
               setTimeIndex={setTimeIndex} />
@@ -44,7 +46,7 @@ class CombinedViewPage extends React.Component {
         <Row>
           <Col sm={12} md={6}>
             <FlightMap flightPath={loggerTrace.get(keys.POSITIONS)}
-              currentPosition={loggerTrace.get(keys.CURRENT_POSITION)}
+              currentPosition={currentPosition}
               task={task.get(TASK_STATE.WAYPOINTS)}
               defaultLocation={loggerTrace.get(keys.DEFAULT_MAP_LOCATION)}
               zoomToFitLabel="Flight path" />

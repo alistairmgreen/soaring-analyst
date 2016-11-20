@@ -19,6 +19,7 @@ class Timeline extends React.Component {
       timeIndex,
       max,
       currentTime,
+      currentPosition,
       currentAltitude,
       altitudeUnit,
       altitudeSource
@@ -38,7 +39,7 @@ class Timeline extends React.Component {
         </Form>
 
         <p>
-          {currentTime.format('HH:mm:ssZ')}: {currentAltitude.toFixed(0)} {altitudeUnit} ({altitudeSource})
+          {currentTime.format('HH:mm:ssZ')}: {currentPosition.formatted}, {currentAltitude.toFixed(0)} {altitudeUnit} ({altitudeSource})
         </p>
       </div>
     );
@@ -50,6 +51,7 @@ Timeline.propTypes = {
   max: PropTypes.number.isRequired,
   setTimeIndex: PropTypes.func.isRequired,
   currentTime: PropTypes.instanceOf(moment).isRequired,
+  currentPosition: PropTypes.object.isRequired,
   currentAltitude: PropTypes.number.isRequired,
   altitudeUnit: PropTypes.string.isRequired,
   altitudeSource: PropTypes.string.isRequired

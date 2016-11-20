@@ -18,6 +18,7 @@ function BarogramPageContainer(props) {
     return (
       <BarogramPage altitude={props.altitude}
         time={props.time}
+        currentPosition={props.currentPosition}
         setTimeIndex={props.setTimeIndex}
         setAltitudeSource={props.setAltitudeSource}
         setAltitudeUnit={props.setAltitudeUnit} />
@@ -35,6 +36,7 @@ BarogramPageContainer.propTypes = {
   fileLoaded: PropTypes.bool.isRequired,
   errorMessage: PropTypes.string.isRequired,
   time: PropTypes.instanceOf(Map).isRequired,
+  currentPosition: PropTypes.object.isRequired,
   altitude: PropTypes.instanceOf(Map).isRequired,
   setTimeIndex: PropTypes.func.isRequired,
   setAltitudeSource: PropTypes.func.isRequired,
@@ -51,6 +53,7 @@ function mapStateToProps(state) {
     fileLoaded: loggerTrace.get(keys.FILE_LOADED),
     errorMessage: loggerTrace.get(keys.ERROR_MESSAGE),
     time,
+    currentPosition: loggerTrace.get(keys.CURRENT_POSITION).toObject(),
     altitude
   };
 }

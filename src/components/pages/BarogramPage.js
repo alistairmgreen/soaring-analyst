@@ -12,7 +12,7 @@ class BarogramPage extends React.Component {
   }
 
   render() {
-    const { altitude, time, setTimeIndex, setAltitudeSource, setAltitudeUnit } = this.props;
+    const { altitude, time, currentPosition, setTimeIndex, setAltitudeSource, setAltitudeUnit } = this.props;
 
     const timeIndex = time.get(keys.TIME_INDEX);
     const altitudeSource = altitude.get(keys.ALTITUDE_SOURCE);
@@ -26,6 +26,7 @@ class BarogramPage extends React.Component {
         <Timeline timeIndex={timeIndex}
           max={time.get(keys.MAX_TIME_INDEX)}
           currentTime={currentTime}
+          currentPosition={currentPosition}
           currentAltitude={currentAltitude}
           altitudeUnit={altitude.get(keys.ALTITUDE_UNIT_ABBREVIATION)}
           altitudeSource={altitudeSource}
@@ -56,7 +57,8 @@ BarogramPage.propTypes = {
   altitude: PropTypes.instanceOf(Map).isRequired,
   setTimeIndex: PropTypes.func.isRequired,
   setAltitudeSource: PropTypes.func.isRequired,
-  setAltitudeUnit: PropTypes.func.isRequired
+  setAltitudeUnit: PropTypes.func.isRequired,
+  currentPosition: PropTypes.object.isRequired
 };
 
 export default BarogramPage;
