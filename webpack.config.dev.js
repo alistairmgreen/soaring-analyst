@@ -2,6 +2,7 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 import path from 'path';
+import Visualizer from 'webpack-visualizer-plugin';
 const apikeys = require('./src/apikeys');
 
 export default {
@@ -39,7 +40,8 @@ export default {
       inject: true,
       googleMapsKey: apikeys.GoogleMaps,
       useCDN: false
-    })
+    }),
+    new Visualizer()
   ],
   module: {
     loaders: [
