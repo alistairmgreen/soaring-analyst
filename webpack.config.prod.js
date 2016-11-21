@@ -68,7 +68,10 @@ export default {
     new webpack.optimize.DedupePlugin(),
 
     // Minify JS
-    new webpack.optimize.UglifyJsPlugin()
+    new webpack.optimize.UglifyJsPlugin(),
+
+    // Don't include all 60 supported languages with Moment - use English only.
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/)
   ],
   module: {
     loaders: [

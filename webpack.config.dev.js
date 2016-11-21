@@ -41,7 +41,9 @@ export default {
       googleMapsKey: apikeys.GoogleMaps,
       useCDN: false
     }),
-    new Visualizer()
+    new Visualizer(),
+    // Don't include all 60 supported languages with Moment - use English only.
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/)
   ],
   module: {
     loaders: [
