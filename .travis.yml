@@ -3,6 +3,11 @@ node_js:
   - "6"
   - "5"
   - "4"
+before_script:
+  # The code does not compile without an API key file, but it is OK to use the default blank key
+  # because the unit tests do not make any requests to Google.
+  - cp src/apikeys.template.js src/apikeys.dev.js
+  - cp src/apikeys.template.js src/apikeys.prod.js
 after_success:
   # Send coverage data to coveralls.
   - npm run test:cover:travis
