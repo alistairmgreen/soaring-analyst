@@ -39,14 +39,7 @@ class BarogramPage extends React.Component {
           availableUnits={altitude.get(keys.AVAILABLE_ALTITUDE_UNITS)}
           onUnitChanged={setAltitudeUnit} />
 
-        <Barogram timestamps={timestamps}
-          altitudes={altitude.get(keys.ALTITUDES)}
-          altitudeUnit={altitudeUnit}
-          altitudeSource={altitudeSource}
-          currentTime={currentTime}
-          timeZoneName={time.get(keys.TIME_ZONE_NAME)}
-          currentAltitude={currentAltitude}
-          onPlotClick={setTimeIndex} />
+        <Barogram />
       </div>
     );
   }

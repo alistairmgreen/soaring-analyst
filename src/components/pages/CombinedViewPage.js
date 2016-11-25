@@ -24,7 +24,6 @@ class CombinedViewPage extends React.Component {
     const timeIndex = time.get(keys.TIME_INDEX);
     const currentTime = time.getIn([keys.TIMESTAMPS, timeIndex]);
     const altitudeUnit = altitude.get(keys.ALTITUDE_UNIT);
-    const currentAltitude = altitude.getIn([keys.ALTITUDES, timeIndex]);
     const altitudeSource = altitude.get(keys.ALTITUDE_SOURCE);
     const currentPosition = loggerTrace.get(keys.CURRENT_POSITION);
 
@@ -59,14 +58,7 @@ class CombinedViewPage extends React.Component {
           availableUnits={altitude.get(keys.AVAILABLE_ALTITUDE_UNITS)}
           onUnitChanged={setAltitudeUnit} />
 
-            <Barogram timestamps={time.get(keys.TIMESTAMPS)}
-              altitudes={altitude.get(keys.ALTITUDES)}
-              altitudeUnit={altitudeUnit}
-              altitudeSource={altitudeSource}
-              currentTime={currentTime}
-              timeZoneName={time.get(keys.TIME_ZONE_NAME)}
-              currentAltitude={currentAltitude}
-              onPlotClick={setTimeIndex} />
+            <Barogram />
           </Col>
         </Row>
       </Grid>

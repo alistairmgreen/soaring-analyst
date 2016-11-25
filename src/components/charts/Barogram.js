@@ -1,104 +1,88 @@
 import React, { PropTypes } from 'react';
-import { List } from 'immutable';
+import { connect } from 'react-redux';
 import moment from 'moment';
 import LineChart from './LineChart';
+import getBarogramData from '../../selectors/getBarogramData';
+import { getCurrentAltitude } from '../../selectors/altitudeSelectors';
+import { getCurrentTime } from '../../selectors/timeSelectors';
+import { setTimeIndex } from '../../actions/actions';
+import { ALTITUDE_UNIT, ALTITUDE_SOURCE } from '../../constants/StateKeys';
 
-class Barogram extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+function Barogram(props) {
+  const dataSets = [{
+    data: props.data,
+    pointRadius: 0,
+    borderColor: '#0000FF',
+    borderWidth: 1,
+    fill: false
+  }];
 
-    this.state = {
-      dataArray: this.createDataArray(this.props.timestamps, this.props.altitudes)
-    };
-  }
+  const crosshair = [{
+    type: 'line',
+    mode: 'vertical',
+    scaleID: 'x-axis-0',
+    value: props.currentTime,
+    borderColor: 'red',
+    borderWidth: 1
+  }, {
+    type: 'line',
+    mode: 'horizontal',
+    scaleID: 'y-axis-0',
+    value: props.currentAltitude,
+    borderColor: 'red',
+    borderWidth: 1
+  }];
 
-  componentWillReceiveProps(nextProps) {
-    const { timestamps, altitudes } = nextProps;
-    if ((timestamps !== this.props.timestamps) ||
-      (altitudes !== this.props.altitudes)) {
-      this.setState({
-        dataArray: this.createDataArray(timestamps, altitudes)
-      });
-    }
-  }
-
-  shouldComponentUpdate(nextProps) {
-    return (nextProps.timestamps !== this.props.timestamps) ||
-      (nextProps.altitudes !== this.props.altitudes) ||
-      (nextProps.currentTime !== this.props.currentTime);
-  }
-
-  createDataArray(timestamps, altitudes) {
-    let data = [];
-    const nPoints = timestamps.count();
-
-    for (let j = 0; j < nPoints; j++) {
-      data.push({ x: timestamps.get(j), y: altitudes.get(j) });
-    }
-
-    return data;
-  }
-
-  render() {
-    const dataSets = [{
-      data: this.state.dataArray,
-      pointRadius: 0,
-      borderColor: '#0000FF',
-      borderWidth: 1,
-      fill: false
-    }];
-
-    const crosshair = [{
-      type: 'line',
-      mode: 'vertical',
-      scaleID: 'x-axis-0',
-      value: this.props.currentTime,
-      borderColor: 'red',
-      borderWidth: 1
-    }, {
-      type: 'line',
-      mode: 'horizontal',
-      scaleID: 'y-axis-0',
-      value: this.props.currentAltitude,
-      borderColor: 'red',
-      borderWidth: 1
-    }];
-
-    const xAxis = {
-      type: 'time',
-      time: {
-        displayFormats: {
-          hour: 'HH:mm',
-          minute: 'HH:mm'
-        },
-        tooltipFormat: 'HH:mm:ss'
+  const xAxis = {
+    type: 'time',
+    time: {
+      displayFormats: {
+        hour: 'HH:mm',
+        minute: 'HH:mm'
       },
-      position: 'bottom'
-    };
+      tooltipFormat: 'HH:mm:ss'
+    },
+    position: 'bottom'
+  };
 
-    const { altitudeUnit, altitudeSource, timeZoneName, onPlotClick } = this.props;
+  const { altitudeUnit, altitudeSource, timeZoneName, onPlotClick } = props;
 
-    return (
-      <LineChart dataSets={dataSets}
-        annotations={crosshair}
-        hoverMode="x-axis"
-        onPlotClick={onPlotClick}
-        xAxis={xAxis}
-        xLabel={timeZoneName}
-        yLabel={`${altitudeSource} Altitude / ${altitudeUnit}`} />
-    );
-  }
+  return (
+    <LineChart dataSets={dataSets}
+      annotations={crosshair}
+      hoverMode="x-axis"
+      onPlotClick={onPlotClick}
+      xAxis={xAxis}
+      xLabel={timeZoneName}
+      yLabel={`${altitudeSource} Altitude / ${altitudeUnit}`} />
+  );
 }
 
 Barogram.propTypes = {
-  timestamps: PropTypes.instanceOf(List).isRequired,
-  altitudes: PropTypes.instanceOf(List).isRequired,
+  data: PropTypes.array.isRequired,
   altitudeUnit: PropTypes.string.isRequired,
   altitudeSource: PropTypes.string.isRequired,
   currentTime: PropTypes.instanceOf(moment).isRequired,
   currentAltitude: PropTypes.number.isRequired,
   timeZoneName: PropTypes.string.isRequired,
-  onPlotClick: PropTypes.func
+  onPlotClick: PropTypes.func.isRequired
 };
 
-export default Barogram;
+function mapStateToProps(state) {
+  return {
+    data: getBarogramData(state),
+    altitudeUnit: state.altitude.get(ALTITUDE_UNIT),
+    altitudeSource: state.altitude.get(ALTITUDE_SOURCE),
+    currentTime: getCurrentTime(state),
+    currentAltitude: getCurrentAltitude(state),
+    timeZoneName: state.timeZone
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onPlotClick: t => dispatch(setTimeIndex(t))
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Barogram);
