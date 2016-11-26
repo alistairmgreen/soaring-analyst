@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Map } from 'immutable';
 import { Grid, Row, Col } from 'react-bootstrap';
 import FlightMap from '../googlemap/FlightMap';
-import Timeline from '../Timeline';
+import Timeline from '../timeline/Timeline';
 import Barogram from '../charts/Barogram';
 import AltitudeSelector from '../AltitudeSelector';
 import * as keys from '../../constants/StateKeys';
@@ -15,14 +15,10 @@ class CombinedViewPage extends React.Component {
       altitude,
       task,
       loggerTrace,
-      time,
-      setTimeIndex,
       setAltitudeSource,
       setAltitudeUnit
     } = this.props;
 
-    const timeIndex = time.get(keys.TIME_INDEX);
-    const currentTime = time.getIn([keys.TIMESTAMPS, timeIndex]);
     const altitudeUnit = altitude.get(keys.ALTITUDE_UNIT);
     const altitudeSource = altitude.get(keys.ALTITUDE_SOURCE);
     const currentPosition = loggerTrace.get(keys.CURRENT_POSITION);
@@ -31,14 +27,7 @@ class CombinedViewPage extends React.Component {
       <Grid fluid>
         <Row>
           <Col xs={12}>
-            <Timeline timeIndex={timeIndex}
-              max={time.get(keys.MAX_TIME_INDEX)}
-              currentTime={currentTime}
-              currentAltitude={altitude.getIn([keys.ALTITUDES, timeIndex])}
-              currentPosition ={currentPosition.toObject()}
-              altitudeUnit={altitude.get(keys.ALTITUDE_UNIT_ABBREVIATION)}
-              altitudeSource={altitude.get(keys.ALTITUDE_SOURCE)}
-              setTimeIndex={setTimeIndex} />
+            <Timeline />
           </Col>
         </Row>
 
@@ -69,9 +58,7 @@ class CombinedViewPage extends React.Component {
 CombinedViewPage.propTypes = {
   task: PropTypes.instanceOf(Map).isRequired,
   loggerTrace: PropTypes.instanceOf(Map).isRequired,
-  time: PropTypes.instanceOf(Map).isRequired,
   altitude: PropTypes.instanceOf(Map).isRequired,
-  setTimeIndex: PropTypes.func.isRequired,
   setAltitudeSource: PropTypes.func.isRequired,
   setAltitudeUnit: PropTypes.func.isRequired
 };

@@ -7,7 +7,6 @@ import moment from 'moment';
 
 import timeStampsReducer from './timestampsReducer';
 import * as actions from '../actions/actions';
-import * as keys from '../constants/StateKeys';
 
 chai.use(chaiImmutable);
 chai.use(chaiMoment);

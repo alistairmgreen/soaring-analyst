@@ -38,7 +38,7 @@ FlightInformationContainer.propTypes = {
 };
 
 function mapStateToProps(state) {
-  const { loggerTrace, time } = state;
+  const { loggerTrace, timestamps, timeZone } = state;
 
   const props = {
     fileLoadInProgress: loggerTrace.get(keys.FILE_LOAD_IN_PROGRESS),
@@ -46,8 +46,8 @@ function mapStateToProps(state) {
     fileLoaded: loggerTrace.get(keys.FILE_LOADED),
     errorMessage: loggerTrace.get(keys.ERROR_MESSAGE),
     headers: loggerTrace.get(keys.HEADERS),
-    flightDate: time.getIn([keys.TIMESTAMPS, 0]),
-    timezone: time.get(keys.TIME_ZONE_NAME)
+    flightDate: timestamps.get(0),
+    timezone: timeZone
   };
 
   return props;
