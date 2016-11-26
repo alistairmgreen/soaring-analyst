@@ -128,12 +128,7 @@ describe('Logger trace reducer', function () {
     const expectedMessage = "error loading file";
 
     beforeEach(function () {
-      let oldState = emptyLoggerTrace.merge({
-        fileLoaded: true,
-        fileLoadInProgress: true
-      });
-
-      newState = loggerTraceReducer(oldState, actions.loadFileFailure(expectedMessage));
+      newState = loggerTraceReducer(emptyLoggerTrace, actions.loadFileFailure(expectedMessage));
     });
 
     it('sets the error message', function () {
