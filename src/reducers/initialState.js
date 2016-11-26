@@ -40,8 +40,6 @@ export const initialTask = fromJS({
 });
 
 export const emptyLoggerTrace = Map({
-  fileLoaded: false,
-  fileLoadInProgress: false,
   fileName: "",
   errorMessage: ""
 });

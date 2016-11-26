@@ -30,10 +30,6 @@ describe('Logger trace reducer', function () {
       newState = loggerTraceReducer(emptyLoggerTrace, actions.fileLoading(expectedFileName));
     });
 
-    it('sets the file load in progress flag to true', function () {
-      newState.get(keys.FILE_LOAD_IN_PROGRESS).should.be.true;
-    });
-
     it('sets the file name', function () {
       newState.get(keys.FILE_NAME).should.equal(expectedFileName);
     });
@@ -96,14 +92,6 @@ describe('Logger trace reducer', function () {
       newState.get(keys.ERROR_MESSAGE).should.be.empty;
     });
 
-    it('sets the file loaded flag to true', function () {
-      newState.get(keys.FILE_LOADED).should.be.true;
-    });
-
-    it('sets the file load in progress flag to false', function () {
-      newState.get(keys.FILE_LOAD_IN_PROGRESS).should.be.false;
-    });
-
     it('sets the headers', function () {
       newState.get(keys.HEADERS).should.equal(fromJS(stubLoggerTrace.headers));
     });
@@ -151,15 +139,6 @@ describe('Logger trace reducer', function () {
     it('sets the error message', function () {
       newState.get(keys.ERROR_MESSAGE)
         .should.equal(expectedMessage);
-    });
-
-    it('sets the file loaded flag to false', function () {
-      newState.get(keys.FILE_LOADED)
-        .should.be.false;
-    });
-
-    it('sets the file load in progress flag to false', function () {
-      newState.get(keys.FILE_LOAD_IN_PROGRESS).should.be.false;
     });
   });
 });

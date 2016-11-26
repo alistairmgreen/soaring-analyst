@@ -4,55 +4,47 @@ import { Map } from 'immutable';
 import LoadingDialog from '../components/loggertrace/LoadingDialog';
 import StartupBanner from '../components/loggertrace/StartupBanner';
 import CombinedViewPage from '../components/pages/CombinedViewPage';
-import { setTimeIndex, setAltitudeSource, setAltitudeUnit, loadFile } from '../actions/actions';
+import { loadFile } from '../actions/actions';
 import * as keys from '../constants/StateKeys';
+import * as STATUS from '../constants/loadingStatus';
 
 function CombinedViewPageContainer(props) {
-  let trace = props.loggerTrace;
-
-    if(trace.get(keys.FILE_LOAD_IN_PROGRESS)) {
+  switch (props.loadingStatus) {
+    case STATUS.LOAD_IN_PROGRESS:
       return (
-        <LoadingDialog fileName={trace.get(keys.FILE_NAME)} />
+        <LoadingDialog fileName={props.fileName} />
       );
-    }
 
-    if(trace.get(keys.FILE_LOADED)) {
+    case STATUS.FILE_LOADED:
       return (
         <CombinedViewPage task={props.task}
-                    loggerTrace={props.loggerTrace}
-                    time={props.time}
-                    altitude={props.altitude}
-                    setTimeIndex={props.setTimeIndex}
-                    setAltitudeSource={props.setAltitudeSource}
-                    setAltitudeUnit={props.setAltitudeUnit}/>
+          loggerTrace={props.loggerTrace} />
       );
-    }
 
-    let errorMessage = props.loggerTrace.get(keys.ERROR_MESSAGE);
-
-    return (
-      <StartupBanner loadFile={props.loadFile} errorMessage={errorMessage} />
-    );
+    default:
+      return (
+        <StartupBanner loadFile={props.loadFile} errorMessage={props.errorMessage} />
+      );
+  }
 }
 
 CombinedViewPageContainer.propTypes = {
+  loadingStatus: PropTypes.number.isRequired,
+  fileName: PropTypes.string.isRequired,
+  errorMessage: PropTypes.string.isRequired,
   task: PropTypes.instanceOf(Map).isRequired,
   loggerTrace: PropTypes.instanceOf(Map).isRequired,
-  altitude: PropTypes.instanceOf(Map).isRequired,
-  time: PropTypes.instanceOf(Map).isRequired,
-  setTimeIndex: PropTypes.func.isRequired,
-  setAltitudeSource: PropTypes.func.isRequired,
-  setAltitudeUnit: PropTypes.func.isRequired,
   loadFile: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
   return {
+    loadingStatus: state.loadingStatus,
+    fileName: state.loggerTrace.get(keys.FILE_NAME),
+    errorMessage: state.loggerTrace.get(keys.ERROR_MESSAGE),
     task: state.task,
-    loggerTrace: state.loggerTrace,
-    time: state.time,
-    altitude: state.altitude
+    loggerTrace: state.loggerTrace
   };
 }
 
-export default connect(mapStateToProps, { setTimeIndex, setAltitudeSource, setAltitudeUnit, loadFile })(CombinedViewPageContainer);
+export default connect(mapStateToProps, { loadFile })(CombinedViewPageContainer);

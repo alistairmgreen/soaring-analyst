@@ -7,29 +7,30 @@ import StartupBanner from '../components/loggertrace/StartupBanner';
 import FlightInformationPage from '../components/pages/FlightInformationPage';
 import { loadFile } from '../actions/actions';
 import * as keys from '../constants/StateKeys';
+import * as STATUS from '../constants/loadingStatus';
 
 function FlightInformationContainer(props) {
-  if (props.fileLoadInProgress) {
-    return (
-      <LoadingDialog fileName={props.fileName} />
-    );
-  }
+  switch (props.loadingStatus) {
+    case STATUS.LOAD_IN_PROGRESS:
+      return (
+        <LoadingDialog fileName={props.fileName} />
+      );
 
-  if (props.fileLoaded) {
-    return (
-      <FlightInformationPage fileName={props.fileName} flightDate={props.flightDate} timezone={props.timezone} headers={props.headers}/>
-    );
-  }
+    case STATUS.FILE_LOADED:
+      return (
+        <FlightInformationPage fileName={props.fileName} flightDate={props.flightDate} timezone={props.timezone} headers={props.headers} />
+      );
 
-  return (
-    <StartupBanner loadFile={props.loadFile} errorMessage={props.errorMessage} />
-  );
+    default:
+      return (
+        <StartupBanner loadFile={props.loadFile} errorMessage={props.errorMessage} />
+      );
+  }
 }
 
 FlightInformationContainer.propTypes = {
-  fileLoadInProgress: PropTypes.bool.isRequired,
+  loadingStatus: PropTypes.number.isRequired,
   fileName: PropTypes.string.isRequired,
-  fileLoaded: PropTypes.bool.isRequired,
   errorMessage: PropTypes.string.isRequired,
   flightDate: PropTypes.instanceOf(moment),
   headers: PropTypes.instanceOf(List),
@@ -41,9 +42,8 @@ function mapStateToProps(state) {
   const { loggerTrace, timestamps, timeZone } = state;
 
   const props = {
-    fileLoadInProgress: loggerTrace.get(keys.FILE_LOAD_IN_PROGRESS),
+    loadingStatus: state.loadingStatus,
     fileName: loggerTrace.get(keys.FILE_NAME),
-    fileLoaded: loggerTrace.get(keys.FILE_LOADED),
     errorMessage: loggerTrace.get(keys.ERROR_MESSAGE),
     headers: loggerTrace.get(keys.HEADERS),
     flightDate: timestamps.get(0),

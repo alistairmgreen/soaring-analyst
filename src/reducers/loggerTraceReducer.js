@@ -7,10 +7,7 @@ import calculateBounds from '../geometry/calculateBounds';
 let operations = [];
 
 operations[actions.FILE_LOADING] = function (state, action) {
-  return state.merge({
-    fileName: action.fileName,
-    fileLoadInProgress: true
-  });
+  return state.set(keys.FILE_NAME, action.fileName);
 };
 
 operations[actions.LOAD_FILE_SUCCESS] = function (state, action) {
@@ -20,8 +17,6 @@ operations[actions.LOAD_FILE_SUCCESS] = function (state, action) {
   return state.merge({
     fileName: action.fileName,
     errorMessage: "",
-    fileLoaded: true,
-    fileLoadInProgress: false,
     headers: fromJS(trace.headers),
     positions: List(positions),
     currentPosition: trace.fixes[0].position,
@@ -32,11 +27,7 @@ operations[actions.LOAD_FILE_SUCCESS] = function (state, action) {
 };
 
 operations[actions.LOAD_FILE_FAILURE] = function (state, action) {
-  return state.merge({
-    errorMessage: action.errorMessage,
-    fileLoaded: false,
-    fileLoadInProgress: false
-  });
+  return state.set(keys.ERROR_MESSAGE, action.errorMessage);
 };
 
 operations[actions.SET_TIME_INDEX] = function (state, action) {

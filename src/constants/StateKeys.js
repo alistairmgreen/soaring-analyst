@@ -2,10 +2,6 @@ export const FILE_NAME = 'fileName';
 
 export const ERROR_MESSAGE = 'errorMessage';
 
-export const FILE_LOADED = 'fileLoaded';
-
-export const FILE_LOAD_IN_PROGRESS = 'fileLoadInProgress';
-
 export const HEADERS = 'headers';
 
 export const POSITIONS = 'positions';
