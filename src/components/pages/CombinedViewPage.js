@@ -12,15 +12,10 @@ class CombinedViewPage extends React.Component {
   render() {
 
     const {
-      altitude,
       task,
-      loggerTrace,
-      setAltitudeSource,
-      setAltitudeUnit
+      loggerTrace
     } = this.props;
 
-    const altitudeUnit = altitude.get(keys.ALTITUDE_UNIT);
-    const altitudeSource = altitude.get(keys.ALTITUDE_SOURCE);
     const currentPosition = loggerTrace.get(keys.CURRENT_POSITION);
 
     return (
@@ -40,12 +35,7 @@ class CombinedViewPage extends React.Component {
               zoomToFitLabel="Flight path" />
           </Col>
           <Col sm={12} md={6}>
-          <AltitudeSelector currentSource={altitudeSource}
-          altitudeSources={altitude.get(keys.AVAILABLE_ALTITUDE_SOURCES)}
-          onSourceChanged={setAltitudeSource}
-          unit={altitudeUnit}
-          availableUnits={altitude.get(keys.AVAILABLE_ALTITUDE_UNITS)}
-          onUnitChanged={setAltitudeUnit} />
+            <AltitudeSelector />
 
             <Barogram />
           </Col>
@@ -58,9 +48,6 @@ class CombinedViewPage extends React.Component {
 CombinedViewPage.propTypes = {
   task: PropTypes.instanceOf(Map).isRequired,
   loggerTrace: PropTypes.instanceOf(Map).isRequired,
-  altitude: PropTypes.instanceOf(Map).isRequired,
-  setAltitudeSource: PropTypes.func.isRequired,
-  setAltitudeUnit: PropTypes.func.isRequired
 };
 
 export default CombinedViewPage;
