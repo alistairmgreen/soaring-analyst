@@ -1,6 +1,6 @@
 import React from 'react';
 import Timeline from '../timeline/Timeline';
-import AltitudeSelector from '../AltitudeSelector';
+import AltitudeChooser from '../AltitudeChooser';
 import Barogram from '../charts/Barogram';
 
 export default class BarogramPage extends React.Component {
@@ -8,7 +8,7 @@ export default class BarogramPage extends React.Component {
     return (
       <div>
         <Timeline />
-        <AltitudeSelector />
+        <AltitudeChooser />
         <Barogram />
       </div>
     );

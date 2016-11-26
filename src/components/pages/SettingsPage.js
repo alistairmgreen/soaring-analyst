@@ -1,5 +1,5 @@
 import React from 'react';
-import AltitudeSelector from '../AltitudeSelector';
+import AltitudeChooser from '../AltitudeChooser';
 
 class SettingsPage extends React.Component {
   render() {
@@ -10,7 +10,7 @@ class SettingsPage extends React.Component {
 
         <h2> Altitude </h2>
 
-        <AltitudeSelector />
+        <AltitudeChooser />
 
       </div>
     );

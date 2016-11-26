@@ -4,7 +4,7 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import FlightMap from '../googlemap/FlightMap';
 import Timeline from '../timeline/Timeline';
 import Barogram from '../charts/Barogram';
-import AltitudeSelector from '../AltitudeSelector';
+import AltitudeChooser from '../AltitudeChooser';
 import * as keys from '../../constants/StateKeys';
 import * as TASK_STATE from '../../constants/TaskStateKeys';
 
@@ -35,7 +35,7 @@ class CombinedViewPage extends React.Component {
               zoomToFitLabel="Flight path" />
           </Col>
           <Col sm={12} md={6}>
-            <AltitudeSelector />
+            <AltitudeChooser />
 
             <Barogram />
           </Col>

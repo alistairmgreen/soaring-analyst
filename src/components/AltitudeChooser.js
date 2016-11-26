@@ -18,7 +18,7 @@ import {
 
 import { setAltitudeSource, setAltitudeUnit } from '../actions/actions';
 
-function AltitudeSelector(props) {
+function AltitudeChooser(props) {
   return (
     <Form inline>
       <FormGroup controlId="altitudeSource">
@@ -40,7 +40,7 @@ function AltitudeSelector(props) {
   );
 }
 
-AltitudeSelector.propTypes = {
+AltitudeChooser.propTypes = {
   currentSource: PropTypes.string.isRequired,
   altitudeSources: PropTypes.instanceOf(List).isRequired,
   onSourceChanged: PropTypes.func.isRequired,
@@ -65,4 +65,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AltitudeSelector);
+export default connect(mapStateToProps, mapDispatchToProps)(AltitudeChooser);
