@@ -7,6 +7,7 @@ import * as keys from '../../constants/StateKeys';
 import { setTimeIndex } from '../../actions/actions';
 import { getCurrentTime, getMaxTimeIndex } from '../../selectors/timeSelectors';
 import { getCurrentAltitude } from '../../selectors/altitudeSelectors';
+import { getCurrentPosition } from '../../selectors/positionSelectors';
 
 function Timeline(props) {
   return (
@@ -42,7 +43,7 @@ function mapStateToProps(state) {
     timeIndex: state.timeIndex,
     maxTimeIndex: getMaxTimeIndex(state),
     time: getCurrentTime(state),
-    position: state.loggerTrace.getIn([keys.CURRENT_POSITION, 'formatted']),
+    position: getCurrentPosition(state).formatted,
     altitude: getCurrentAltitude(state),
     altitudeSource: state.altitude.get(keys.ALTITUDE_SOURCE),
     altitudeUnit: state.altitude.get(keys.ALTITUDE_UNIT_ABBREVIATION)

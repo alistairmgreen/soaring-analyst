@@ -6,6 +6,7 @@ import StartupBanner from '../components/loggertrace/StartupBanner';
 import IgcMapPage from '../components/pages/IgcMapPage';
 import { loadFile } from '../actions/actions';
 import * as STATUS from '../constants/loadingStatus';
+import { getCurrentPosition } from '../selectors/positionSelectors';
 
 function IgcMapPageContainer(props) {
   switch (props.loadingStatus) {
@@ -16,7 +17,7 @@ function IgcMapPageContainer(props) {
 
     case STATUS.FILE_LOADED:
       return (
-        <IgcMapPage task={props.task} loggerTrace={props.loggerTrace} />
+        <IgcMapPage task={props.task} loggerTrace={props.loggerTrace} currentPosition={props.currentPosition} />
       );
 
     default:
@@ -32,7 +33,8 @@ IgcMapPageContainer.propTypes = {
   errorMessage: PropTypes.string.isRequired,
   task: PropTypes.instanceOf(Map).isRequired,
   loggerTrace: PropTypes.instanceOf(Map).isRequired,
-  loadFile: PropTypes.func.isRequired
+  loadFile: PropTypes.func.isRequired,
+  currentPosition: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
@@ -41,7 +43,8 @@ function mapStateToProps(state) {
     fileName: state.fileName,
     errorMessage: state.errorMessage,
     task: state.task,
-    loggerTrace: state.loggerTrace
+    loggerTrace: state.loggerTrace,
+    currentPosition: getCurrentPosition(state)
   };
 }
 

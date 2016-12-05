@@ -8,14 +8,14 @@ import * as TASK_STATE from '../../constants/TaskStateKeys';
 class IgcMapPage extends React.Component {
   render() {
 
-    const { task, loggerTrace } = this.props;
+    const { task, loggerTrace, currentPosition } = this.props;
 
     return (
       <div>
         <Timeline  />
 
         <FlightMap flightPath={loggerTrace.get(keys.POSITIONS)}
-          currentPosition={loggerTrace.get(keys.CURRENT_POSITION)}
+          currentPosition={currentPosition}
           task={task.get(TASK_STATE.WAYPOINTS)}
           defaultLocation={loggerTrace.get(keys.DEFAULT_MAP_LOCATION)}
           zoomToFitLabel="Flight path" />
@@ -27,6 +27,7 @@ class IgcMapPage extends React.Component {
 IgcMapPage.propTypes = {
   task: PropTypes.instanceOf(Map).isRequired,
   loggerTrace: PropTypes.instanceOf(Map).isRequired,
+  currentPosition: PropTypes.object.isRequired
 };
 
 export default IgcMapPage;

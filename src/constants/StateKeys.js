@@ -6,8 +6,6 @@ export const PRESSURE_ALTITUDES = 'pressureAltitudes';
 
 export const GPS_ALTITUDES = 'gpsAltitudes';
 
-export const CURRENT_POSITION = 'currentPosition';
-
 export const DEFAULT_MAP_LOCATION = 'defaultMapLocation';
 
 export const AVAILABLE_ALTITUDE_UNITS = 'availableUnits';

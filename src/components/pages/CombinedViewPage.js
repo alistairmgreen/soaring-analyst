@@ -13,10 +13,9 @@ class CombinedViewPage extends React.Component {
 
     const {
       task,
-      loggerTrace
+      loggerTrace,
+      currentPosition
     } = this.props;
-
-    const currentPosition = loggerTrace.get(keys.CURRENT_POSITION);
 
     return (
       <Grid fluid>
@@ -48,6 +47,7 @@ class CombinedViewPage extends React.Component {
 CombinedViewPage.propTypes = {
   task: PropTypes.instanceOf(Map).isRequired,
   loggerTrace: PropTypes.instanceOf(Map).isRequired,
+  currentPosition: PropTypes.object.isRequired
 };
 
 export default CombinedViewPage;

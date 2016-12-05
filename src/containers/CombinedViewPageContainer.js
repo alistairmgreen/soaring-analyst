@@ -6,6 +6,7 @@ import StartupBanner from '../components/loggertrace/StartupBanner';
 import CombinedViewPage from '../components/pages/CombinedViewPage';
 import { loadFile } from '../actions/actions';
 import * as STATUS from '../constants/loadingStatus';
+import { getCurrentPosition } from '../selectors/positionSelectors';
 
 function CombinedViewPageContainer(props) {
   switch (props.loadingStatus) {
@@ -17,7 +18,8 @@ function CombinedViewPageContainer(props) {
     case STATUS.FILE_LOADED:
       return (
         <CombinedViewPage task={props.task}
-          loggerTrace={props.loggerTrace} />
+          loggerTrace={props.loggerTrace}
+          currentPosition={props.currentPosition} />
       );
 
     default:
@@ -33,17 +35,21 @@ CombinedViewPageContainer.propTypes = {
   errorMessage: PropTypes.string.isRequired,
   task: PropTypes.instanceOf(Map).isRequired,
   loggerTrace: PropTypes.instanceOf(Map).isRequired,
-  loadFile: PropTypes.func.isRequired
+  loadFile: PropTypes.func.isRequired,
+  currentPosition: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
-  return {
+  const props = {
     loadingStatus: state.loadingStatus,
     fileName: state.fileName,
     errorMessage: state.errorMessage,
     task: state.task,
-    loggerTrace: state.loggerTrace
+    loggerTrace: state.loggerTrace,
+    currentPosition: getCurrentPosition(state)
   };
+
+  return props;
 }
 
 export default connect(mapStateToProps, { loadFile })(CombinedViewPageContainer);

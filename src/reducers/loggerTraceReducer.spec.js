@@ -2,7 +2,7 @@ import { describe, it } from 'mocha';
 import chai from 'chai';
 import chaiImmutable from 'chai-immutable';
 import chaiMoment from 'chai-moment';
-import { List, Map, fromJS } from 'immutable';
+import { List, fromJS } from 'immutable';
 import moment from 'moment';
 
 import loggerTraceReducer from './loggerTraceReducer';
@@ -79,11 +79,6 @@ describe('Logger trace reducer', function () {
           stubLoggerTrace.fixes[0].position,
           stubLoggerTrace.fixes[1].position
         ));
-    });
-
-    it('sets the current position equal to the first position fix', function () {
-      newState.get(keys.CURRENT_POSITION)
-        .should.equal(Map(stubLoggerTrace.fixes[0].position));
     });
 
     it('sets the default map view to the bounds of the flight path', function() {

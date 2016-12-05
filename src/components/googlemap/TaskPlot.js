@@ -30,7 +30,7 @@ class TaskPlot extends React.Component {
           markerLabel = index.toString();
       }
 
-      return (<Marker googlemaps={googlemaps} map={map} position={pos} label={markerLabel} key={index} />);
+      return (<Marker googlemaps={googlemaps} map={map} position={pos.toObject()} label={markerLabel} key={index} />);
     }).toArray();
 
     return (
