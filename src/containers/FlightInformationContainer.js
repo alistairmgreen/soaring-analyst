@@ -44,7 +44,7 @@ function mapStateToProps(state) {
   const props = {
     loadingStatus: state.loadingStatus,
     fileName: loggerTrace.get(keys.FILE_NAME),
-    errorMessage: loggerTrace.get(keys.ERROR_MESSAGE),
+    errorMessage: state.errorMessage,
     headers: loggerTrace.get(keys.HEADERS),
     flightDate: timestamps.get(0),
     timezone: timeZone

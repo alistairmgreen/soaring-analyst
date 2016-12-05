@@ -16,7 +16,6 @@ operations[actions.LOAD_FILE_SUCCESS] = function (state, action) {
 
   return state.merge({
     fileName: action.fileName,
-    errorMessage: "",
     headers: fromJS(trace.headers),
     positions: List(positions),
     currentPosition: trace.fixes[0].position,
@@ -24,10 +23,6 @@ operations[actions.LOAD_FILE_SUCCESS] = function (state, action) {
       bounds: calculateBounds(positions)
     })
   });
-};
-
-operations[actions.LOAD_FILE_FAILURE] = function (state, action) {
-  return state.set(keys.ERROR_MESSAGE, action.errorMessage);
 };
 
 operations[actions.SET_TIME_INDEX] = function (state, action) {

@@ -40,7 +40,7 @@ function mapStateToProps(state) {
   return {
     loadingStatus: state.loadingStatus,
     fileName: state.loggerTrace.get(keys.FILE_NAME),
-    errorMessage: state.loggerTrace.get(keys.ERROR_MESSAGE),
+    errorMessage: state.errorMessage,
     task: state.task,
     loggerTrace: state.loggerTrace
   };

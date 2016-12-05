@@ -77,7 +77,6 @@ describe('Logger trace reducer', function () {
     beforeEach(function () {
       let loadAction = actions.loadFileSuccess(expectedFileName, stubLoggerTrace);
       let oldState = emptyLoggerTrace.merge({
-        errorMessage: 'error message',
         fileLoadInProgress: true
       });
 
@@ -86,10 +85,6 @@ describe('Logger trace reducer', function () {
 
     it('sets the file name', function () {
       newState.get(keys.FILE_NAME).should.equal(expectedFileName);
-    });
-
-    it('clears any existing error message', function () {
-      newState.get(keys.ERROR_MESSAGE).should.be.empty;
     });
 
     it('sets the headers', function () {
@@ -120,20 +115,6 @@ describe('Logger trace reducer', function () {
             east: 3.45
           }
         });
-    });
-  });
-
-  describe('when a file load fails', function () {
-    let newState;
-    const expectedMessage = "error loading file";
-
-    beforeEach(function () {
-      newState = loggerTraceReducer(emptyLoggerTrace, actions.loadFileFailure(expectedMessage));
-    });
-
-    it('sets the error message', function () {
-      newState.get(keys.ERROR_MESSAGE)
-        .should.equal(expectedMessage);
     });
   });
 });
