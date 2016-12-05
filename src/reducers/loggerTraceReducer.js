@@ -6,16 +6,11 @@ import calculateBounds from '../geometry/calculateBounds';
 
 let operations = [];
 
-operations[actions.FILE_LOADING] = function (state, action) {
-  return state.set(keys.FILE_NAME, action.fileName);
-};
-
 operations[actions.LOAD_FILE_SUCCESS] = function (state, action) {
   let trace = action.loggerTrace;
   const positions = trace.fixes.map(f => f.position);
 
   return state.merge({
-    fileName: action.fileName,
     headers: fromJS(trace.headers),
     positions: List(positions),
     currentPosition: trace.fixes[0].position,

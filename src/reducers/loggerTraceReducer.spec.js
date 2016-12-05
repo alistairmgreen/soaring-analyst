@@ -21,24 +21,9 @@ describe('Logger trace reducer', function () {
       .should.equal(emptyLoggerTrace);
   });
 
-  describe('when a file load is triggered', function () {
-
-    const expectedFileName = "loggertrace.igc";
-    let newState;
-
-    beforeEach(function () {
-      newState = loggerTraceReducer(emptyLoggerTrace, actions.fileLoading(expectedFileName));
-    });
-
-    it('sets the file name', function () {
-      newState.get(keys.FILE_NAME).should.equal(expectedFileName);
-    });
-  });
-
   describe('when a file is loaded successfully', function () {
 
     let newState;
-    let expectedFileName = "loggertrace.igc";
     const stubLoggerTrace = {
       headers: [
         {
@@ -75,16 +60,12 @@ describe('Logger trace reducer', function () {
     };
 
     beforeEach(function () {
-      let loadAction = actions.loadFileSuccess(expectedFileName, stubLoggerTrace);
+      let loadAction = actions.loadFileSuccess("filename.igc", stubLoggerTrace);
       let oldState = emptyLoggerTrace.merge({
         fileLoadInProgress: true
       });
 
       newState = loggerTraceReducer(oldState, loadAction);
-    });
-
-    it('sets the file name', function () {
-      newState.get(keys.FILE_NAME).should.equal(expectedFileName);
     });
 
     it('sets the headers', function () {

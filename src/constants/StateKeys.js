@@ -1,5 +1,3 @@
-export const FILE_NAME = 'fileName';
-
 export const HEADERS = 'headers';
 
 export const POSITIONS = 'positions';

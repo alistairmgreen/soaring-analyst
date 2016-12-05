@@ -5,7 +5,6 @@ import LoadingDialog from '../components/loggertrace/LoadingDialog';
 import StartupBanner from '../components/loggertrace/StartupBanner';
 import BarogramPage from '../components/pages/BarogramPage';
 import { loadFile } from '../actions/actions';
-import * as keys from '../constants/StateKeys';
 
 function BarogramPageContainer(props) {
   switch (props.loadingStatus) {
@@ -30,11 +29,9 @@ BarogramPageContainer.propTypes = {
 };
 
 function mapStateToProps(state) {
-  const { loggerTrace } = state;
-
   return {
     loadingStatus: state.loadingStatus,
-    fileName: loggerTrace.get(keys.FILE_NAME),
+    fileName: state.fileName,
     errorMessage: state.errorMessage
   };
 }

@@ -39,10 +39,7 @@ export const initialTask = fromJS({
   }
 });
 
-export const emptyLoggerTrace = Map({
-  fileName: "",
-  errorMessage: ""
-});
+export const emptyLoggerTrace = Map();
 
 const now = moment.utc();
 export const defaultTime = Map({

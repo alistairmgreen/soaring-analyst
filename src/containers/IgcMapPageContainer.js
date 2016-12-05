@@ -5,7 +5,6 @@ import LoadingDialog from '../components/loggertrace/LoadingDialog';
 import StartupBanner from '../components/loggertrace/StartupBanner';
 import IgcMapPage from '../components/pages/IgcMapPage';
 import { loadFile } from '../actions/actions';
-import * as keys from '../constants/StateKeys';
 import * as STATUS from '../constants/loadingStatus';
 
 function IgcMapPageContainer(props) {
@@ -39,7 +38,7 @@ IgcMapPageContainer.propTypes = {
 function mapStateToProps(state) {
   return {
     loadingStatus: state.loadingStatus,
-    fileName: state.loggerTrace.get(keys.FILE_NAME),
+    fileName: state.fileName,
     errorMessage: state.errorMessage,
     task: state.task,
     loggerTrace: state.loggerTrace

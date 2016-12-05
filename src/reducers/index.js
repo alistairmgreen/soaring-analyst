@@ -8,9 +8,11 @@
  import timeZoneReducer from './timeZoneReducer';
  import altitudeReducer from './altitudeReducer';
  import errorMessageReducer from './errorMessageReducer';
+ import fileNameReducer from './fileNameReducer';
 
  export default combineReducers({
    errorMessage: errorMessageReducer,
+   fileName: fileNameReducer,
    loadingStatus: loadingStatusReducer,
    task: taskReducer,
    loggerTrace: loggerTraceReducer,

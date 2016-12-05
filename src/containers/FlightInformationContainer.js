@@ -43,7 +43,7 @@ function mapStateToProps(state) {
 
   const props = {
     loadingStatus: state.loadingStatus,
-    fileName: loggerTrace.get(keys.FILE_NAME),
+    fileName: state.fileName,
     errorMessage: state.errorMessage,
     headers: loggerTrace.get(keys.HEADERS),
     flightDate: timestamps.get(0),
