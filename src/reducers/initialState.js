@@ -1,5 +1,4 @@
-import { List, Map, fromJS } from 'immutable';
-import moment from 'moment';
+import { Map, fromJS } from 'immutable';
 
 export const initialTask = fromJS({
   waypoints: [
@@ -41,9 +40,3 @@ export const initialTask = fromJS({
 
 export const emptyLoggerTrace = Map();
 
-const now = moment.utc();
-export const defaultTime = Map({
-  timeZoneName: "Coordinated Universal Time",
-  timestamps: List.of(now),
-  currentTimestamp: now
-});
