@@ -2,6 +2,7 @@
  import {routerReducer} from 'react-router-redux';
  import loadingStatusReducer from './loadingStatusReducer';
  import taskReducer from './taskReducer';
+ import headersReducer from './headersReducer';
  import loggerTraceReducer from './loggerTraceReducer';
  import timeIndexReducer from './timeIndexReducer';
  import timestampsReducer from './timestampsReducer';
@@ -15,6 +16,7 @@
    fileName: fileNameReducer,
    loadingStatus: loadingStatusReducer,
    task: taskReducer,
+   headers: headersReducer,
    loggerTrace: loggerTraceReducer,
    timeIndex: timeIndexReducer,
    timestamps: timestampsReducer,

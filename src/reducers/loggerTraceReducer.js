@@ -1,4 +1,4 @@
-import { List, Map, fromJS } from 'immutable';
+import { List, Map } from 'immutable';
 import * as actions from '../actions/actionTypes';
 import { emptyLoggerTrace } from './initialState';
 import calculateBounds from '../geometry/calculateBounds';
@@ -10,7 +10,6 @@ operations[actions.LOAD_FILE_SUCCESS] = function (state, action) {
   const positions = trace.fixes.map(f => f.position);
 
   return state.merge({
-    headers: fromJS(trace.headers),
     positions: List(positions),
     defaultMapLocation: Map({
       bounds: calculateBounds(positions)

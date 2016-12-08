@@ -6,7 +6,6 @@ import LoadingDialog from '../components/loggertrace/LoadingDialog';
 import StartupBanner from '../components/loggertrace/StartupBanner';
 import FlightInformationPage from '../components/pages/FlightInformationPage';
 import { loadFile } from '../actions/actions';
-import * as keys from '../constants/StateKeys';
 import * as STATUS from '../constants/loadingStatus';
 
 function FlightInformationContainer(props) {
@@ -39,18 +38,14 @@ FlightInformationContainer.propTypes = {
 };
 
 function mapStateToProps(state) {
-  const { loggerTrace, timestamps, timeZone } = state;
-
-  const props = {
+  return {
     loadingStatus: state.loadingStatus,
     fileName: state.fileName,
     errorMessage: state.errorMessage,
-    headers: loggerTrace.get(keys.HEADERS),
-    flightDate: timestamps.get(0),
-    timezone: timeZone
+    headers: state.headers,
+    flightDate: state.timestamps.get(0),
+    timezone: state.timeZone
   };
-
-  return props;
 }
 
 export default connect(mapStateToProps, { loadFile })(FlightInformationContainer);

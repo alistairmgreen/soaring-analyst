@@ -2,7 +2,7 @@ import { describe, it } from 'mocha';
 import chai from 'chai';
 import chaiImmutable from 'chai-immutable';
 import chaiMoment from 'chai-moment';
-import { List, fromJS } from 'immutable';
+import { List } from 'immutable';
 import moment from 'moment';
 
 import loggerTraceReducer from './loggerTraceReducer';
@@ -66,10 +66,6 @@ describe('Logger trace reducer', function () {
       });
 
       newState = loggerTraceReducer(oldState, loadAction);
-    });
-
-    it('sets the headers', function () {
-      newState.get(keys.HEADERS).should.equal(fromJS(stubLoggerTrace.headers));
     });
 
     it('sets a list of positions', function () {
