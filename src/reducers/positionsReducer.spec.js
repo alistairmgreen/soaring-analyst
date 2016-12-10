@@ -1,6 +1,6 @@
 import { describe, it } from 'mocha';
 import chai from 'chai';
-import { List } from 'immutable';
+import { List, Map } from 'immutable';
 import chaiImmutable from 'chai-immutable';
 import positionsReducer from './positionsReducer';
 import { loadFileSuccess } from '../actions/actions';
@@ -43,11 +43,11 @@ describe('positionsReducer', function () {
       state.should.be.an.instanceOf(List);
     });
 
-    it('sets a list of latitudes and longitudes', function () {
-      state.toArray().should.deep.equal([
-        { lat: 1, lng: 2, formatted: '1N, 2E' },
-        { lat: 3, lng: 4, formatted: '3N, 4E' }
-      ]);
+    it('sets an immutable list of latitudes and longitudes', function () {
+      state.should.equal(List.of(
+        Map({ lat: 1, lng: 2, formatted: '1N, 2E' }),
+        Map({ lat: 3, lng: 4, formatted: '3N, 4E' })
+      ));
     });
   });
 });

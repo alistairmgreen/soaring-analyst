@@ -43,7 +43,7 @@ function mapStateToProps(state) {
     timeIndex: state.timeIndex,
     maxTimeIndex: getMaxTimeIndex(state),
     time: getCurrentTime(state),
-    position: getCurrentPosition(state).formatted,
+    position: getCurrentPosition(state).get('formatted'),
     altitude: getCurrentAltitude(state),
     altitudeSource: state.altitude.get(keys.ALTITUDE_SOURCE),
     altitudeUnit: state.altitude.get(keys.ALTITUDE_UNIT_ABBREVIATION)

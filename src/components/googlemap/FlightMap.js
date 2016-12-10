@@ -49,7 +49,7 @@ class FlightMap extends React.Component {
     let mapElements = [];
 
     if(this.props.currentPosition) {
-      mapElements.push(<Marker key={0} position={this.props.currentPosition} autoScroll label={icons.UNICODE_PLANE} />);
+      mapElements.push(<Marker key={0} position={this.props.currentPosition.toObject()} autoScroll label={icons.UNICODE_PLANE} />);
     }
 
     if(this.props.flightPath){
