@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Map } from 'immutable';
+import { Map, List } from 'immutable';
 import LoadingDialog from '../components/loggertrace/LoadingDialog';
 import StartupBanner from '../components/loggertrace/StartupBanner';
 import CombinedViewPage from '../components/pages/CombinedViewPage';
@@ -19,6 +19,7 @@ function CombinedViewPageContainer(props) {
       return (
         <CombinedViewPage task={props.task}
           loggerTrace={props.loggerTrace}
+          positions={props.positions}
           currentPosition={props.currentPosition} />
       );
 
@@ -34,6 +35,7 @@ CombinedViewPageContainer.propTypes = {
   fileName: PropTypes.string.isRequired,
   errorMessage: PropTypes.string.isRequired,
   task: PropTypes.instanceOf(Map).isRequired,
+  positions: PropTypes.instanceOf(List).isRequired,
   loggerTrace: PropTypes.instanceOf(Map).isRequired,
   loadFile: PropTypes.func.isRequired,
   currentPosition: PropTypes.object.isRequired,
@@ -45,6 +47,7 @@ function mapStateToProps(state) {
     fileName: state.fileName,
     errorMessage: state.errorMessage,
     task: state.task,
+    positions: state.positions,
     loggerTrace: state.loggerTrace,
     currentPosition: getCurrentPosition(state)
   };

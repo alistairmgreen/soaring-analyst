@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Map } from 'immutable';
+import { Map, List } from 'immutable';
 import LoadingDialog from '../components/loggertrace/LoadingDialog';
 import StartupBanner from '../components/loggertrace/StartupBanner';
 import IgcMapPage from '../components/pages/IgcMapPage';
@@ -17,7 +17,7 @@ function IgcMapPageContainer(props) {
 
     case STATUS.FILE_LOADED:
       return (
-        <IgcMapPage task={props.task} loggerTrace={props.loggerTrace} currentPosition={props.currentPosition} />
+        <IgcMapPage task={props.task} loggerTrace={props.loggerTrace} positions={props.positions} currentPosition={props.currentPosition} />
       );
 
     default:
@@ -32,6 +32,7 @@ IgcMapPageContainer.propTypes = {
   fileName: PropTypes.string.isRequired,
   errorMessage: PropTypes.string.isRequired,
   task: PropTypes.instanceOf(Map).isRequired,
+  positions: PropTypes.instanceOf(List).isRequired,
   loggerTrace: PropTypes.instanceOf(Map).isRequired,
   loadFile: PropTypes.func.isRequired,
   currentPosition: PropTypes.object.isRequired
@@ -43,6 +44,7 @@ function mapStateToProps(state) {
     fileName: state.fileName,
     errorMessage: state.errorMessage,
     task: state.task,
+    positions: state.positions,
     loggerTrace: state.loggerTrace,
     currentPosition: getCurrentPosition(state)
   };

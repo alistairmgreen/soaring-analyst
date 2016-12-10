@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Map } from 'immutable';
+import { Map, List } from 'immutable';
 import { Grid, Row, Col } from 'react-bootstrap';
 import FlightMap from '../googlemap/FlightMap';
 import Timeline from '../timeline/Timeline';
@@ -14,6 +14,7 @@ class CombinedViewPage extends React.Component {
     const {
       task,
       loggerTrace,
+      positions,
       currentPosition
     } = this.props;
 
@@ -27,7 +28,7 @@ class CombinedViewPage extends React.Component {
 
         <Row>
           <Col sm={12} md={6}>
-            <FlightMap flightPath={loggerTrace.get(keys.POSITIONS)}
+            <FlightMap flightPath={positions}
               currentPosition={currentPosition}
               task={task.get(TASK_STATE.WAYPOINTS)}
               defaultLocation={loggerTrace.get(keys.DEFAULT_MAP_LOCATION)}
@@ -46,6 +47,7 @@ class CombinedViewPage extends React.Component {
 
 CombinedViewPage.propTypes = {
   task: PropTypes.instanceOf(Map).isRequired,
+  positions: PropTypes.instanceOf(List).isRequired,
   loggerTrace: PropTypes.instanceOf(Map).isRequired,
   currentPosition: PropTypes.object.isRequired
 };
