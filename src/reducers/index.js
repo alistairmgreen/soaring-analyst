@@ -4,7 +4,6 @@
  import taskReducer from './taskReducer';
  import headersReducer from './headersReducer';
  import positionsReducer from './positionsReducer';
- import loggerTraceReducer from './loggerTraceReducer';
  import timeIndexReducer from './timeIndexReducer';
  import timestampsReducer from './timestampsReducer';
  import timeZoneReducer from './timeZoneReducer';
@@ -19,7 +18,6 @@
    task: taskReducer,
    headers: headersReducer,
    positions: positionsReducer,
-   loggerTrace: loggerTraceReducer,
    timeIndex: timeIndexReducer,
    timestamps: timestampsReducer,
    timeZone: timeZoneReducer,

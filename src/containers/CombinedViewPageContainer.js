@@ -6,7 +6,7 @@ import StartupBanner from '../components/loggertrace/StartupBanner';
 import CombinedViewPage from '../components/pages/CombinedViewPage';
 import { loadFile } from '../actions/actions';
 import * as STATUS from '../constants/loadingStatus';
-import { getCurrentPosition } from '../selectors/positionSelectors';
+import { getCurrentPosition, getDefaultFlightMapPosition } from '../selectors/positionSelectors';
 
 function CombinedViewPageContainer(props) {
   switch (props.loadingStatus) {
@@ -18,7 +18,7 @@ function CombinedViewPageContainer(props) {
     case STATUS.FILE_LOADED:
       return (
         <CombinedViewPage task={props.task}
-          loggerTrace={props.loggerTrace}
+          defaultMapLocation={props.defaultMapLocation}
           positions={props.positions}
           currentPosition={props.currentPosition} />
       );
@@ -36,7 +36,7 @@ CombinedViewPageContainer.propTypes = {
   errorMessage: PropTypes.string.isRequired,
   task: PropTypes.instanceOf(Map).isRequired,
   positions: PropTypes.instanceOf(List).isRequired,
-  loggerTrace: PropTypes.instanceOf(Map).isRequired,
+  defaultMapLocation: PropTypes.instanceOf(Map).isRequired,
   loadFile: PropTypes.func.isRequired,
   currentPosition: PropTypes.object.isRequired,
 };
@@ -48,7 +48,7 @@ function mapStateToProps(state) {
     errorMessage: state.errorMessage,
     task: state.task,
     positions: state.positions,
-    loggerTrace: state.loggerTrace,
+    defaultMapLocation: getDefaultFlightMapPosition(state),
     currentPosition: getCurrentPosition(state)
   };
 

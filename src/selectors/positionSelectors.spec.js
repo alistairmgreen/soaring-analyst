@@ -1,7 +1,7 @@
 import { describe, it } from 'mocha';
 import chai from 'chai';
-import { List, Map } from 'immutable';
-import { getCurrentPosition } from './positionSelectors';
+import { List, Map, fromJS } from 'immutable';
+import { getCurrentPosition, getDefaultFlightMapPosition } from './positionSelectors';
 
 chai.should();
 
@@ -39,6 +39,44 @@ describe('getCurrentPosition selector', function () {
             .should.equal(expectedPosition);
         });
       });
+    });
+  });
+});
+
+describe('getDefaultFlightMapPosition', function () {
+  describe('given an empty list of position fixes', function () {
+    const mapPosition = getDefaultFlightMapPosition({ positions: List() });
+    it('sets map bounds to the whole world', function () {
+      mapPosition.should.equal(fromJS({
+        bounds: {
+          north: 89,
+          south: -89,
+          west: -179,
+          east: 179
+        }
+      }));
+    });
+  });
+
+  describe('given a valid list of position fixes', function () {
+    const state = {
+      positions: fromJS([
+        { lat: -1, lng: -2 },
+        { lat: 1, lng: 2 },
+        { lat: 3, lng: 0 }
+      ])
+    };
+
+    it('sets map bounds to the bounds of the flight path', function () {
+      getDefaultFlightMapPosition(state)
+        .should.equal(fromJS({
+          bounds: {
+            north: 3,
+            south: -1,
+            west: -2,
+            east: 2
+          }
+        }));
     });
   });
 });
