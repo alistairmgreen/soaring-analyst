@@ -8,7 +8,7 @@ function TimeAndPositionDisplay(props) {
 
   return (
     <p>
-      {time}: {position}, {altitude} {altitudeUnit}({altitudeSource})
+      {time}: {position}, {altitude} {altitudeUnit} ({altitudeSource})
     </p>
   );
 }

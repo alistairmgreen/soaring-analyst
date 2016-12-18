@@ -4,6 +4,8 @@ import moment from 'moment';
 import chaiMoment from 'chai-moment';
 import { List, Map } from 'immutable';
 import getBarogramData from './getBarogramData';
+import { METRES } from '../constants/units';
+import { GPS } from '../constants/altitudeSources';
 
 chai.use(chaiMoment);
 chai.should();
@@ -19,7 +21,13 @@ describe('getBarogramData selector', function () {
 
   const state = {
     timestamps: List(timestamps),
-    altitude: Map({ altitudes: List(altitudes) })
+    altitude: {
+      source: GPS,
+      unit: METRES,
+      values: Map({
+        GPS: List(altitudes)
+      })
+    }
   };
 
   let data;

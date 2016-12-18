@@ -7,7 +7,7 @@
  import timeIndexReducer from './timeIndexReducer';
  import timestampsReducer from './timestampsReducer';
  import timeZoneReducer from './timeZoneReducer';
- import altitudeReducer from './altitudeReducer';
+ import altitudeReducer from './altitude/altitudeReducer';
  import errorMessageReducer from './errorMessageReducer';
  import fileNameReducer from './fileNameReducer';
 

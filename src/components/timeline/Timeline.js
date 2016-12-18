@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import Slider from './Slider';
 import TimeAndPositionDisplay from './TimeAndPositionDisplay';
-import * as keys from '../../constants/StateKeys';
 import { setTimeIndex } from '../../actions/actions';
 import { getCurrentTime, getMaxTimeIndex } from '../../selectors/timeSelectors';
-import { getCurrentAltitude } from '../../selectors/altitudeSelectors';
+import { getCurrentAltitude, getAltitudeSource, getAltitudeUnitAbbreviation } from '../../selectors/altitudeSelectors';
 import { getCurrentPosition } from '../../selectors/positionSelectors';
 
 function Timeline(props) {
@@ -45,8 +44,8 @@ function mapStateToProps(state) {
     time: getCurrentTime(state),
     position: getCurrentPosition(state).get('formatted'),
     altitude: getCurrentAltitude(state),
-    altitudeSource: state.altitude.get(keys.ALTITUDE_SOURCE),
-    altitudeUnit: state.altitude.get(keys.ALTITUDE_UNIT_ABBREVIATION)
+    altitudeSource: getAltitudeSource(state),
+    altitudeUnit: getAltitudeUnitAbbreviation(state)
   };
 }
 

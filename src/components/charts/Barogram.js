@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import LineChart from './LineChart';
 import getBarogramData from '../../selectors/getBarogramData';
-import { getCurrentAltitude } from '../../selectors/altitudeSelectors';
+import { getCurrentAltitude, getAltitudeUnit, getAltitudeSource } from '../../selectors/altitudeSelectors';
 import { getCurrentTime } from '../../selectors/timeSelectors';
 import { setTimeIndex } from '../../actions/actions';
-import { ALTITUDE_UNIT, ALTITUDE_SOURCE } from '../../constants/StateKeys';
 
 function Barogram(props) {
   const dataSets = [{
@@ -71,8 +70,8 @@ Barogram.propTypes = {
 function mapStateToProps(state) {
   return {
     data: getBarogramData(state),
-    altitudeUnit: state.altitude.get(ALTITUDE_UNIT),
-    altitudeSource: state.altitude.get(ALTITUDE_SOURCE),
+    altitudeUnit: getAltitudeUnit(state),
+    altitudeSource: getAltitudeSource(state),
     currentTime: getCurrentTime(state),
     currentAltitude: getCurrentAltitude(state),
     timeZoneName: state.timeZone
