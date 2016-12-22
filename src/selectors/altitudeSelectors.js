@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import { getTimeIndex } from './timeSelectors';
 import { FEET } from '../constants/units';
 
-const M_TO_FT = 3.28084;
+export const M_TO_FT = 3.28084;
 
 export const getAltitudeUnit = state => state.altitude.unit;
 
