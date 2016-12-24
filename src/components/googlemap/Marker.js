@@ -53,11 +53,15 @@ class Marker extends React.Component {
       }
 
       this.marker = new gmaps.Marker(options);
+
+      if(this.props.map) {
+        this.marker.setMap(this.props.map);
+      }
     }
   }
 
   render() {
-    return null;
+    return <span/>;
   }
 }
 

@@ -5,7 +5,6 @@ import FlightMap from '../googlemap/FlightMap';
 import Timeline from '../timeline/Timeline';
 import Barogram from '../charts/Barogram';
 import AltitudeChooser from '../AltitudeChooser';
-import * as TASK_STATE from '../../constants/TaskStateKeys';
 
 class CombinedViewPage extends React.Component {
   render() {
@@ -29,7 +28,7 @@ class CombinedViewPage extends React.Component {
           <Col sm={12} md={6}>
             <FlightMap flightPath={positions}
               currentPosition={currentPosition}
-              task={task.get(TASK_STATE.WAYPOINTS)}
+              task={task}
               defaultLocation={defaultMapLocation}
               zoomToFitLabel="Flight path" />
           </Col>
@@ -45,7 +44,7 @@ class CombinedViewPage extends React.Component {
 }
 
 CombinedViewPage.propTypes = {
-  task: PropTypes.instanceOf(Map).isRequired,
+  task: PropTypes.instanceOf(List).isRequired,
   positions: PropTypes.instanceOf(List).isRequired,
   defaultMapLocation: PropTypes.instanceOf(Map).isRequired,
   currentPosition: PropTypes.object.isRequired

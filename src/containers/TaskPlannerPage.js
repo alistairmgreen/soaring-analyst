@@ -1,33 +1,28 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import { bindActionCreators } from 'redux';
 import TaskEditor from '../components/TaskEditor';
-import * as actions from '../actions/actions';
+import { getWaypoints, getTaskBounds } from '../selectors/taskSelectors';
+import {deleteTurnpoint} from '../actions/actions';
 
-export function TaskPlannerPage(props) {
-
+function TaskPlannerPage(props) {
   return (
     <div>
-      <TaskEditor task={props.task} deleteTurnpoint={props.actions.deleteTurnpoint} />
+      <TaskEditor {...props} />
     </div>
   );
 }
 
 TaskPlannerPage.propTypes = {
   task: PropTypes.object.isRequired,
-  actions: PropTypes.object.isRequired
+  defaultMapLocation: PropTypes.object.isRequired,
+  deleteTurnpoint: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    task: state.task
+    task: getWaypoints(state),
+    defaultMapLocation: getTaskBounds(state)
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(actions, dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(TaskPlannerPage);
+export default connect(mapStateToProps, { deleteTurnpoint })(TaskPlannerPage);

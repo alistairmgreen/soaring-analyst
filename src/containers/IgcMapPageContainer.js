@@ -7,6 +7,7 @@ import IgcMapPage from '../components/pages/IgcMapPage';
 import { loadFile } from '../actions/actions';
 import * as STATUS from '../constants/loadingStatus';
 import { getCurrentPosition, getDefaultFlightMapPosition } from '../selectors/positionSelectors';
+import { getWaypoints } from '../selectors/taskSelectors';
 
 function IgcMapPageContainer(props) {
   switch (props.loadingStatus) {
@@ -31,7 +32,7 @@ IgcMapPageContainer.propTypes = {
   loadingStatus: PropTypes.number.isRequired,
   fileName: PropTypes.string.isRequired,
   errorMessage: PropTypes.string.isRequired,
-  task: PropTypes.instanceOf(Map).isRequired,
+  task: PropTypes.instanceOf(List).isRequired,
   positions: PropTypes.instanceOf(List).isRequired,
   defaultMapLocation: PropTypes.instanceOf(Map).isRequired,
   loadFile: PropTypes.func.isRequired,
@@ -43,7 +44,7 @@ function mapStateToProps(state) {
     loadingStatus: state.loadingStatus,
     fileName: state.fileName,
     errorMessage: state.errorMessage,
-    task: state.task,
+    task: getWaypoints(state),
     positions: state.positions,
     defaultMapLocation: getDefaultFlightMapPosition(state),
     currentPosition: getCurrentPosition(state)

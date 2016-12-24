@@ -2,10 +2,9 @@ import moment from 'moment';
 import parseLatitudeLongitude from './parseLatitudeLongitude';
 
 function parseWaypoint(line) {
-  return {
-    name: line.substring(18),
-    position: parseLatitudeLongitude(line.substring(1, 18))
-  };
+  let waypoint = parseLatitudeLongitude(line.substring(1, 18));
+  waypoint.name = line.substring(18);
+  return waypoint;
 }
 
 

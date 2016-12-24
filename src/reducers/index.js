@@ -1,7 +1,7 @@
  import { combineReducers } from 'redux';
  import {routerReducer} from 'react-router-redux';
  import loadingStatusReducer from './loadingStatusReducer';
- import taskReducer from './taskReducer';
+ import taskReducer from './task/taskReducer';
  import headersReducer from './headersReducer';
  import positionsReducer from './positionsReducer';
  import timeIndexReducer from './timeIndexReducer';

@@ -38,7 +38,7 @@ class FlightMap extends React.Component {
       const waypoint = props.task.get(index);
       return {
         defaultLocation: {
-          center: waypoint.get('position').toObject(),
+          center: waypoint.toObject(),
           zoom: 13
         }
       };
@@ -49,15 +49,15 @@ class FlightMap extends React.Component {
     let mapElements = [];
 
     if(this.props.currentPosition) {
-      mapElements.push(<Marker key={0} position={this.props.currentPosition.toObject()} autoScroll label={icons.UNICODE_PLANE} />);
+      mapElements.push(<Marker key="Glider position" position={this.props.currentPosition.toObject()} autoScroll label={icons.UNICODE_PLANE} />);
     }
 
     if(this.props.flightPath){
-      mapElements.push(<Polyline key={1} path={this.props.flightPath} color="blue" />);
+      mapElements.push(<Polyline key="Flight path" path={this.props.flightPath} color="blue" />);
     }
 
     if(this.props.task && this.props.task.count() > 0) {
-      mapElements.push(<TaskPlot key={2} task={this.props.task} />);
+      mapElements.push(<TaskPlot key="Task" task={this.props.task} />);
     }
 
     return (
