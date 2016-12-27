@@ -2,6 +2,12 @@ import React, { PropTypes } from 'react';
 import { Form, FormGroup, FormControl } from 'react-bootstrap';
 
 function Slider(props) {
+  // The Change event never fires in Internet Explorer.
+  // This is a known issue in React itself which has been closed
+  // on Github but not actually fixed.
+  // As a workaround, use the same handler for click, key press and
+  // mouse move (with any button pressed).
+  const handleChange = event => props.onChange(parseInt(event.target.value, 10));
   return (
     <Form>
       <FormGroup>
@@ -10,7 +16,10 @@ function Slider(props) {
           max={props.max}
           step={props.step}
           value={props.value}
-          onChange={e => props.onChange(parseInt(e.target.value, 10))} />
+          onChange={handleChange}
+          onKeyPress={handleChange}
+          onClick={handleChange}
+          onMouseMove={e => e.buttons > 0 && handleChange(e)} />
       </FormGroup>
     </Form>
   );
