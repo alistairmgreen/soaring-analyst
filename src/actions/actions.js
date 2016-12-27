@@ -1,4 +1,3 @@
-import 'whatwg-fetch';
 import parseIGC from '../parser/parseIGC';
 import * as ACTION from './actionTypes';
 const API_KEYS = require('../apikeys');
