@@ -14,10 +14,9 @@ class TaskPlot extends React.Component {
 
   render() {
     const { task, googlemaps, map } = this.props;
-    const positions = task.map(waypoint => waypoint.get('position'));
-    const lastIndex = positions.count() - 1;
+    const lastIndex = task.count() - 1;
 
-    let markers = positions.map((pos, index) => {
+    let markers = task.map((pos, index) => {
       let markerLabel;
       switch (index) {
         case lastIndex:
@@ -30,12 +29,12 @@ class TaskPlot extends React.Component {
           markerLabel = index.toString();
       }
 
-      return (<Marker googlemaps={googlemaps} map={map} position={pos} label={markerLabel} key={index} />);
+      return (<Marker googlemaps={googlemaps} map={map} position={pos.toObject()} label={markerLabel} key={`${index}${pos.get('name')}`} />);
     }).toArray();
 
     return (
       <span>
-        <Polyline googlemaps={googlemaps} map={map} path={positions} />
+        <Polyline googlemaps={googlemaps} map={map} path={task} />
 
         {markers}
       </span>

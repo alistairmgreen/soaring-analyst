@@ -36,7 +36,7 @@ export function parseHeaderLine(headerRecord) {
 
 export default function parseHeaders(igcLines) {
   return igcLines
-    .filter(line => line.startsWith('H'))
+    .filter(line => line.charAt(0) === 'H')
     .map(h => parseHeaderLine(h))
     .filter(h => h.name.length > 0);
 }

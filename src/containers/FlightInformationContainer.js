@@ -6,30 +6,30 @@ import LoadingDialog from '../components/loggertrace/LoadingDialog';
 import StartupBanner from '../components/loggertrace/StartupBanner';
 import FlightInformationPage from '../components/pages/FlightInformationPage';
 import { loadFile } from '../actions/actions';
-import * as keys from '../constants/StateKeys';
+import * as STATUS from '../constants/loadingStatus';
 
 function FlightInformationContainer(props) {
-  if (props.fileLoadInProgress) {
-    return (
-      <LoadingDialog fileName={props.fileName} />
-    );
-  }
+  switch (props.loadingStatus) {
+    case STATUS.LOAD_IN_PROGRESS:
+      return (
+        <LoadingDialog fileName={props.fileName} />
+      );
 
-  if (props.fileLoaded) {
-    return (
-      <FlightInformationPage fileName={props.fileName} flightDate={props.flightDate} timezone={props.timezone} headers={props.headers}/>
-    );
-  }
+    case STATUS.FILE_LOADED:
+      return (
+        <FlightInformationPage fileName={props.fileName} flightDate={props.flightDate} timezone={props.timezone} headers={props.headers} />
+      );
 
-  return (
-    <StartupBanner loadFile={props.loadFile} errorMessage={props.errorMessage} />
-  );
+    default:
+      return (
+        <StartupBanner loadFile={props.loadFile} errorMessage={props.errorMessage} />
+      );
+  }
 }
 
 FlightInformationContainer.propTypes = {
-  fileLoadInProgress: PropTypes.bool.isRequired,
+  loadingStatus: PropTypes.number.isRequired,
   fileName: PropTypes.string.isRequired,
-  fileLoaded: PropTypes.bool.isRequired,
   errorMessage: PropTypes.string.isRequired,
   flightDate: PropTypes.instanceOf(moment),
   headers: PropTypes.instanceOf(List),
@@ -38,19 +38,14 @@ FlightInformationContainer.propTypes = {
 };
 
 function mapStateToProps(state) {
-  const { loggerTrace, time } = state;
-
-  const props = {
-    fileLoadInProgress: loggerTrace.get(keys.FILE_LOAD_IN_PROGRESS),
-    fileName: loggerTrace.get(keys.FILE_NAME),
-    fileLoaded: loggerTrace.get(keys.FILE_LOADED),
-    errorMessage: loggerTrace.get(keys.ERROR_MESSAGE),
-    headers: loggerTrace.get(keys.HEADERS),
-    flightDate: time.getIn([keys.TIMESTAMPS, 0]),
-    timezone: time.get(keys.TIME_ZONE_NAME)
+  return {
+    loadingStatus: state.loadingStatus,
+    fileName: state.fileName,
+    errorMessage: state.errorMessage,
+    headers: state.headers,
+    flightDate: state.timestamps.get(0),
+    timezone: state.timeZone
   };
-
-  return props;
 }
 
 export default connect(mapStateToProps, { loadFile })(FlightInformationContainer);

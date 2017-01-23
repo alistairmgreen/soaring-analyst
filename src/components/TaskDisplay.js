@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import { Glyphicon, Button, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { List } from 'immutable';
 
 function TaskDisplay(props) {
   const task = props.task;
@@ -37,7 +38,7 @@ function TaskDisplay(props) {
 }
 
 TaskDisplay.propTypes = {
-  task: PropTypes.object.isRequired,
+  task: PropTypes.instanceOf(List).isRequired,
   deleteTurnpoint: PropTypes.func.isRequired
 };
 

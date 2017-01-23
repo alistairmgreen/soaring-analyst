@@ -131,7 +131,7 @@ describe("parseHeaderLine function", function () {
       header = parseHeaderLine("HFFTYFRType:Flarm-IGC");
     });
 
-    it('returns a "Firmware version" header', function () {
+    it('returns a "Flight recorder type" header', function () {
       header.name.should.equal('Flight recorder type');
     });
 

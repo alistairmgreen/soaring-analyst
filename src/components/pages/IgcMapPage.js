@@ -1,39 +1,21 @@
 import React, { PropTypes } from 'react';
-import { Map } from 'immutable';
+import { Map, List } from 'immutable';
 import FlightMap from '../googlemap/FlightMap';
-import Timeline from '../Timeline';
-import * as keys from '../../constants/StateKeys';
-import * as TASK_STATE from '../../constants/TaskStateKeys';
+import Timeline from '../timeline/Timeline';
 
 class IgcMapPage extends React.Component {
   render() {
 
-    const {
-      altitude,
-      task,
-      loggerTrace,
-      time,
-      setTimeIndexAction
-    } = this.props;
-
-    const timeIndex = time.get(keys.TIME_INDEX);
-    const currentPosition = loggerTrace.get(keys.CURRENT_POSITION);
+    const { task, defaultMapLocation, positions, currentPosition } = this.props;
 
     return (
       <div>
-        <Timeline timeIndex={timeIndex}
-          max={time.get(keys.MAX_TIME_INDEX)}
-          currentTime={time.getIn([keys.TIMESTAMPS, timeIndex])}
-          currentAltitude={altitude.getIn([keys.ALTITUDES, timeIndex])}
-          currentPosition={currentPosition.toObject()}
-          altitudeUnit={altitude.get(keys.ALTITUDE_UNIT_ABBREVIATION)}
-          altitudeSource={altitude.get(keys.ALTITUDE_SOURCE)}
-          setTimeIndex={setTimeIndexAction} />
+        <Timeline  />
 
-        <FlightMap flightPath={loggerTrace.get(keys.POSITIONS)}
-          currentPosition={loggerTrace.get(keys.CURRENT_POSITION)}
-          task={task.get(TASK_STATE.WAYPOINTS)}
-          defaultLocation={loggerTrace.get(keys.DEFAULT_MAP_LOCATION)}
+        <FlightMap flightPath={positions}
+          currentPosition={currentPosition}
+          task={task}
+          defaultLocation={defaultMapLocation}
           zoomToFitLabel="Flight path" />
       </div>
     );
@@ -41,11 +23,10 @@ class IgcMapPage extends React.Component {
 }
 
 IgcMapPage.propTypes = {
-  task: PropTypes.instanceOf(Map).isRequired,
-  loggerTrace: PropTypes.instanceOf(Map).isRequired,
-  time: PropTypes.instanceOf(Map).isRequired,
-  altitude: PropTypes.instanceOf(Map).isRequired,
-  setTimeIndexAction: PropTypes.func.isRequired
+  task: PropTypes.instanceOf(List).isRequired,
+  positions: PropTypes.instanceOf(List).isRequired,
+  defaultMapLocation: PropTypes.instanceOf(Map).isRequired,
+  currentPosition: PropTypes.object.isRequired
 };
 
 export default IgcMapPage;

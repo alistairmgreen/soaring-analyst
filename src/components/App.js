@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../actions/actions';
-import * as keys from '../constants/StateKeys';
+import { FILE_LOADED } from '../constants/loadingStatus';
 
 import MenuBar from './MenuBar';
 
@@ -24,8 +24,8 @@ App.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    fileName: state.loggerTrace.get(keys.FILE_NAME),
-    fileLoaded: state.loggerTrace.get(keys.FILE_LOADED)
+    fileName: state.fileName,
+    fileLoaded: state.loadingStatus == FILE_LOADED
   };
 }
 

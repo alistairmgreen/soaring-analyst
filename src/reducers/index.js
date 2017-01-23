@@ -1,14 +1,26 @@
  import { combineReducers } from 'redux';
  import {routerReducer} from 'react-router-redux';
- import taskReducer from './taskReducer';
- import loggerTraceReducer from './loggerTraceReducer';
- import timeReducer from './timeReducer';
- import altitudeReducer from './altitudeReducer';
+ import loadingStatusReducer from './loadingStatusReducer';
+ import taskReducer from './task/taskReducer';
+ import headersReducer from './headersReducer';
+ import positionsReducer from './positionsReducer';
+ import timeIndexReducer from './timeIndexReducer';
+ import timestampsReducer from './timestampsReducer';
+ import timeZoneReducer from './timeZoneReducer';
+ import altitudeReducer from './altitude/altitudeReducer';
+ import errorMessageReducer from './errorMessageReducer';
+ import fileNameReducer from './fileNameReducer';
 
  export default combineReducers({
+   errorMessage: errorMessageReducer,
+   fileName: fileNameReducer,
+   loadingStatus: loadingStatusReducer,
    task: taskReducer,
-   loggerTrace: loggerTraceReducer,
-   time: timeReducer,
+   headers: headersReducer,
+   positions: positionsReducer,
+   timeIndex: timeIndexReducer,
+   timestamps: timestampsReducer,
+   timeZone: timeZoneReducer,
    altitude: altitudeReducer,
-   routing: routerReducer,
+   routing: routerReducer
  });

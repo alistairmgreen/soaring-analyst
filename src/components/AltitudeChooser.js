@@ -1,13 +1,24 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+
 import {
   Form,
   FormGroup,
   FormControl,
   ControlLabel
 } from 'react-bootstrap';
+
 import { List } from 'immutable';
 
-function AltitudeSelector(props) {
+import {
+  getAvailableAltitudeUnits,
+  getAltitudeUnit,
+  getAvailableAltitudeSources,
+  getAltitudeSource } from '../selectors/altitudeSelectors';
+
+import { setAltitudeSource, setAltitudeUnit } from '../actions/actions';
+
+function AltitudeChooser(props) {
   return (
     <Form inline>
       <FormGroup controlId="altitudeSource">
@@ -29,7 +40,7 @@ function AltitudeSelector(props) {
   );
 }
 
-AltitudeSelector.propTypes = {
+AltitudeChooser.propTypes = {
   currentSource: PropTypes.string.isRequired,
   altitudeSources: PropTypes.instanceOf(List).isRequired,
   onSourceChanged: PropTypes.func.isRequired,
@@ -38,4 +49,20 @@ AltitudeSelector.propTypes = {
   onUnitChanged: PropTypes.func.isRequired
 };
 
-export default AltitudeSelector;
+function mapStateToProps(state) {
+  return {
+    currentSource: getAltitudeSource(state),
+    altitudeSources: getAvailableAltitudeSources(state),
+    unit: getAltitudeUnit(state),
+    availableUnits: getAvailableAltitudeUnits(state)
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onSourceChanged: source => dispatch(setAltitudeSource(source)),
+    onUnitChanged: unit => dispatch(setAltitudeUnit(unit))
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AltitudeChooser);

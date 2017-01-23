@@ -5,18 +5,11 @@ import moment from 'moment';
 import HeaderRow from './HeaderRow';
 
 function HeaderDisplay(props) {
-  let headers = props.headers;
+  const { headers, flightDate, timezone } = props;
 
-  const rows = headers.map((h, index) => {
-    const name = h.get('name');
-    const value = h.get('value').toString();
-
-    return (
-      <HeaderRow key={`${name}${index}`} name={name} value={value} />
-    );
-  });
-
-  const { flightDate, timezone } = props;
+  const rows = headers.map((h, index) =>
+      <HeaderRow key={`${h.name}${index}`} name={h.name} value={h.value} />
+  );
 
   return (
     <Table striped>

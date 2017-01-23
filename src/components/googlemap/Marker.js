@@ -25,12 +25,15 @@ class Marker extends React.Component {
 
     const position = this.props.position;
     if (prevProps.position !== position) {
-      let latlng = position.toObject();
-      this.marker.setPosition(latlng);
+      this.marker.setPosition(position);
       if (this.props.autoScroll &&
-        !map.getBounds().contains(latlng)) {
-        map.panTo(latlng);
+        !map.getBounds().contains(position)) {
+        map.panTo(position);
       }
+    }
+
+    if (prevProps.label !== this.props.label) {
+      this.marker.setLabel(this.props.label);
     }
   }
 
@@ -45,7 +48,7 @@ class Marker extends React.Component {
       const gmaps = this.props.googlemaps;
 
       let options = {
-        position: this.props.position.toObject(),
+        position: this.props.position,
         clickable: false
       };
 
@@ -54,11 +57,15 @@ class Marker extends React.Component {
       }
 
       this.marker = new gmaps.Marker(options);
+
+      if(this.props.map) {
+        this.marker.setMap(this.props.map);
+      }
     }
   }
 
   render() {
-    return null;
+    return <span/>;
   }
 }
 

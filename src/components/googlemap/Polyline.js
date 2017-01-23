@@ -43,8 +43,8 @@ class Polyline extends React.Component {
         path: this.props.path.toJS(),
         map: this.props.map,
         clickable: false,
-        strokeColor: this.props.color || 'black',
-        strokeWeight: this.props.weight || 1
+        strokeColor: this.props.color,
+        strokeWeight: this.props.weight
       });
     }
   }
@@ -60,6 +60,11 @@ Polyline.propTypes = {
   path: PropTypes.instanceOf(List).isRequired,
   color: PropTypes.string,
   weight: PropTypes.number
+};
+
+Polyline.defaultProps = {
+  color: 'black',
+  weight: 1
 };
 
 export default Polyline;
