@@ -31,6 +31,10 @@ class Marker extends React.Component {
         map.panTo(position);
       }
     }
+
+    if (prevProps.label !== this.props.label) {
+      this.marker.setLabel(this.props.label);
+    }
   }
 
   componentWillUnmount() {
