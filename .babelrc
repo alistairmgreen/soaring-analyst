@@ -8,26 +8,12 @@
     "development": {
       "presets": [
         "react-hmre"
-      ],
-      "plugins": [
-         ["transform-imports", {
-                "react-bootstrap": {
-                    "transform": "react-bootstrap/lib/${member}",
-                    "preventFullImport": true
-                }
-        }]
       ]
     },
     "production": {
       "plugins": [
         "transform-react-constant-elements",
-        "transform-react-remove-prop-types",
-        ["transform-imports", {
-                "react-bootstrap": {
-                    "transform": "react-bootstrap/lib/${member}",
-                    "preventFullImport": true
-                }
-        }]
+        "transform-react-remove-prop-types"
       ]
     }
   }
