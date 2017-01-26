@@ -3,7 +3,7 @@ import chai from 'chai';
 import moment from 'moment';
 import chaiMoment from 'chai-moment';
 import { List, Map } from 'immutable';
-import getBarogramData from './getBarogramData';
+import { getBarogramData } from './barogramSelectors';
 import { METRES } from '../constants/units';
 import { GPS } from '../constants/altitudeSources';
 

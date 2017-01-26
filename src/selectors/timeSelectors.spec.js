@@ -4,7 +4,7 @@ import moment from 'moment';
 import chaiMoment from 'chai-moment';
 import { List } from 'immutable';
 
-import { getCurrentTime, getMaxTimeIndex } from './timeSelectors';
+import { getCurrentTime, getMaxTimeIndex, getUtcOffset } from './timeSelectors';
 
 chai.use(chaiMoment);
 chai.should();
@@ -33,5 +33,18 @@ describe('getMaxTimeIndex', function() {
     };
 
     getMaxTimeIndex(state).should.equal(2);
+  });
+});
+
+describe('getUtcOffset', function () {
+  const expectedOffsetMinutes = 60;
+  const state = {
+    timestamps: List.of(
+      moment.utc([2016, 10, 1, 8, 59, 59]).utcOffset(expectedOffsetMinutes)
+    )
+  };
+
+  it('returns the UTC offset of the first timestamp', function () {
+    getUtcOffset(state).should.equal(expectedOffsetMinutes);
   });
 });
