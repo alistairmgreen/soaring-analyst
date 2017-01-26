@@ -44,15 +44,21 @@ describe('getBarogramData selector', function () {
     data.should.have.lengthOf(3);
   });
 
-  it('maps timestamps to x property', function () {
-    data.forEach((item, index) => {
-      item.x.should.be.sameMoment(timestamps[index]);
+  it('returns data points in the form [x y]', function () {
+    data.forEach((item) => {
+      item.should.be.an('array').and.have.lengthOf(2);
     });
   });
 
-  it('maps altitudes to y property', function () {
+  it('sets x value to seconds since the Unix epoch', function(){
     data.forEach((item, index) => {
-      item.y.should.equal(altitudes[index]);
+      item[0].should.equal(timestamps[index].unix());
+    });
+  });
+
+  it('maps altitudes to y value', function () {
+    data.forEach((item, index) => {
+      item[1].should.equal(altitudes[index]);
     });
   });
 });

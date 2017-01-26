@@ -9,10 +9,7 @@ const getBarogramData = createSelector(
     let data = [];
 
     timestamps.forEach((t, index) => {
-      data.push({
-        x: t,
-        y: altitudes.get(index)
-      });
+      data.push([t.unix(), altitudes.get(index)]);
     });
 
     return data;
