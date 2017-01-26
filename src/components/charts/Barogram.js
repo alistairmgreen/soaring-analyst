@@ -7,11 +7,7 @@ import { getCurrentAltitude, getAltitudeUnit, getAltitudeSource } from '../../se
 import { getCurrentTime } from '../../selectors/timeSelectors';
 import { setTimeIndex } from '../../actions/actions';
 
-function chooseTicks(axis, utcOffset) {
-  const ticks = [];
-  const startMoment = moment.unix(axis.min).utcOffset(utcOffset);
-  const endMoment = moment.unix(axis.max).utcOffset(utcOffset);
-  const durationMinutes = endMoment.diff(startMoment, 'minutes');
+function chooseTickInterval(durationMinutes) {
   let interval;
   if (durationMinutes <= 10) {
     interval = 1;
@@ -35,8 +31,20 @@ function chooseTicks(axis, utcOffset) {
     interval = 120;
   }
 
-  const tick = startMoment.clone();
-  tick.minutes(0).seconds(0);
+  return interval;
+}
+
+function chooseTicks(axis, utcOffset) {
+  const ticks = [];
+  const startMoment = moment.unix(axis.min).utcOffset(utcOffset);
+  const endMoment = moment.unix(axis.max).utcOffset(utcOffset);
+  const durationMinutes = endMoment.diff(startMoment, 'minutes');
+  const interval = chooseTickInterval(durationMinutes);
+
+  const tick = startMoment.clone()
+    .minutes(0)
+    .seconds(0);
+
   while (tick < endMoment) {
     if (tick > startMoment) {
       ticks.push(tick.unix());
@@ -65,7 +73,7 @@ function Barogram(props) {
   };
 
   return (
-    <FlotChart data={[props.data]} options={options}/>
+    <FlotChart data={props.data} options={options} />
   );
 }
 

@@ -30,34 +30,36 @@ describe('getBarogramData selector', function () {
     }
   };
 
-  let data;
+  let data, series;
 
   beforeEach(function () {
     data = getBarogramData(state);
+    series = data[0];
   });
 
-  it('returns an array', function () {
-    data.should.be.an('array');
+  it('returns an array within an array', function () {
+    data.should.be.an('array').and.have.lengthOf(1);
+    series.should.be.an('array');
   });
 
   it('returns a data point for every timestamp', function () {
-    data.should.have.lengthOf(3);
+    series.should.have.lengthOf(3);
   });
 
   it('returns data points in the form [x y]', function () {
-    data.forEach((item) => {
+    series.forEach((item) => {
       item.should.be.an('array').and.have.lengthOf(2);
     });
   });
 
   it('sets x value to seconds since the Unix epoch', function(){
-    data.forEach((item, index) => {
+    series.forEach((item, index) => {
       item[0].should.equal(timestamps[index].unix());
     });
   });
 
   it('maps altitudes to y value', function () {
-    data.forEach((item, index) => {
+    series.forEach((item, index) => {
       item[1].should.equal(altitudes[index]);
     });
   });

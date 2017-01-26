@@ -6,13 +6,13 @@ const getBarogramData = createSelector(
   getTimestamps,
   getAltitudes,
   (timestamps, altitudes) => {
-    let data = [];
+    let series = [];
 
     timestamps.forEach((t, index) => {
-      data.push([t.unix(), altitudes.get(index)]);
+      series.push([t.unix(), altitudes.get(index)]);
     });
 
-    return data;
+    return [series];
   });
 
 export default getBarogramData;
