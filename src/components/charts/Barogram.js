@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import FlotChart from './FlotChart';
+import Axis from './Axis';
 import getBarogramData from '../../selectors/getBarogramData';
 import { getCurrentAltitude, getAltitudeUnit, getAltitudeSource } from '../../selectors/altitudeSelectors';
 import { getCurrentTime } from '../../selectors/timeSelectors';
@@ -57,23 +58,14 @@ function chooseTicks(axis, utcOffset) {
 
 function Barogram(props) {
   const utcOffset = props.currentTime.utcOffset();
-
-  const options = {
-    axisLabels: {
-      show: true
-    },
-    xaxis: {
-      axisLabel: props.timeZoneName,
-      tickFormatter: (t => moment.unix(t).utcOffset(utcOffset).format('HH:mm')),
-      ticks: (axis => chooseTicks(axis, utcOffset))
-    },
-    yaxis: {
-      axisLabel: `${props.altitudeSource} Altitude / ${props.altitudeUnit}`
-    }
-  };
+  const tickFormatter = (t => moment.unix(t).utcOffset(utcOffset).format('HH:mm'));
+  const ticks = (axis => chooseTicks(axis, utcOffset));
 
   return (
-    <FlotChart data={props.data} options={options} />
+    <FlotChart data={props.data}>
+      <Axis axis="x" label={props.timeZoneName} tickFormatter={tickFormatter} ticks={ticks}/>
+      <Axis axis="y" label={`${props.altitudeSource} Altitude / ${props.altitudeUnit}`}/>
+    </FlotChart>
   );
 }
 

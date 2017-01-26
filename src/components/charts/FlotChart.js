@@ -10,38 +10,48 @@ class FlotChart extends React.Component {
   }
 
   componentDidMount() {
-    this.plotGraph();
+    this.chart = $.plot(
+      this.plotDiv,
+      this.props.data, {
+        axisLabels: {
+          show: true
+        }
+      });
+
+    this.forceUpdate(); // Re-render children, passing in a reference to the chart.
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.options !== prevProps.options) {
-      this.plotGraph();
-    }
-    else if (this.props.data !== prevProps.data) {
-      this.plot.setData(this.props.data);
-      this.plot.setupGrid();
-      this.plot.draw();
+    if (this.props.data !== prevProps.data) {
+      this.chart.setData(this.props.data);
+      this.chart.setupGrid();
+      this.chart.draw();
     }
   }
 
-  plotGraph() {
-    this.plot = $.plot(this.plotDiv, this.props.data, this.props.options);
+  renderChildren() {
+    const { children } = this.props;
+    if (children) {
+      return React.Children.map(children,
+        c => React.cloneElement(c, { chart: this.chart }));
+    }
   }
 
   render() {
     return (
-      <div style={{ width: '100%', height: '50vh' }} ref={x => { this.plotDiv = x; }} />
+      <div style={{ width: '100%', height: '50vh' }} ref={x => { this.plotDiv = x; }}>
+        {this.renderChildren()}
+      </div>
     );
   }
 }
 
 FlotChart.propTypes = {
   data: PropTypes.array.isRequired,
-  options: PropTypes.object
-};
-
-FlotChart.defaultProps = {
-  options: {}
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
 };
 
 export default FlotChart;
