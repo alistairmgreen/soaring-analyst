@@ -15,8 +15,14 @@ class FlotChart extends React.Component {
       this.props.data, {
         axisLabels: {
           show: true
+        },
+
+        grid: {
+          clickable: true
         }
       });
+
+    this.attachClickHandler();
 
     this.forceUpdate(); // Re-render children, passing in a reference to the chart.
   }
@@ -26,6 +32,27 @@ class FlotChart extends React.Component {
       this.chart.setData(this.props.data);
       this.chart.setupGrid();
       this.chart.draw();
+    }
+
+    if (this.props.onPlotClick !== prevProps.onPlotClick) {
+      this.attachClickHandler();
+    }
+  }
+
+  componentWillUnmount() {
+    this.plotDiv.off();
+  }
+
+  attachClickHandler() {
+    if(this.props.onPlotClick) {
+      this.plotDiv
+        .off('plotclick')
+        .on('plotclick', (event, position, item) => {
+          if (item) {
+            this.props.onPlotClick(item.dataIndex);
+          }
+        });
+
     }
   }
 
@@ -39,7 +66,7 @@ class FlotChart extends React.Component {
 
   render() {
     return (
-      <div style={{ width: '100%', height: '50vh' }} ref={x => { this.plotDiv = x; }}>
+      <div style={{ width: '100%', height: '50vh', cursor: 'crosshair' }} ref={x => { this.plotDiv = $(x); }}>
         {this.renderChildren()}
       </div>
     );
@@ -48,6 +75,7 @@ class FlotChart extends React.Component {
 
 FlotChart.propTypes = {
   data: PropTypes.array.isRequired,
+  onPlotClick: PropTypes.func,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node

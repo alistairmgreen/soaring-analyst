@@ -11,7 +11,7 @@ import { setTimeIndex } from '../../actions/actions';
 
 function Barogram(props) {
   return (
-    <FlotChart data={props.data}>
+    <FlotChart data={props.data} onPlotClick={props.onPlotClick}>
       <Axis axis="x" label={props.timeZoneName} tickFormatter={props.tickFormatter} ticks={props.tickGenerator}/>
       <Axis axis="y" label={`${props.altitudeSource} Altitude / ${props.altitudeUnit}`}/>
     </FlotChart>
