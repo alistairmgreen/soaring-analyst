@@ -18,7 +18,8 @@ class FlotChart extends React.Component {
         },
 
         grid: {
-          clickable: true
+          clickable: true,
+          autoHighlight: false
         }
       });
 
