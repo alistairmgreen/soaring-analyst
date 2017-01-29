@@ -3,7 +3,7 @@ import moment from 'moment';
 import { getTimestamps, getUtcOffset } from './timeSelectors';
 import { getAltitudes } from './altitudeSelectors';
 
-export const getBarogramData = createSelector(
+export const getAltitudeDataSeries = createSelector(
   getTimestamps,
   getAltitudes,
   (timestamps, altitudes) => {
@@ -13,8 +13,22 @@ export const getBarogramData = createSelector(
       series.push([t.unix(), altitudes.get(index)]);
     });
 
-    return [series];
+    return series;
   });
+
+export const getBarogramData = createSelector(
+  getAltitudeDataSeries,
+  altitudeDataSeries => ([{
+    data: altitudeDataSeries,
+    color: "#000080", // Navy blue
+    lines: {
+      lineWidth: 1
+    },
+    points: {
+      show: false
+    },
+    shadowSize: 0
+  }]));
 
 export const getTickFormatter = createSelector(
   getUtcOffset,
