@@ -42,6 +42,7 @@ class FlotChart extends React.Component {
 
   componentWillUnmount() {
     this.plotDiv.off();
+    this.chart.destroy();
   }
 
   attachClickHandler() {
