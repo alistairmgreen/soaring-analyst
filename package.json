@@ -31,7 +31,7 @@
   "dependencies": {
     "chai-immutable": "1.6.0",
     "immutable": "3.8.1",
-    "jquery": "3.1.1",
+    "jquery-slim": "3.0.0",
     "moment": "2.15.1",
     "object-assign": "4.1.0",
     "promise-polyfill": "6.0.2",

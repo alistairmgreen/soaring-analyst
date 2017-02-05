@@ -1,5 +1,5 @@
 /* eslint-disable */
-import jQuery from 'jquery';
+import jQuery from 'jquery-slim';
 /* Flot plugin for automatically redrawing plots as the placeholder resizes.
 
 Copyright (c) 2007-2014 IOLA and Ole Laursen.
@@ -45,7 +45,7 @@ can just fix the size of their placeholders.
         }
 
         function shutdown(plot, eventHolder) {
-            plot.getPlaceholder().unbind("resize", onResize);
+            plot.getPlaceholder().off("resize", onResize);
         }
 
         plot.hooks.bindEvents.push(bindEvents);

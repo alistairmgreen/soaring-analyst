@@ -1,5 +1,5 @@
 /* eslint-disable */
-import jQuery from 'jquery';
+import jQuery from 'jquery-slim';
 /*
 Axis Labels Plugin for flot.
 http://github.com/markrcote/flot-axislabels

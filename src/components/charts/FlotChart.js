@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import $ from 'jquery';
+import $ from 'jquery-slim';
 import './flot/jquery.flot';
 import './flot/jquery.flot.resize';
 import './flot/jquery.flot.axislabels';
