@@ -40,7 +40,7 @@ function chooseTickInterval(durationMinutes) {
   if (durationMinutes <= 10) {
     interval = 1;
   }
-  if (durationMinutes <= 50) {
+  else if (durationMinutes <= 50) {
     interval = 5;
   }
   else if (durationMinutes <= 100) {
@@ -72,11 +72,14 @@ export const getTickGenerator = createSelector(
     const interval = chooseTickInterval(durationMinutes);
 
     const tick = startMoment.clone()
-      .minutes(0)
-      .seconds(0);
+      .startOf('hour');
 
-    while (tick < endMoment) {
-      if (tick > startMoment) {
+    if (interval > 60 && tick < startMoment) {
+      tick.add(1, 'hours');
+    }
+
+    while (tick <= endMoment) {
+      if (tick >= startMoment) {
         ticks.push(tick.unix());
       }
       tick.add(interval, 'minutes');
