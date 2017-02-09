@@ -12,8 +12,6 @@ It uses the [Redux](http://redux.js.org/) library for state management, and [Rea
 The task planner is not yet properly implemented. It starts with a hard-coded example task
 and cannot do anything except delete waypoints.
 
-Performance is poor on pages that show a barogram, especially in Firefox. It may be necessary to swap out the graph plotting library ([Chart.js](http://www.chartjs.org/)) for a different one in order to remedy this.
-
 ## Development setup
 
 ### Prerequisites
