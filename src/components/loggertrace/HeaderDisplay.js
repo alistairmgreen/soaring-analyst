@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Table } from 'react-bootstrap';
+import Table from 'react-bootstrap/lib/Table';
 import { List } from 'immutable';
 import moment from 'moment';
 import HeaderRow from './HeaderRow';

@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import { Map, List } from 'immutable';
-import { Grid, Row, Col } from 'react-bootstrap';
+import Grid from 'react-bootstrap/lib/Grid';
+import Row from 'react-bootstrap/lib/Row';
+import Col from 'react-bootstrap/lib/Col';
 import FlightMap from '../googlemap/FlightMap';
 import Timeline from '../timeline/Timeline';
 import Barogram from '../charts/Barogram';

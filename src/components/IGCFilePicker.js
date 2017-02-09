@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import { FormControl } from 'react-bootstrap';
+import FormControl from 'react-bootstrap/lib/FormControl';
 
 class IGCFilePicker extends React.Component {
   constructor(props, context) {

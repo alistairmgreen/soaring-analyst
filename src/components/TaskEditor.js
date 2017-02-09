@@ -1,5 +1,9 @@
 import React, {PropTypes} from 'react';
-import { Grid, Row, Col, Panel } from 'react-bootstrap';
+import Grid from 'react-bootstrap/lib/Grid';
+import Row from 'react-bootstrap/lib/Row';
+import Col from 'react-bootstrap/lib/Col';
+import Panel from 'react-bootstrap/lib/Panel';
+
 import { List, Map } from 'immutable';
 import FlightMap from './googlemap/FlightMap';
 import TaskDisplay from './TaskDisplay';

@@ -1,5 +1,13 @@
 import React, { PropTypes } from 'react';
-import { Glyphicon, Nav, Navbar, NavItem, NavDropdown, MenuItem, FormGroup, ControlLabel } from 'react-bootstrap';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
+import Nav from 'react-bootstrap/lib/Nav';
+import Navbar from 'react-bootstrap/lib/Navbar';
+import NavItem from 'react-bootstrap/lib/NavItem';
+import NavDropdown from 'react-bootstrap/lib/NavDropdown';
+import MenuItem from 'react-bootstrap/lib/MenuItem';
+import FormGroup from 'react-bootstrap/lib/FormGroup';
+import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+
 import { LinkContainer } from 'react-router-bootstrap';
 import IGCFilePicker from './IGCFilePicker';
 

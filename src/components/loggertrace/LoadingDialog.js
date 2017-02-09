@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Jumbotron } from 'react-bootstrap';
+import Jumbotron from 'react-bootstrap/lib/Jumbotron';
 
 function LoadingDialog(props) {
   return (

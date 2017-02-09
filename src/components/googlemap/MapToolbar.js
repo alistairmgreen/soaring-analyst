@@ -1,5 +1,9 @@
 import React, { PropTypes } from 'react';
-import { ButtonToolbar, ButtonGroup, Dropdown, Glyphicon, MenuItem } from 'react-bootstrap';
+import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
+import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
+import Dropdown from 'react-bootstrap/lib/Dropdown';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
+import MenuItem from 'react-bootstrap/lib/MenuItem';
 import { List } from 'immutable';
 
 function MapToolbar(props) {

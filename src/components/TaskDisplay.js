@@ -1,5 +1,8 @@
 import React, {PropTypes} from 'react';
-import { Glyphicon, Button, ListGroup, ListGroupItem } from 'react-bootstrap';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
+import Button from 'react-bootstrap/lib/Button';
+import ListGroup from 'react-bootstrap/lib/ListGroup';
+import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
 import { List } from 'immutable';
 
 function TaskDisplay(props) {

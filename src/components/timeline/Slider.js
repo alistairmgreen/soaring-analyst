@@ -1,5 +1,8 @@
 import React, { PropTypes } from 'react';
-import { Form, FormGroup, FormControl } from 'react-bootstrap';
+import Form from 'react-bootstrap/lib/Form';
+import FormGroup from 'react-bootstrap/lib/FormGroup';
+import FormControl from 'react-bootstrap/lib/FormControl';
+
 
 function Slider(props) {
   // The Change event never fires in Internet Explorer.

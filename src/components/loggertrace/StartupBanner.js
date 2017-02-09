@@ -1,5 +1,14 @@
 import React, { PropTypes } from 'react';
-import { Alert, Button, Jumbotron, FormGroup, ControlLabel, HelpBlock, Grid, Row, Col } from 'react-bootstrap';
+import Alert from 'react-bootstrap/lib/Alert';
+import Button from 'react-bootstrap/lib/Button';
+import Jumbotron from 'react-bootstrap/lib/Jumbotron';
+import FormGroup from 'react-bootstrap/lib/FormGroup';
+import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import HelpBlock from 'react-bootstrap/lib/HelpBlock';
+import Grid from 'react-bootstrap/lib/Grid';
+import Row from 'react-bootstrap/lib/Row';
+import Col from 'react-bootstrap/lib/Col';
+
 import { LinkContainer } from 'react-router-bootstrap';
 import IGCFilePicker from '../IGCFilePicker';
 

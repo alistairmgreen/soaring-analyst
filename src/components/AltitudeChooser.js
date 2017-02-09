@@ -1,12 +1,10 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import {
-  Form,
-  FormGroup,
-  FormControl,
-  ControlLabel
-} from 'react-bootstrap';
+import Form from 'react-bootstrap/lib/Form';
+import FormGroup from 'react-bootstrap/lib/FormGroup';
+import FormControl from 'react-bootstrap/lib/FormControl';
+import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 
 import { List } from 'immutable';
 
