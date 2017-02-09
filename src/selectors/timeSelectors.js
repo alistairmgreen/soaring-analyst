@@ -12,3 +12,8 @@ export const getCurrentTime = createSelector(
 export const getMaxTimeIndex = createSelector(
   getTimestamps,
   timestamps => timestamps.count() - 1);
+
+  export const getUtcOffset = createSelector(
+    getTimestamps,
+  timestamps => timestamps.get(0).utcOffset());
+

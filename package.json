@@ -30,9 +30,8 @@
   "license": "MIT",
   "dependencies": {
     "chai-immutable": "1.6.0",
-    "chart.js": "2.3.0",
-    "chartjs-plugin-annotation": "0.2.0",
     "immutable": "3.8.1",
+    "jquery-slim": "3.0.0",
     "moment": "2.15.1",
     "object-assign": "4.1.0",
     "promise-polyfill": "6.0.2",
@@ -46,7 +45,7 @@
     "redux": "3.5.2",
     "redux-thunk": "2.1.0",
     "reselect": "2.5.4",
-    "whatwg-fetch": "1.0.0"
+    "whatwg-fetch": "2.0.2"
   },
   "devDependencies": {
     "@types/moment": "2.13.0",

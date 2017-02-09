@@ -1,59 +1,22 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import LineChart from './LineChart';
-import getBarogramData from '../../selectors/getBarogramData';
+import FlotChart from './FlotChart';
+import Axis from './Axis';
+import Crosshair from './Crosshair';
+import { getBarogramData, getTickFormatter, getTickGenerator } from '../../selectors/barogramSelectors';
 import { getCurrentAltitude, getAltitudeUnit, getAltitudeSource } from '../../selectors/altitudeSelectors';
 import { getCurrentTime } from '../../selectors/timeSelectors';
 import { setTimeIndex } from '../../actions/actions';
 
+
 function Barogram(props) {
-  const dataSets = [{
-    data: props.data,
-    pointRadius: 0,
-    borderColor: '#0000FF',
-    borderWidth: 1,
-    fill: false
-  }];
-
-  const crosshair = [{
-    type: 'line',
-    mode: 'vertical',
-    scaleID: 'x-axis-0',
-    value: props.currentTime,
-    borderColor: 'red',
-    borderWidth: 1
-  }, {
-    type: 'line',
-    mode: 'horizontal',
-    scaleID: 'y-axis-0',
-    value: props.currentAltitude,
-    borderColor: 'red',
-    borderWidth: 1
-  }];
-
-  const xAxis = {
-    type: 'time',
-    time: {
-      displayFormats: {
-        hour: 'HH:mm',
-        minute: 'HH:mm'
-      },
-      tooltipFormat: 'HH:mm:ss'
-    },
-    position: 'bottom'
-  };
-
-  const { altitudeUnit, altitudeSource, timeZoneName, onPlotClick } = props;
-
   return (
-    <LineChart dataSets={dataSets}
-      annotations={crosshair}
-      hoverMode="x-axis"
-      onPlotClick={onPlotClick}
-      xAxis={xAxis}
-      xLabel={timeZoneName}
-      yLabel={`${altitudeSource} Altitude / ${altitudeUnit}`} />
+    <FlotChart data={props.data} onPlotClick={props.onPlotClick}>
+      <Axis axis="x" label={props.timeZoneName} tickFormatter={props.tickFormatter} ticks={props.tickGenerator}/>
+      <Axis axis="y" label={`${props.altitudeSource} Altitude / ${props.altitudeUnit}`}/>
+      <Crosshair x={props.currentTime.unix()} y={props.currentAltitude}/>
+    </FlotChart>
   );
 }
 
@@ -64,6 +27,8 @@ Barogram.propTypes = {
   currentTime: PropTypes.instanceOf(moment).isRequired,
   currentAltitude: PropTypes.number.isRequired,
   timeZoneName: PropTypes.string.isRequired,
+  tickFormatter: PropTypes.func.isRequired,
+  tickGenerator: PropTypes.func.isRequired,
   onPlotClick: PropTypes.func.isRequired
 };
 
@@ -74,7 +39,9 @@ function mapStateToProps(state) {
     altitudeSource: getAltitudeSource(state),
     currentTime: getCurrentTime(state),
     currentAltitude: getCurrentAltitude(state),
-    timeZoneName: state.timeZone
+    timeZoneName: state.timeZone,
+    tickFormatter: getTickFormatter(state),
+    tickGenerator: getTickGenerator(state)
   };
 }
 
