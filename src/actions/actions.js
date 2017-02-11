@@ -107,3 +107,10 @@ export function setAltitudeSource(source) {
     source
   };
 }
+
+export function googleMapsApiReady(api) {
+  return {
+    type: ACTION.GOOGLE_MAPS_API_READY,
+    googlemaps: api
+  };
+}

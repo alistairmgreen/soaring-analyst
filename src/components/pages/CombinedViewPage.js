@@ -15,7 +15,8 @@ class CombinedViewPage extends React.Component {
       task,
       defaultMapLocation,
       positions,
-      currentPosition
+      currentPosition,
+      googlemaps
     } = this.props;
 
     return (
@@ -28,7 +29,9 @@ class CombinedViewPage extends React.Component {
 
         <Row>
           <Col sm={12} md={6}>
-            <FlightMap flightPath={positions}
+            <FlightMap
+              googlemaps={googlemaps}
+              flightPath={positions}
               currentPosition={currentPosition}
               task={task}
               defaultLocation={defaultMapLocation}
@@ -49,7 +52,8 @@ CombinedViewPage.propTypes = {
   task: PropTypes.instanceOf(List).isRequired,
   positions: PropTypes.instanceOf(List).isRequired,
   defaultMapLocation: PropTypes.instanceOf(Map).isRequired,
-  currentPosition: PropTypes.object.isRequired
+  currentPosition: PropTypes.object.isRequired,
+  googlemaps: PropTypes.object
 };
 
 export default CombinedViewPage;

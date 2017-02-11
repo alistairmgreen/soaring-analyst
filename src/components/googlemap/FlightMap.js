@@ -21,7 +21,7 @@ class FlightMap extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.defaultLocation !== this.props.defaultLocation) {
-       this.setMapToDefaultLocation();
+      this.setMapToDefaultLocation();
     }
   }
 
@@ -48,30 +48,34 @@ class FlightMap extends React.Component {
   render() {
     let mapElements = [];
 
-    if(this.props.currentPosition) {
+    if (this.props.currentPosition) {
       mapElements.push(<Marker key="Glider position" position={this.props.currentPosition.toObject()} autoScroll label={icons.UNICODE_PLANE} />);
     }
 
-    if(this.props.flightPath){
+    if (this.props.flightPath) {
       mapElements.push(<Polyline key="Flight path" path={this.props.flightPath} color="blue" />);
     }
 
-    if(this.props.task && this.props.task.count() > 0) {
+    if (this.props.task && this.props.task.count() > 0) {
       mapElements.push(<TaskPlot key="Task" task={this.props.task} />);
     }
 
-    return (
-      <div>
-        <MapToolbar waypointNames={this.props.task.map(waypoint => waypoint.get('name'))}
-          zoomToFit={this.setMapToDefaultLocation}
-          zoomToFitLabel={this.props.zoomToFitLabel}
-          zoomToWaypoint={this.zoomToWaypoint} />
+    if (this.props.googlemaps) {
+      return (
+        <div>
+          <MapToolbar waypointNames={this.props.task.map(waypoint => waypoint.get('name'))}
+            zoomToFit={this.setMapToDefaultLocation}
+            zoomToFitLabel={this.props.zoomToFitLabel}
+            zoomToWaypoint={this.zoomToWaypoint} />
 
-        <GoogleMap googlemaps={global.google.maps} defaultLocation={this.state.defaultLocation} >
-          {mapElements}
-        </GoogleMap>
-      </div>
-    );
+          <GoogleMap googlemaps={this.props.googlemaps} defaultLocation={this.state.defaultLocation} >
+            {mapElements}
+          </GoogleMap>
+        </div>
+      );
+    }
+
+    return (<p>Loading map...</p>);
   }
 }
 
@@ -80,7 +84,8 @@ FlightMap.propTypes = {
   currentPosition: PropTypes.object,
   task: PropTypes.instanceOf(List),
   defaultLocation: PropTypes.object.isRequired,
-  zoomToFitLabel: PropTypes.string.isRequired
+  zoomToFitLabel: PropTypes.string.isRequired,
+  googlemaps: PropTypes.object
 };
 
 export default FlightMap;

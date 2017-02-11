@@ -10,6 +10,7 @@
  import altitudeReducer from './altitude/altitudeReducer';
  import errorMessageReducer from './errorMessageReducer';
  import fileNameReducer from './fileNameReducer';
+ import googleMapsApiReducer from './googleMapsApiReducer';
 
  export default combineReducers({
    errorMessage: errorMessageReducer,
@@ -22,5 +23,6 @@
    timestamps: timestampsReducer,
    timeZone: timeZoneReducer,
    altitude: altitudeReducer,
-   routing: routerReducer
+   routing: routerReducer,
+   googleMapsApi: googleMapsApiReducer
  });

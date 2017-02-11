@@ -21,7 +21,8 @@ TaskPlannerPage.propTypes = {
 function mapStateToProps(state) {
   return {
     task: getWaypoints(state),
-    defaultMapLocation: getTaskBounds(state)
+    defaultMapLocation: getTaskBounds(state),
+    googlemaps: state.googleMapsApi
   };
 }
 

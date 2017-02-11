@@ -18,7 +18,9 @@ function CombinedViewPageContainer(props) {
 
     case STATUS.FILE_LOADED:
       return (
-        <CombinedViewPage task={props.task}
+        <CombinedViewPage
+          googlemaps={props.googlemaps}
+          task={props.task}
           defaultMapLocation={props.defaultMapLocation}
           positions={props.positions}
           currentPosition={props.currentPosition} />
@@ -40,6 +42,7 @@ CombinedViewPageContainer.propTypes = {
   defaultMapLocation: PropTypes.instanceOf(Map).isRequired,
   loadFile: PropTypes.func.isRequired,
   currentPosition: PropTypes.object.isRequired,
+  googlemaps: PropTypes.object
 };
 
 function mapStateToProps(state) {
@@ -50,7 +53,8 @@ function mapStateToProps(state) {
     task: getWaypoints(state),
     positions: state.positions,
     defaultMapLocation: getDefaultFlightMapPosition(state),
-    currentPosition: getCurrentPosition(state)
+    currentPosition: getCurrentPosition(state),
+    googlemaps: state.googleMapsApi
   };
 
   return props;

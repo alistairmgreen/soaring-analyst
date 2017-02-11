@@ -15,6 +15,7 @@ class TaskEditor extends React.Component {
 
   render() {
     const {
+      googlemaps,
       task,
       defaultMapLocation,
       deleteTurnpoint
@@ -24,7 +25,9 @@ class TaskEditor extends React.Component {
       <Grid fluid>
         <Row>
           <Col xs={11} sm={12} md={8}>
-            <FlightMap defaultLocation={defaultMapLocation}
+            <FlightMap
+              googlemaps={googlemaps}
+              defaultLocation={defaultMapLocation}
               task={task}
               zoomToFitLabel="Task" />
           </Col>
@@ -45,7 +48,8 @@ class TaskEditor extends React.Component {
 TaskEditor.propTypes = {
   task: PropTypes.instanceOf(List).isRequired,
   defaultMapLocation: PropTypes.instanceOf(Map).isRequired,
-  deleteTurnpoint: PropTypes.func.isRequired
+  deleteTurnpoint: PropTypes.func.isRequired,
+  googlemaps: PropTypes.object
 };
 
 export default TaskEditor;
